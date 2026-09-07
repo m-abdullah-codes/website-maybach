@@ -6,6 +6,8 @@ import { setRequestLocale } from "next-intl/server";
 import { routing, dirOf, type Locale } from "@/lib/i18n";
 import { fontClass } from "@/lib/fonts";
 import { getSite } from "@/lib/content";
+import { buildWhatsAppUrl } from "@/lib/whatsapp";
+import { Shell } from "@/components/layout/Shell";
 import "../globals.css";
 
 export function generateStaticParams() {
@@ -22,6 +24,9 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   };
 }
 
+// Hides the preloader before hydration on repeat visits within the session (docs/02 §3.16).
+const PRELOAD_SCRIPT = `try{if(sessionStorage.getItem("mb-preloaded"))document.documentElement.classList.add("preloaded")}catch(e){}`;
+
 export default async function LocaleLayout({
   children,
   params,
@@ -32,11 +37,18 @@ export default async function LocaleLayout({
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) notFound();
   setRequestLocale(locale);
+  const site = getSite(locale);
+  const whatsapp = buildWhatsAppUrl(locale);
 
   return (
     <html lang={locale} dir={dirOf(locale)} className={fontClass(locale)}>
       <body>
-        <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        <script dangerouslySetInnerHTML={{ __html: PRELOAD_SCRIPT }} />
+        <NextIntlClientProvider>
+          <Shell locale={locale} site={site} whatsappHref={whatsapp}>
+            {children}
+          </Shell>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

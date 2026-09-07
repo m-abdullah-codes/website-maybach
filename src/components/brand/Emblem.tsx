@@ -18,9 +18,9 @@ export function Emblem({ className, ...rest }: SVGProps<SVGSVGElement>) {
       className={cn("block", className)}
       {...rest}
     >
-      <path d="M119 649 384 430 625 635 867 430 1130 647" />
-      <path d="M191 677 381 840 580 668" />
-      <path d="M672 668 870 840 1033 693 866 550 752 648" />
+      <path pathLength={1} d="M119 649 384 430 625 635 867 430 1130 647" />
+      <path pathLength={1} d="M191 677 381 840 580 668" />
+      <path pathLength={1} d="M672 668 870 840 1033 693 866 550 752 648" />
     </svg>
   );
 }

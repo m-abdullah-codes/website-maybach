@@ -26,6 +26,14 @@ for (const route of routes) {
       isMobile: s.w < 768,
       hasTouch: s.w < 768,
     });
+    // The preloader plays once per session; skip it for page captures unless PRELOADER=1.
+    if (process.env.PRELOADER !== "1") {
+      await ctx.addInitScript(() => {
+        try {
+          sessionStorage.setItem("mb-preloaded", "1");
+        } catch {}
+      });
+    }
     const page = await ctx.newPage();
     const problems = [];
     page.on("console", (m) => {
@@ -40,6 +48,7 @@ for (const route of routes) {
     });
     await page.goto(base + route, { waitUntil: "networkidle" });
     await page.evaluate(() => document.fonts.ready);
+    await page.waitForSelector(".preloader", { state: "detached", timeout: 5000 }).catch(() => {});
     // Walk the page so lazy images load, then return to the top.
     await page.evaluate(async () => {
       const h = document.documentElement.scrollHeight;

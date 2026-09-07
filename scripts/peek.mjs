@@ -15,10 +15,29 @@ const ctx = await browser.newContext({
   isMobile: width < 768,
   hasTouch: width < 768,
 });
+if (process.env.PRELOADER !== "1") {
+  await ctx.addInitScript(() => {
+    try {
+      sessionStorage.setItem("mb-preloaded", "1");
+    } catch {}
+  });
+}
 const page = await ctx.newPage();
 await page.goto(url, { waitUntil: "networkidle" });
 await page.evaluate(() => document.fonts.ready);
-if (selector) {
+if (process.env.PRELOADER === "1") {
+  // Capture the preloader mid-draw instead of the page.
+  await page.waitForTimeout(Number(process.env.PRELOADER_AT || 500));
+  await page.screenshot({ path: out, fullPage: false });
+  console.log(out);
+  await browser.close();
+  process.exit(0);
+}
+await page.waitForSelector(".preloader", { state: "detached", timeout: 5000 }).catch(() => {});
+if (selector && selector.startsWith("click:")) {
+  await page.locator(selector.slice(6)).first().click();
+  await page.waitForTimeout(1400);
+} else if (selector) {
   await page.locator(selector).first().scrollIntoViewIfNeeded();
   await page.evaluate((sel) => {
     const el = document.querySelector(sel);

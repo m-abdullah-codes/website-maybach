@@ -10,6 +10,8 @@ interface BaseProps {
   variant?: ButtonVariant;
   /** Show the arrow-up-right glyph. Defaults to true for primary and text links. */
   icon?: boolean;
+  /** "sm" is the 40 px pill used inside the 56 px nav. */
+  size?: "md" | "sm";
   block?: boolean;
   className?: string;
   children: ReactNode;
@@ -34,12 +36,13 @@ const isExternal = (href: string) => /^(https?:|mailto:|tel:)/.test(href);
 
 /** docs/02 §3.2: primary · secondary · glass · text link · WhatsApp. Arrow-up-right is the only arrow. */
 export function Button(props: ButtonProps) {
-  const { variant = "primary", icon, block, className, children, ariaLabel } = props;
+  const { variant = "primary", icon, size = "md", block, className, children, ariaLabel } = props;
   const showArrow = icon ?? (variant === "primary" || variant === "text");
   const classes = cn(
     "btn",
     `btn--${variant === "whatsapp" ? "secondary" : variant}`,
     variant === "glass" && "glass",
+    size === "sm" && "btn--sm",
     block && "btn--block",
     className,
   );

@@ -16,17 +16,21 @@ interface GiantWordProps {
 // words scale to fit the viewport minus the 24 px gutters. Multi-word texts (MAY BACH) wrap naturally
 // and keep the spec size.
 const EM_PER_CHAR = 0.62;
-function mobileSize(text: string): string | undefined {
+function fitSizes(text: string): CSSProperties | undefined {
   const isLatin = /^[A-Za-z0-9 .'-]+$/.test(text);
   const longest = Math.max(...text.split(/\s+/).map((w) => w.length));
   if (!isLatin || longest <= 7) return undefined;
-  return `clamp(56px, calc((100vw - 48px) / ${(longest * EM_PER_CHAR).toFixed(2)}), 112px)`;
+  const ems = (longest * EM_PER_CHAR).toFixed(2);
+  return {
+    "--giant-m": `clamp(56px, calc((100vw - 48px) / ${ems}), 112px)`,
+    // Desktop: COLLECTION (10) at 15vw is wider than a 1440 container; cap to the container minus gutters.
+    "--giant-d": `min(clamp(120px, 15vw, 300px), calc((100vw - 160px) / ${ems}))`,
+  } as CSSProperties;
 }
 
 /** The giant serif word. Decorative: aria-hidden; the real heading lives in the copy. Reserves its box for CLS 0. */
 export function GiantWord({ text, align = "start", hero, light, className, style }: GiantWordProps) {
-  const fit = mobileSize(text);
-  const vars = fit ? ({ "--giant-m": fit } as CSSProperties) : undefined;
+  const vars = fitSizes(text);
   return (
     <div
       aria-hidden="true"
