@@ -1,0 +1,388 @@
+{
+  "brand": {
+    "name": "ماي باخ",
+    "wordmark": "ماي باخ",
+    "tagline": "حيث تحتفظ الرياض بأرقى ما لديها.",
+    "licence": "رخصة رقم 4447",
+    "city": "الرياض"
+  },
+  "nav": {
+    "home": "الرئيسية",
+    "collection": "المجموعة",
+    "showroom": "المعرض",
+    "services": "الخدمات",
+    "visit": "زيارة",
+    "reserve": "احجز معاينة",
+    "concierge": "الكونسيرج",
+    "languageToggle": "EN",
+    "menu": "القائمة",
+    "close": "إغلاق"
+  },
+  "common": {
+    "view": "عرض",
+    "enquire": "استفسر",
+    "messageConcierge": "راسل الكونسيرج",
+    "scroll": "مرّر",
+    "seeEveryCar": "شاهد كل السيارات",
+    "seeWholeCollection": "شاهد المجموعة كاملة",
+    "askConcierge": "اسأل الكونسيرج",
+    "askAboutSimilar": "اسأل عن مشابهة",
+    "getDirections": "الاتجاهات",
+    "available": "متاحة",
+    "reserved": "محجوزة",
+    "sold": "بيعت",
+    "nowShowing": "معروضة الآن",
+    "cars": "سيارات",
+    "carCount": "{count} سيارات",
+    "specs": {
+      "engine": "المحرك",
+      "power": "القوة",
+      "acceleration": "0–100 كم/س",
+      "drivetrain": "نظام الدفع",
+      "year": "السنة",
+      "mileage": "المسافة المقطوعة",
+      "exterior": "اللون الخارجي",
+      "interior": "الداخلية",
+      "km": "كم"
+    },
+    "colourLine": "{exterior} مع مقصورة {interior}"
+  },
+  "whatsapp": {
+    "aboutCar": "مرحباً ماي باخ، أودّ الاستفسار عن {car}.",
+    "viewing": "مرحباً ماي باخ، أودّ ترتيب معاينة.",
+    "service": "مرحباً ماي باخ، أودّ الاستفسار عن {service}."
+  },
+  "meta": {
+    "titlePattern": "{page} — ماي باخ، الرياض",
+    "homeTitle": "ماي باخ — حيث تحتفظ الرياض بأرقى ما لديها",
+    "description": "مجموعة خاصة من أكثر سيارات العالم رغبةً — رولز رويس، بنتلي، مرسيدس بنز، رينج روفر وغيرها — في عنوان واحد بالرياض. المعاينة بموعد."
+  },
+  "footer": {
+    "columns": {
+      "collection": "المجموعة",
+      "showroom": "المعرض",
+      "services": "الخدمات",
+      "visit": "زيارة"
+    },
+    "address": "[الشارع]، [الحي]، الرياض [الرمز البريدي]",
+    "hours": "السبت–الخميس 10:00–22:00 · الجمعة 16:00–22:00",
+    "phone": "+966 [XX XXX XXXX]",
+    "copyright": "© 2026 ماي باخ. جميع الحقوق محفوظة.",
+    "privacy": "الخصوصية",
+    "terms": "الشروط"
+  },
+  "home": {
+    "hero": {
+      "eyebrow": "الرياض · المجموعة",
+      "giantWord": "ماي باخ",
+      "title": "حيث تحتفظ الرياض بأرقى ما لديها.",
+      "sub": "أكثر سيارات العالم رغبةً. عنوان واحد.",
+      "primary": "استعرض المجموعة",
+      "secondary": "احجز معاينة خاصة"
+    },
+    "statement": {
+      "line": "مُختارة، لا مُكدّسة.",
+      "support": "كل سيارة هنا بُحث عنها، وفُحصت، وقُبلت. لا شيء يصل إلى هنا صدفة."
+    },
+    "collection": {
+      "eyebrow": "المجموعة",
+      "title": "في المعرض الآن."
+    },
+    "why": {
+      "eyebrow": "لماذا ماي باخ",
+      "title": "أكثر من معرض.",
+      "sub": "ثلاثة وعود نقطعها مع كل سيارة.",
+      "cards": [
+        {
+          "title": "الانتقاء",
+          "body": "إن كانت هنا، فقد استحقّت مكانها.",
+          "icon": "gem"
+        },
+        {
+          "title": "اليقين",
+          "body": "مفحوصة، موثّقة، ومتحقَّق من تاريخها. كل سيارة، في كل مرة.",
+          "icon": "shield-check"
+        },
+        {
+          "title": "الكونسيرج",
+          "body": "شخص واحد يرافقك من أول رسالة حتى المفاتيح.",
+          "icon": "key-round"
+        }
+      ]
+    },
+    "marques": {
+      "eyebrow": "العلامات",
+      "line": "أسماء لا تحتاج إلى تعريف.",
+      "list": [
+        "Rolls-Royce",
+        "Bentley",
+        "Mercedes-Benz",
+        "Range Rover",
+        "Chevrolet",
+        "GMC",
+        "Lamborghini",
+        "Porsche"
+      ]
+    },
+    "afterDark": {
+      "eyebrow": "المعرض",
+      "title": "تعال بعد الغروب.",
+      "sub": "المعرض في أبهى صوره ليلاً. وكذلك السيارات.",
+      "button": "خطّط لزيارتك"
+    },
+    "featured": {
+      "eyebrow": "الاختيار المميّز",
+      "giantWord": "أزور",
+      "name": "بنتلي كونتيننتال جي تي أزور · رمادي كامبريان",
+      "line": "صُنعت للطريق الطويل إلى البيت.",
+      "button": "اكتشف هذه السيارة",
+      "carSlug": "bentley-continental-gt-azure"
+    },
+    "viewing": {
+      "eyebrow": "معاينة خاصة",
+      "title": "الأبواب تُفتح لك.",
+      "sub": "في الوقت الذي يناسبك. في المعرض، أو في مقرّ إقامتك.",
+      "primary": "رتّب معاينة",
+      "secondary": "راسل الكونسيرج"
+    },
+    "visitStrip": {
+      "eyebrow": "زيارة",
+      "line": "الرياض. [الحي]. يومياً."
+    }
+  },
+  "collection": {
+    "hero": {
+      "eyebrow": "المجموعة",
+      "giantWord": "المجموعة",
+      "title": "لكلٍّ منها المساحة التي تستحق.",
+      "sub": "لا اثنتان متشابهتان. ولا تُعرض اثنتان بالطريقة نفسها."
+    },
+    "notHere": {
+      "title": "تبحث عن سيارة ليست هنا؟",
+      "sub": "سمِّها، ونجدها لك.",
+      "button": "اطلب توفيرها"
+    }
+  },
+  "car": {
+    "inBrief": "باختصار",
+    "gallery": {
+      "eyebrow": "المعرض المصوّر",
+      "title": "من كل زاوية."
+    },
+    "inside": {
+      "title": "من الداخل.",
+      "caption": "{interior}، {material}، {feature}."
+    },
+    "provenance": {
+      "eyebrow": "الأصل والتوثيق",
+      "title": "الأوراق مكتملة.",
+      "chips": {
+        "serviceHistory": "سجل صيانة كامل",
+        "accidentFree": "خالية من الحوادث",
+        "specification": "مواصفات {spec}",
+        "specNames": {
+          "GCC": "خليجية",
+          "UK": "بريطانية",
+          "US": "أمريكية",
+          "EU": "أوروبية",
+          "Other": "مستوردة"
+        },
+        "warranty": "ضمان الوكيل حتى {date}",
+        "keys": "مفتاحان",
+        "report": "تقرير فحص متاح"
+      },
+      "link": "اطلب تقرير الفحص"
+    },
+    "enquire": {
+      "titleAvailable": "هذه السيارة متاحة. اسألنا ما شئت.",
+      "titleReserved": "هذه السيارة محجوزة. قد يكون لدينا مثلها.",
+      "titleSold": "وجدت هذه السيارة بيتها. اسأل عن التالية.",
+      "sub": "أو احجز معاينة خاصة — في المعرض، أو في مقرّ إقامتك."
+    },
+    "alsoInResidence": "أيضاً في المعرض"
+  },
+  "form": {
+    "name": "الاسم",
+    "phone": "الهاتف",
+    "carOfInterest": "السيارة التي تهمّك (اختياري)",
+    "datetime": "التاريخ والوقت المفضّل",
+    "message": "الرسالة",
+    "submit": "اطلب معاينة",
+    "sending": "جارٍ الإرسال",
+    "success": "وصلتنا رسالتك. سنتواصل معك خلال ساعة.",
+    "successCar": "وصلتنا رسالتك. سيتواصل معك الكونسيرج خلال ساعة.",
+    "errorRequired": "يرجى إضافة هذا الحقل.",
+    "errorPhone": "يرجى التحقق من الرقم.",
+    "errorGeneric": "لم تصل الرسالة. حاول مرة أخرى، أو راسل الكونسيرج."
+  },
+  "showroom": {
+    "hero": {
+      "eyebrow": "المعرض",
+      "giantWord": "الرياض",
+      "title": "طابقان من الزجاج. فكرة واحدة.",
+      "sub": "أن سيارة بهذه الندرة تستحق مكاناً بهذا الهدوء."
+    },
+    "story": [
+      "بدأت ماي باخ برفضٍ بسيط: أن تُعامَل السيارات الاستثنائية كمخزون. كل سيارة يُبحث عنها، وتُفحص، وتُقبل — ثم تُمنح المساحة لتُرى كما ينبغي.",
+      "خلف الزجاج في [الشارع]، الأرض رخام، والضوء خافت، والمجموعة تتبدّل بهدوء على مدار العام.",
+      "يسعدنا أن تدخل متى شئت. أو أن نغلق الأبواب من أجلك."
+    ],
+    "numbers": [
+      {
+        "value": 8,
+        "label": "علامات",
+        "animate": true
+      },
+      {
+        "value": 2,
+        "label": "طابقان",
+        "animate": true,
+        "arWhole": "طابقان"
+      },
+      {
+        "value": 1,
+        "label": "عنوان واحد",
+        "animate": true,
+        "arWhole": "عنوان واحد"
+      },
+      {
+        "value": 4447,
+        "label": "رخصة",
+        "animate": false,
+        "prefixLabel": true
+      }
+    ],
+    "space": {
+      "captions": [
+        "الأرض.",
+        "الضوء.",
+        "بعد الإغلاق."
+      ]
+    },
+    "majlis": {
+      "eyebrow": "المجلس",
+      "title": "القهوة أولاً.",
+      "sub": "كل زيارة تبدأ في المجلس. السيارات تستطيع الانتظار بضع دقائق."
+    },
+    "cta": {
+      "title": "تعال بعد الغروب."
+    }
+  },
+  "services": {
+    "hero": {
+      "eyebrow": "الخدمات",
+      "giantWord": "ما بعد",
+      "title": "ما بعد البيع.",
+      "sub": "ما نتكفّل به، كي لا تنشغل به."
+    },
+    "items": [
+      {
+        "key": "sourcing",
+        "number": "01",
+        "name": "التوفير",
+        "title": "سمِّها، ونجدها لك.",
+        "line": "أي علامة، أي مواصفات، من أي مكان في العالم — تصلك إلى الرياض.",
+        "image": "sv-01",
+        "icon": "compass"
+      },
+      {
+        "key": "finance",
+        "number": "02",
+        "name": "التمويل",
+        "title": "شروط مفصّلة كما السيارة.",
+        "line": "تمويل متوافق مع الشريعة عبر شركائنا المصرفيين، بترتيب خاص.",
+        "image": "sv-02",
+        "icon": "scroll-text"
+      },
+      {
+        "key": "trade-in",
+        "number": "03",
+        "name": "الاستبدال",
+        "title": "سيارتك الحالية، بتقييم عادل.",
+        "line": "تُقيَّم في يوم. وتُستلم من باب منزلك.",
+        "image": "sv-03",
+        "icon": "scale"
+      },
+      {
+        "key": "registration-export",
+        "number": "04",
+        "name": "التسجيل والتصدير",
+        "title": "الأوراق واللوحات والحدود — نتكفّل بها.",
+        "line": "التسجيل داخل المملكة، والشحن المغلق إلى دول الخليج وما بعدها.",
+        "image": "sv-04",
+        "icon": "file-badge"
+      },
+      {
+        "key": "aftercare",
+        "number": "05",
+        "name": "العناية",
+        "title": "تبقى كما وصلت.",
+        "line": "تلميع، وحماية طلاء، وصيانة على يد من يعرفون العلامة.",
+        "image": "sv-05",
+        "icon": "droplets"
+      },
+      {
+        "key": "delivery",
+        "number": "06",
+        "name": "التسليم",
+        "title": "إلى بابك، تحت الغطاء.",
+        "line": "وفق جدولك. في ناقلة مغلقة. وتُكشف حيث تختار.",
+        "image": "sv-06",
+        "icon": "truck"
+      }
+    ]
+  },
+  "visit": {
+    "hero": {
+      "eyebrow": "زيارة",
+      "giantWord": "المجلس",
+      "title": "نحن في انتظارك.",
+      "sub": "تفضّل بزيارتنا خلال ساعات العمل، أو أخبرنا متى ننتظرك."
+    },
+    "details": {
+      "addressLabel": "العنوان",
+      "hoursLabel": "ساعات العمل",
+      "phoneLabel": "الهاتف",
+      "emailLabel": "البريد",
+      "email": "[hello@maybach.sa]",
+      "parking": "مواقف خاصة عند المدخل الخلفي."
+    },
+    "form": {
+      "title": "أخبرنا متى ننتظرك.",
+      "aside": "تفضّل الحديث؟ الكونسيرج يجيب على واتساب من 10:00 إلى 22:00."
+    },
+    "hospitality": "القهوة أولاً. السيارات تستطيع الانتظار بضع دقائق."
+  },
+  "notFound": {
+    "giantWord": "404",
+    "title": "لا شيء هنا. بعد.",
+    "button": "العودة إلى المجموعة"
+  },
+  "settings": {
+    "whatsappNumber": "966XXXXXXXXX",
+    "phone": "+966XXXXXXXXX",
+    "email": "hello@maybach.sa",
+    "mapsUrl": "https://maps.google.com/?q=May+Bach+Riyadh",
+    "social": {
+      "instagram": "https://instagram.com/[handle]",
+      "snapchat": "https://snapchat.com/add/[handle]",
+      "tiktok": "https://tiktok.com/@[handle]",
+      "x": "https://x.com/[handle]"
+    },
+    "_verify": [
+      "whatsappNumber",
+      "phone",
+      "email",
+      "mapsUrl",
+      "social",
+      "footer.address",
+      "footer.hours",
+      "home.visitStrip.line",
+      "showroom.story[1] street",
+      "visit.details.email"
+    ]
+  },
+  "_locale": "ar",
+  "_dir": "rtl",
+  "_readme": "Final site copy. Render verbatim. Placeholders in [brackets] and settings._verify must be confirmed with the client before launch. Never add exclamation marks. Arabic is never letter-spaced."
+}

@@ -1,0 +1,975 @@
+{
+  "_readme": "Ten cars for maybach.sa. Every string is final copy from docs/02-site-blueprint-design-system.md — render verbatim. Fields listed in each car's `verify` array are placeholders that the client must confirm (colours, variants, mileage, warranty); do not invent further data. Image paths are relative to /public.",
+  "cars": [
+    {
+      "slug": "rolls-royce-cullinan",
+      "code": "CUL",
+      "marque": "Rolls-Royce",
+      "model": "Cullinan",
+      "variant": null,
+      "year": 2024,
+      "registration": null,
+      "category": "SUV",
+      "availability": "available",
+      "featured": false,
+      "order": 1,
+      "treatment": "scene",
+      "scene": "dark",
+      "heroTreatment": "photograph",
+      "temperature": "warm",
+      "accent": "#A89C88",
+      "giantWord": {
+        "en": "CULLINAN",
+        "ar": "كولينان"
+      },
+      "environment": {
+        "en": "The Courtyard",
+        "ar": "الفناء"
+      },
+      "whisper": {
+        "en": "Effortless, everywhere.",
+        "ar": "بلا جهد، في كل مكان."
+      },
+      "story": {
+        "en": "The first SUV Rolls-Royce ever built, and still the only one that feels like a Rolls-Royce. A 6.75-litre V12 you never hear, a cabin you never want to leave, and a ride that makes Riyadh's roads feel freshly paved. This example is Black over Arctic White, with the starlight headliner and rear picnic tables.",
+        "ar": "أول سيارة دفع رباعي تصنعها رولز رويس، ولا تزال الوحيدة التي تشعر فيها بأنك في رولز رويس. محرك V12 سعة 6.75 لتر لا تسمعه، ومقصورة لا ترغب في مغادرتها، وقيادة تجعل طرق الرياض تبدو وكأنها رُصفت للتو. هذه النسخة بلون أسود مع مقصورة بيضاء قطبية، وسقف النجوم وطاولات النزهة الخلفية."
+      },
+      "exterior": {
+        "en": "Black",
+        "ar": "أسود"
+      },
+      "interior": {
+        "en": "Arctic White",
+        "ar": "أبيض قطبي"
+      },
+      "specs": {
+        "engine": "6.75 V12 twin-turbo",
+        "power": "563 hp",
+        "acceleration": "5.2 s",
+        "drivetrain": "AWD",
+        "mileageKm": 9800,
+        "specification": "GCC",
+        "serviceHistory": true,
+        "accidentFree": true,
+        "keys": 2,
+        "warrantyUntil": "2028"
+      },
+      "images": {
+        "bgD": "/images/mb-cul-bg-d.png",
+        "bgM": "/images/mb-cul-bg-m.png",
+        "cutA": "/images/mb-cul-cut-a.png",
+        "cutB": "/images/mb-cul-cut-b.png",
+        "heroD": "/images/mb-cul-hero-d.png",
+        "heroM": "/images/mb-cul-hero-m.png",
+        "details": [
+          "/images/mb-cul-det-01.png",
+          "/images/mb-cul-det-03.png"
+        ],
+        "interior": "/images/mb-cul-det-02.png",
+        "macro": "/images/mb-cul-det-01.png",
+        "rear": "/images/mb-cul-det-03.png"
+      },
+      "seo": {
+        "title": {
+          "en": "Rolls-Royce Cullinan — May Bach, Riyadh",
+          "ar": "رولز رويس كولينان — ماي باخ، الرياض"
+        },
+        "description": {
+          "en": "Rolls-Royce Cullinan, Black over Arctic White, in the May Bach collection in Riyadh. Viewings by appointment.",
+          "ar": "رولز رويس كولينان، أسود مع مقصورة بيضاء قطبية، ضمن مجموعة ماي باخ في الرياض. المعاينة بموعد."
+        }
+      },
+      "verify": [
+        "interior",
+        "specs.mileageKm",
+        "specs.warrantyUntil",
+        "story options"
+      ]
+    },
+    {
+      "slug": "bentley-continental-gt-azure",
+      "code": "CGT",
+      "marque": "Bentley",
+      "model": "Continental GT",
+      "variant": "Azure",
+      "year": 2023,
+      "registration": null,
+      "category": "Grand Tourer",
+      "availability": "available",
+      "featured": true,
+      "order": 7,
+      "treatment": "scene",
+      "scene": "dark",
+      "heroTreatment": "photograph",
+      "temperature": "cool",
+      "accent": "#7D8EA3",
+      "giantWord": {
+        "en": "AZURE",
+        "ar": "أزور"
+      },
+      "environment": {
+        "en": "The Coast Road",
+        "ar": "طريق الساحل"
+      },
+      "whisper": {
+        "en": "Built for the long way home.",
+        "ar": "صُنعت للطريق الطويل إلى البيت."
+      },
+      "story": {
+        "en": "Azure is Bentley's word for comfort — the Continental GT specified for long roads rather than lap times. Cambrian Grey over Linen, the fastback line uninterrupted, the V8 quiet until asked. It is the car in this collection we would take home.",
+        "ar": "«أزور» هي كلمة بنتلي للراحة — كونتيننتال جي تي مُعدّة للطرق الطويلة لا لأزمنة اللفات. رمادي كامبريان مع مقصورة كتّانية، خط السقف الانسيابي بلا انقطاع، ومحرك V8 هادئ حتى يُطلب منه غير ذلك. هي السيارة التي نختار أن نعود بها إلى البيت من هذه المجموعة."
+      },
+      "exterior": {
+        "en": "Cambrian Grey",
+        "ar": "رمادي كامبريان"
+      },
+      "interior": {
+        "en": "Linen",
+        "ar": "كتّاني"
+      },
+      "specs": {
+        "engine": "4.0 V8 twin-turbo",
+        "power": "542 hp",
+        "acceleration": "4.0 s",
+        "drivetrain": "AWD",
+        "mileageKm": 6200,
+        "specification": "GCC",
+        "serviceHistory": true,
+        "accidentFree": true,
+        "keys": 2,
+        "warrantyUntil": "2027"
+      },
+      "images": {
+        "bgD": "/images/mb-cgt-bg-d.png",
+        "bgM": "/images/mb-cgt-bg-m.png",
+        "cutA": "/images/mb-cgt-cut-a.png",
+        "cutB": "/images/mb-cgt-cut-b.png",
+        "heroD": "/images/mb-cgt-hero-d.png",
+        "heroM": "/images/mb-cgt-hero-m.png",
+        "details": [
+          "/images/mb-cgt-det-01.png",
+          "/images/mb-cgt-det-03.png"
+        ],
+        "interior": "/images/mb-cgt-det-02.png",
+        "macro": "/images/mb-cgt-det-01.png",
+        "rear": "/images/mb-cgt-det-03.png"
+      },
+      "seo": {
+        "title": {
+          "en": "Bentley Continental GT Azure — May Bach, Riyadh",
+          "ar": "بنتلي كونتيننتال جي تي أزور — ماي باخ، الرياض"
+        },
+        "description": {
+          "en": "Bentley Continental GT Azure in Cambrian Grey, in the May Bach collection in Riyadh. Viewings by appointment.",
+          "ar": "بنتلي كونتيننتال جي تي أزور بلون رمادي كامبريان، ضمن مجموعة ماي باخ في الرياض. المعاينة بموعد."
+        }
+      },
+      "verify": [
+        "year",
+        "interior",
+        "specs (V8 or W12)",
+        "specs.mileageKm",
+        "specs.warrantyUntil"
+      ]
+    },
+    {
+      "slug": "bentley-flying-spur-mulliner",
+      "code": "FSM",
+      "marque": "Bentley",
+      "model": "Flying Spur",
+      "variant": "Mulliner",
+      "year": 2023,
+      "registration": null,
+      "category": "Saloon",
+      "availability": "available",
+      "featured": false,
+      "order": 4,
+      "treatment": "scene",
+      "scene": "light",
+      "heroTreatment": "photograph",
+      "temperature": "pale",
+      "accent": "#0E0E10",
+      "giantWord": {
+        "en": "MULLINER",
+        "ar": "مولينر"
+      },
+      "environment": {
+        "en": "The Salon",
+        "ar": "الصالون"
+      },
+      "whisper": {
+        "en": "Arrive as you should.",
+        "ar": "لتصل كما يليق بك."
+      },
+      "story": {
+        "en": "Mulliner is Bentley's coachbuilder, and this is the Flying Spur at its most complete: the double-diamond grille, the quilting repeated on every surface, the rear cabin arranged for the person who is driven. Black over Beluga. Arrive as you should.",
+        "ar": "«مولينر» هي ورشة التفصيل الخاصة في بنتلي، وهذه فلاينغ سبير في أكمل صورها: الشبك الماسي المزدوج، والخياطة المعيّنة المتكررة على كل سطح، والمقصورة الخلفية المعدّة لمن يُقاد به. أسود مع مقصورة بيلوغا. لتصل كما يليق بك."
+      },
+      "exterior": {
+        "en": "Black",
+        "ar": "أسود"
+      },
+      "interior": {
+        "en": "Beluga",
+        "ar": "بيلوغا"
+      },
+      "specs": {
+        "engine": "6.0 W12 twin-turbo",
+        "power": "626 hp",
+        "acceleration": "3.8 s",
+        "drivetrain": "AWD",
+        "mileageKm": 11500,
+        "specification": "GCC",
+        "serviceHistory": true,
+        "accidentFree": true,
+        "keys": 2,
+        "warrantyUntil": "2027"
+      },
+      "images": {
+        "bgD": "/images/mb-fsm-bg-d.png",
+        "bgM": "/images/mb-fsm-bg-m.png",
+        "cutA": "/images/mb-fsm-cut-a.png",
+        "cutB": "/images/mb-fsm-cut-b.png",
+        "heroD": "/images/mb-fsm-hero-d.png",
+        "heroM": "/images/mb-fsm-hero-m.png",
+        "details": [
+          "/images/mb-fsm-det-01.png",
+          "/images/mb-fsm-det-03.png"
+        ],
+        "interior": "/images/mb-fsm-det-02.png",
+        "macro": "/images/mb-fsm-det-01.png",
+        "rear": "/images/mb-fsm-det-03.png"
+      },
+      "seo": {
+        "title": {
+          "en": "Bentley Flying Spur Mulliner — May Bach, Riyadh",
+          "ar": "بنتلي فلاينغ سبير مولينر — ماي باخ، الرياض"
+        },
+        "description": {
+          "en": "Bentley Flying Spur Mulliner, Black over Beluga, in the May Bach collection in Riyadh. Viewings by appointment.",
+          "ar": "بنتلي فلاينغ سبير مولينر، أسود مع مقصورة بيلوغا، ضمن مجموعة ماي باخ في الرياض. المعاينة بموعد."
+        }
+      },
+      "verify": [
+        "year",
+        "interior",
+        "specs (W12 or V8)",
+        "specs.mileageKm",
+        "specs.warrantyUntil"
+      ]
+    },
+    {
+      "slug": "mercedes-benz-s-class",
+      "code": "SCL",
+      "marque": "Mercedes-Benz",
+      "model": "S-Class",
+      "variant": "S 500 4MATIC",
+      "year": 2022,
+      "registration": null,
+      "category": "Saloon",
+      "availability": "available",
+      "featured": false,
+      "order": 2,
+      "treatment": "card",
+      "scene": "dark",
+      "heroTreatment": "photograph",
+      "temperature": "neutral",
+      "accent": "#9BA4AE",
+      "giantWord": null,
+      "environment": {
+        "en": "The District",
+        "ar": "الحيّ المالي"
+      },
+      "whisper": {
+        "en": "Still the standard.",
+        "ar": "المعيار، حتى الآن."
+      },
+      "story": {
+        "en": "For seventy years the S-Class has been the car every other saloon is measured against. The 2022 car is the quietest, the most intelligent, and — in the back — the most restful yet. S 500 4MATIC, Black over Macchiato Beige, 18,400 km.",
+        "ar": "على مدى سبعين عاماً، ظلّت إس-كلاس السيارة التي تُقاس بها كل سيارة سيدان أخرى. نسخة 2022 هي الأهدأ والأذكى، وفي المقعد الخلفي، الأكثر راحة حتى اليوم. S 500 4MATIC، أسود مع مقصورة بيج ماكياتو، 18,400 كم."
+      },
+      "exterior": {
+        "en": "Black",
+        "ar": "أسود"
+      },
+      "interior": {
+        "en": "Macchiato Beige",
+        "ar": "بيج ماكياتو"
+      },
+      "specs": {
+        "engine": "3.0 I6 + EQ Boost",
+        "power": "429 hp",
+        "acceleration": "4.9 s",
+        "drivetrain": "AWD",
+        "mileageKm": 18400,
+        "specification": "GCC",
+        "serviceHistory": true,
+        "accidentFree": true,
+        "keys": 2,
+        "warrantyUntil": "2026"
+      },
+      "images": {
+        "bgD": "/images/mb-scl-bg-d.png",
+        "bgM": "/images/mb-scl-bg-m.png",
+        "cutA": "/images/mb-scl-cut-a.png",
+        "cutB": "/images/mb-scl-cut-b.png",
+        "heroD": "/images/mb-scl-hero-d.png",
+        "heroM": "/images/mb-scl-hero-m.png",
+        "details": [
+          "/images/mb-scl-det-01.png",
+          "/images/mb-scl-det-03.png"
+        ],
+        "interior": "/images/mb-scl-det-02.png",
+        "macro": "/images/mb-scl-det-01.png",
+        "rear": "/images/mb-scl-det-03.png",
+        "card": "/images/mb-scl-card.png"
+      },
+      "seo": {
+        "title": {
+          "en": "Mercedes-Benz S-Class 2022 — May Bach, Riyadh",
+          "ar": "مرسيدس بنز إس كلاس 2022 — ماي باخ، الرياض"
+        },
+        "description": {
+          "en": "2022 Mercedes-Benz S-Class, Black over Macchiato Beige, in the May Bach collection in Riyadh. Viewings by appointment.",
+          "ar": "مرسيدس بنز إس كلاس 2022، أسود مع مقصورة بيج ماكياتو، ضمن مجموعة ماي باخ في الرياض. المعاينة بموعد."
+        }
+      },
+      "verify": [
+        "variant (S 500 or S 580)",
+        "interior",
+        "specs.mileageKm",
+        "specs.warrantyUntil",
+        "story mileage"
+      ]
+    },
+    {
+      "slug": "range-rover-autobiography",
+      "code": "RRA",
+      "marque": "Range Rover",
+      "model": "Autobiography",
+      "variant": "P530",
+      "year": 2024,
+      "registration": "74 plate (UK, 2024)",
+      "category": "SUV",
+      "availability": "available",
+      "featured": false,
+      "order": 5,
+      "treatment": "photograph",
+      "scene": "dark",
+      "heroTreatment": "photograph",
+      "temperature": "cool",
+      "accent": "#9E93A6",
+      "giantWord": null,
+      "environment": {
+        "en": "The Sandstone",
+        "ar": "الصخور الرملية"
+      },
+      "whisper": {
+        "en": "Above it all.",
+        "ar": "فوق كل شيء."
+      },
+      "story": {
+        "en": "The fifth-generation Range Rover, in Autobiography specification — the one with everything. Registered in 2024 on a 74 plate, Charente Grey over Perlino, 4.4 V8. As composed on the Riyadh ring road as it is on sand.",
+        "ar": "الجيل الخامس من رينج روفر، بمواصفات أوتوبايوغرافي — النسخة التي لا ينقصها شيء. مسجّلة عام 2024 على لوحة 74، رمادي شارنت مع مقصورة بيرلينو، محرك V8 سعة 4.4 لتر. متّزنة على الطريق الدائري في الرياض كما هي على الرمال."
+      },
+      "exterior": {
+        "en": "Charente Grey",
+        "ar": "رمادي شارنت"
+      },
+      "interior": {
+        "en": "Perlino",
+        "ar": "بيرلينو"
+      },
+      "specs": {
+        "engine": "4.4 V8 twin-turbo",
+        "power": "523 hp",
+        "acceleration": "4.6 s",
+        "drivetrain": "AWD",
+        "mileageKm": 4100,
+        "specification": "UK",
+        "serviceHistory": true,
+        "accidentFree": true,
+        "keys": 2,
+        "warrantyUntil": "2027"
+      },
+      "images": {
+        "bgD": "/images/mb-rra-bg-d.png",
+        "bgM": "/images/mb-rra-bg-m.png",
+        "cutA": "/images/mb-rra-cut-a.png",
+        "cutB": "/images/mb-rra-cut-b.png",
+        "heroD": "/images/mb-rra-hero-d.png",
+        "heroM": "/images/mb-rra-hero-m.png",
+        "details": [
+          "/images/mb-rra-det-01.png",
+          "/images/mb-rra-det-03.png"
+        ],
+        "interior": "/images/mb-rra-det-02.png",
+        "macro": "/images/mb-rra-det-01.png",
+        "rear": "/images/mb-rra-det-03.png"
+      },
+      "seo": {
+        "title": {
+          "en": "Range Rover Autobiography 2024 — May Bach, Riyadh",
+          "ar": "رينج روفر أوتوبايوغرافي 2024 — ماي باخ، الرياض"
+        },
+        "description": {
+          "en": "2024 (74) Range Rover Autobiography in the May Bach collection in Riyadh. Viewings by appointment.",
+          "ar": "رينج روفر أوتوبايوغرافي 2024 (74) ضمن مجموعة ماي باخ في الرياض. المعاينة بموعد."
+        }
+      },
+      "verify": [
+        "variant (P530 or P400)",
+        "exterior",
+        "interior",
+        "specs.mileageKm",
+        "specs.warrantyUntil"
+      ]
+    },
+    {
+      "slug": "gmc-yukon-denali",
+      "code": "YUK",
+      "marque": "GMC",
+      "model": "Yukon",
+      "variant": "Denali",
+      "year": 2024,
+      "registration": null,
+      "category": "SUV",
+      "availability": "available",
+      "featured": false,
+      "order": 2,
+      "treatment": "card",
+      "scene": "dark",
+      "heroTreatment": "photograph",
+      "temperature": "warm",
+      "accent": "#AD9E8B",
+      "giantWord": null,
+      "environment": {
+        "en": "The Villa",
+        "ar": "الفيلا"
+      },
+      "whisper": {
+        "en": "Room for everyone who matters.",
+        "ar": "متّسع لكل من يهمّك."
+      },
+      "story": {
+        "en": "The Denali is the Yukon at its most generous: the 6.2-litre V8, the air suspension, the captain's chairs, and a quiet that belies its size. Onyx Black over Teak. Room for everyone who matters.",
+        "ar": "دينالي هي يوكن في أكثر صورها سخاءً: محرك V8 سعة 6.2 لتر، وتعليق هوائي، ومقاعد كابتن، وهدوء لا يوحي بحجمها. أسود أونيكس مع مقصورة بلون خشب الساج. متّسع لكل من يهمّك."
+      },
+      "exterior": {
+        "en": "Onyx Black",
+        "ar": "أسود أونيكس"
+      },
+      "interior": {
+        "en": "Teak",
+        "ar": "خشب الساج"
+      },
+      "specs": {
+        "engine": "6.2 V8",
+        "power": "420 hp",
+        "acceleration": "6.0 s",
+        "drivetrain": "4WD",
+        "mileageKm": 7600,
+        "specification": "GCC",
+        "serviceHistory": true,
+        "accidentFree": true,
+        "keys": 2,
+        "warrantyUntil": "2027"
+      },
+      "images": {
+        "bgD": "/images/mb-yuk-bg-d.png",
+        "bgM": "/images/mb-yuk-bg-m.png",
+        "cutA": "/images/mb-yuk-cut-a.png",
+        "cutB": "/images/mb-yuk-cut-b.png",
+        "heroD": "/images/mb-yuk-hero-d.png",
+        "heroM": "/images/mb-yuk-hero-m.png",
+        "details": [
+          "/images/mb-yuk-det-01.png",
+          "/images/mb-yuk-det-03.png"
+        ],
+        "interior": "/images/mb-yuk-det-02.png",
+        "macro": "/images/mb-yuk-det-01.png",
+        "rear": "/images/mb-yuk-det-03.png",
+        "card": "/images/mb-yuk-card.png"
+      },
+      "seo": {
+        "title": {
+          "en": "GMC Yukon Denali — May Bach, Riyadh",
+          "ar": "جي إم سي يوكن دينالي — ماي باخ، الرياض"
+        },
+        "description": {
+          "en": "GMC Yukon Denali in the May Bach collection in Riyadh. Viewings by appointment.",
+          "ar": "جي إم سي يوكن دينالي ضمن مجموعة ماي باخ في الرياض. المعاينة بموعد."
+        }
+      },
+      "verify": [
+        "year",
+        "exterior",
+        "interior",
+        "specs.mileageKm",
+        "specs.warrantyUntil"
+      ]
+    },
+    {
+      "slug": "chevrolet-corvette-c8-stingray",
+      "code": "C8",
+      "marque": "Chevrolet",
+      "model": "Corvette C8",
+      "variant": "Stingray",
+      "year": 2023,
+      "registration": null,
+      "category": "Sports",
+      "availability": "available",
+      "featured": false,
+      "order": 3,
+      "treatment": "photograph",
+      "scene": "dark",
+      "heroTreatment": "photograph",
+      "temperature": "neutral",
+      "accent": "#5F7FB5",
+      "giantWord": null,
+      "environment": {
+        "en": "The Light Lines",
+        "ar": "خطوط الضوء"
+      },
+      "whisper": {
+        "en": "The heart, moved to the middle.",
+        "ar": "القلب، في المنتصف."
+      },
+      "story": {
+        "en": "The first mid-engine Corvette — the car Chevrolet spent sixty years working up to. A 6.2-litre V8 behind your shoulders, a cockpit that wraps around you, and a number on the stopwatch that embarrasses cars costing three times as much. Rapid Blue, 5,300 km.",
+        "ar": "أول كورفيت بمحرك أوسط — السيارة التي أمضت شيفروليه ستين عاماً لتصل إليها. محرك V8 سعة 6.2 لتر خلف كتفيك، ومقصورة تلتفّ حولك، ورقم على ساعة التوقيت يُحرج سيارات تكلّف ثلاثة أضعاف. أزرق رابيد، 5,300 كم."
+      },
+      "exterior": {
+        "en": "Rapid Blue",
+        "ar": "أزرق رابيد"
+      },
+      "interior": {
+        "en": "Jet Black",
+        "ar": "أسود جت"
+      },
+      "specs": {
+        "engine": "6.2 LT2 V8",
+        "power": "495 hp",
+        "acceleration": "3.0 s",
+        "drivetrain": "RWD",
+        "mileageKm": 5300,
+        "specification": "GCC",
+        "serviceHistory": true,
+        "accidentFree": true,
+        "keys": 2,
+        "warrantyUntil": "2026"
+      },
+      "images": {
+        "bgD": "/images/mb-c8-bg-d.png",
+        "bgM": "/images/mb-c8-bg-m.png",
+        "cutA": "/images/mb-c8-cut-a.png",
+        "cutB": "/images/mb-c8-cut-b.png",
+        "heroD": "/images/mb-c8-hero-d.png",
+        "heroM": "/images/mb-c8-hero-m.png",
+        "details": [
+          "/images/mb-c8-det-01.png",
+          "/images/mb-c8-det-03.png"
+        ],
+        "interior": "/images/mb-c8-det-02.png",
+        "macro": "/images/mb-c8-det-01.png",
+        "rear": "/images/mb-c8-det-03.png"
+      },
+      "seo": {
+        "title": {
+          "en": "Chevrolet Corvette C8 Stingray — May Bach, Riyadh",
+          "ar": "شيفروليه كورفيت C8 ستينغراي — ماي باخ، الرياض"
+        },
+        "description": {
+          "en": "Chevrolet Corvette C8 Stingray in Rapid Blue, in the May Bach collection in Riyadh. Viewings by appointment.",
+          "ar": "شيفروليه كورفيت C8 ستينغراي بلون أزرق رابيد، ضمن مجموعة ماي باخ في الرياض. المعاينة بموعد."
+        }
+      },
+      "verify": [
+        "year",
+        "exterior name",
+        "interior",
+        "specs.mileageKm",
+        "specs.warrantyUntil",
+        "story mileage"
+      ]
+    },
+    {
+      "slug": "lamborghini-urus",
+      "code": "URU",
+      "marque": "Lamborghini",
+      "model": "Urus",
+      "variant": null,
+      "year": 2023,
+      "registration": null,
+      "category": "SUV",
+      "availability": "available",
+      "featured": false,
+      "order": 6,
+      "treatment": "card",
+      "scene": "dark",
+      "heroTreatment": "photograph",
+      "temperature": "cold",
+      "accent": "#9A8C6A",
+      "giantWord": null,
+      "environment": {
+        "en": "The Bunker",
+        "ar": "الملجأ"
+      },
+      "whisper": {
+        "en": "The fastest way to make an entrance.",
+        "ar": "أسرع طريقة لتلفت الأنظار."
+      },
+      "story": {
+        "en": "The Urus made the super-SUV a category, and it is still the definition. 650 horsepower, a stance that changes the mood of a street, and a cabin that never lets you forget where it was built. Giallo Auge over Nero Ade.",
+        "ar": "أوروس جعلت من «السوبر إس يو في» فئة قائمة بذاتها، ولا تزال تعريفها. 650 حصاناً، ووقفة تغيّر مزاج الشارع، ومقصورة لا تدعك تنسى أين صُنعت. أصفر جيالو أوجي مع مقصورة نيرو آدي."
+      },
+      "exterior": {
+        "en": "Giallo Auge",
+        "ar": "أصفر جيالو أوجي"
+      },
+      "interior": {
+        "en": "Nero Ade",
+        "ar": "نيرو آدي"
+      },
+      "specs": {
+        "engine": "4.0 V8 twin-turbo",
+        "power": "650 hp",
+        "acceleration": "3.6 s",
+        "drivetrain": "AWD",
+        "mileageKm": 14200,
+        "specification": "GCC",
+        "serviceHistory": true,
+        "accidentFree": true,
+        "keys": 2,
+        "warrantyUntil": "2026"
+      },
+      "images": {
+        "bgD": "/images/mb-uru-bg-d.png",
+        "bgM": "/images/mb-uru-bg-m.png",
+        "cutA": "/images/mb-uru-cut-a.png",
+        "cutB": "/images/mb-uru-cut-b.png",
+        "heroD": "/images/mb-uru-hero-d.png",
+        "heroM": "/images/mb-uru-hero-m.png",
+        "details": [
+          "/images/mb-uru-det-01.png",
+          "/images/mb-uru-det-03.png"
+        ],
+        "interior": "/images/mb-uru-det-02.png",
+        "macro": "/images/mb-uru-det-01.png",
+        "rear": "/images/mb-uru-det-03.png",
+        "card": "/images/mb-uru-card.png"
+      },
+      "seo": {
+        "title": {
+          "en": "Lamborghini Urus — May Bach, Riyadh",
+          "ar": "لامبورغيني أوروس — ماي باخ، الرياض"
+        },
+        "description": {
+          "en": "Lamborghini Urus in the May Bach collection in Riyadh. Viewings by appointment.",
+          "ar": "لامبورغيني أوروس ضمن مجموعة ماي باخ في الرياض. المعاينة بموعد."
+        }
+      },
+      "verify": [
+        "year",
+        "variant (Urus / S / Performante)",
+        "exterior",
+        "interior",
+        "specs.mileageKm",
+        "specs.warrantyUntil",
+        "accent (#8E9298 if not the gold car)"
+      ]
+    },
+    {
+      "slug": "porsche-911-carrera",
+      "code": "911",
+      "marque": "Porsche",
+      "model": "911",
+      "variant": "Carrera",
+      "year": 2022,
+      "registration": null,
+      "category": "Sports",
+      "availability": "available",
+      "featured": false,
+      "order": 8,
+      "treatment": "photograph",
+      "scene": "dark",
+      "heroTreatment": "photograph",
+      "temperature": "warm",
+      "accent": "#B07A4E",
+      "giantWord": null,
+      "environment": {
+        "en": "The Pass",
+        "ar": "الممرّ الجبلي"
+      },
+      "whisper": {
+        "en": "Six decades of getting it right.",
+        "ar": "ستة عقود من الإتقان."
+      },
+      "story": {
+        "en": "Six decades, eight generations, one shape. The 911 remains the car every enthusiast eventually arrives at, and the Carrera is the one to arrive at first. Jet Black Metallic over Black, 16,900 km.",
+        "ar": "ستة عقود، ثمانية أجيال، شكل واحد. لا تزال 911 السيارة التي يصل إليها كل عاشق للسيارات في النهاية، وكاريرا هي التي تصل إليها أولاً. أسود جت ميتاليك مع مقصورة سوداء، 16,900 كم."
+      },
+      "exterior": {
+        "en": "Jet Black Metallic",
+        "ar": "أسود جت ميتاليك"
+      },
+      "interior": {
+        "en": "Black",
+        "ar": "أسود"
+      },
+      "specs": {
+        "engine": "3.0 flat-6 twin-turbo",
+        "power": "385 hp",
+        "acceleration": "4.2 s",
+        "drivetrain": "RWD",
+        "mileageKm": 16900,
+        "specification": "GCC",
+        "serviceHistory": true,
+        "accidentFree": true,
+        "keys": 2,
+        "warrantyUntil": "2026"
+      },
+      "images": {
+        "bgD": "/images/mb-911-bg-d.png",
+        "bgM": "/images/mb-911-bg-m.png",
+        "cutA": "/images/mb-911-cut-a.png",
+        "cutB": "/images/mb-911-cut-b.png",
+        "heroD": "/images/mb-911-hero-d.png",
+        "heroM": "/images/mb-911-hero-m.png",
+        "details": [
+          "/images/mb-911-det-01.png",
+          "/images/mb-911-det-03.png"
+        ],
+        "interior": "/images/mb-911-det-02.png",
+        "macro": "/images/mb-911-det-01.png",
+        "rear": "/images/mb-911-det-03.png"
+      },
+      "seo": {
+        "title": {
+          "en": "Porsche 911 Carrera — May Bach, Riyadh",
+          "ar": "بورشه 911 كاريرا — ماي باخ، الرياض"
+        },
+        "description": {
+          "en": "Porsche 911 Carrera in the May Bach collection in Riyadh. Viewings by appointment.",
+          "ar": "بورشه 911 كاريرا ضمن مجموعة ماي باخ في الرياض. المعاينة بموعد."
+        }
+      },
+      "verify": [
+        "year",
+        "variant (Carrera / S / 4S)",
+        "exterior",
+        "interior",
+        "specs.mileageKm",
+        "specs.warrantyUntil",
+        "story mileage"
+      ]
+    },
+    {
+      "slug": "mercedes-amg-g63",
+      "code": "G63",
+      "marque": "Mercedes-AMG",
+      "model": "G 63",
+      "variant": null,
+      "year": 2023,
+      "registration": null,
+      "category": "SUV",
+      "availability": "available",
+      "featured": false,
+      "order": 6,
+      "treatment": "card",
+      "scene": "dark",
+      "heroTreatment": "photograph",
+      "temperature": "cool",
+      "accent": "#8E9DAF",
+      "giantWord": null,
+      "environment": {
+        "en": "The Wadi",
+        "ar": "الوادي"
+      },
+      "whisper": {
+        "en": "Unmoved by anything.",
+        "ar": "لا يهزّه شيء."
+      },
+      "story": {
+        "en": "A shape unchanged since 1979 and a V8 that makes sure everyone knows it. The G 63 is the rare car that is equally at home in a wadi and outside the Ritz. Obsidian Black over Black, 12,300 km.",
+        "ar": "شكل لم يتغيّر منذ 1979، ومحرك V8 يحرص على أن يعلم الجميع بذلك. جي 63 هي السيارة النادرة التي تبدو في مكانها في الوادي كما هي أمام الريتز. أسود أوبسيديان مع مقصورة سوداء، 12,300 كم."
+      },
+      "exterior": {
+        "en": "Obsidian Black",
+        "ar": "أسود أوبسيديان"
+      },
+      "interior": {
+        "en": "Black",
+        "ar": "أسود"
+      },
+      "specs": {
+        "engine": "4.0 V8 biturbo",
+        "power": "577 hp",
+        "acceleration": "4.5 s",
+        "drivetrain": "AWD",
+        "mileageKm": 12300,
+        "specification": "GCC",
+        "serviceHistory": true,
+        "accidentFree": true,
+        "keys": 2,
+        "warrantyUntil": "2026"
+      },
+      "images": {
+        "bgD": "/images/mb-g63-bg-d.png",
+        "bgM": "/images/mb-g63-bg-m.png",
+        "cutA": "/images/mb-g63-cut-a.png",
+        "cutB": "/images/mb-g63-cut-b.png",
+        "heroD": "/images/mb-g63-hero-d.png",
+        "heroM": "/images/mb-g63-hero-m.png",
+        "details": [
+          "/images/mb-g63-det-01.png",
+          "/images/mb-g63-det-03.png"
+        ],
+        "interior": "/images/mb-g63-det-02.png",
+        "macro": "/images/mb-g63-det-01.png",
+        "rear": "/images/mb-g63-det-03.png",
+        "card": "/images/mb-g63-card.png"
+      },
+      "seo": {
+        "title": {
+          "en": "Mercedes-AMG G 63 — May Bach, Riyadh",
+          "ar": "مرسيدس-AMG جي 63 — ماي باخ، الرياض"
+        },
+        "description": {
+          "en": "Mercedes-AMG G 63 in the May Bach collection in Riyadh. Viewings by appointment.",
+          "ar": "مرسيدس-AMG جي 63 ضمن مجموعة ماي باخ في الرياض. المعاينة بموعد."
+        }
+      },
+      "verify": [
+        "year",
+        "exterior",
+        "interior",
+        "specs.mileageKm",
+        "specs.warrantyUntil",
+        "story mileage"
+      ]
+    }
+  ],
+  "collectionRows": [
+    {
+      "row": 1,
+      "treatment": "scene",
+      "cars": [
+        "rolls-royce-cullinan"
+      ],
+      "temperature": "warm"
+    },
+    {
+      "row": 2,
+      "treatment": "cards",
+      "cars": [
+        "mercedes-benz-s-class",
+        "gmc-yukon-denali"
+      ],
+      "temperature": "neutral + warm"
+    },
+    {
+      "row": 3,
+      "treatment": "photograph",
+      "cars": [
+        "chevrolet-corvette-c8-stingray"
+      ],
+      "temperature": "neutral",
+      "copySide": "end"
+    },
+    {
+      "row": 4,
+      "treatment": "scene",
+      "cars": [
+        "bentley-flying-spur-mulliner"
+      ],
+      "temperature": "pale",
+      "scene": "light"
+    },
+    {
+      "row": 5,
+      "treatment": "photograph",
+      "cars": [
+        "range-rover-autobiography"
+      ],
+      "temperature": "cool",
+      "copySide": "start"
+    },
+    {
+      "row": 6,
+      "treatment": "cards",
+      "cars": [
+        "lamborghini-urus",
+        "mercedes-amg-g63"
+      ],
+      "temperature": "cold + cool"
+    },
+    {
+      "row": 7,
+      "treatment": "scene",
+      "cars": [
+        "bentley-continental-gt-azure"
+      ],
+      "temperature": "cool"
+    },
+    {
+      "row": 8,
+      "treatment": "photograph",
+      "cars": [
+        "porsche-911-carrera"
+      ],
+      "temperature": "warm",
+      "copySide": "end"
+    }
+  ],
+  "homePreview": [
+    {
+      "treatment": "photograph",
+      "cars": [
+        "range-rover-autobiography"
+      ],
+      "copySide": "start"
+    },
+    {
+      "treatment": "cards",
+      "cars": [
+        "mercedes-benz-s-class",
+        "gmc-yukon-denali"
+      ]
+    },
+    {
+      "treatment": "photograph",
+      "cars": [
+        "chevrolet-corvette-c8-stingray"
+      ],
+      "copySide": "end"
+    }
+  ],
+  "categories": [
+    {
+      "key": "all",
+      "en": "All",
+      "ar": "الكل"
+    },
+    {
+      "key": "SUV",
+      "en": "SUV",
+      "ar": "دفع رباعي"
+    },
+    {
+      "key": "Grand Tourer",
+      "en": "Grand Tourer",
+      "ar": "جراند تورر"
+    },
+    {
+      "key": "Saloon",
+      "en": "Saloon",
+      "ar": "سيدان"
+    },
+    {
+      "key": "Sports",
+      "en": "Sports",
+      "ar": "رياضية"
+    }
+  ]
+}

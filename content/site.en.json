@@ -1,0 +1,388 @@
+{
+  "brand": {
+    "name": "May Bach",
+    "wordmark": "MAY BACH",
+    "tagline": "Where Riyadh keeps its finest.",
+    "licence": "Licence No. 4447",
+    "city": "Riyadh"
+  },
+  "nav": {
+    "home": "Home",
+    "collection": "The Collection",
+    "showroom": "The Showroom",
+    "services": "Services",
+    "visit": "Visit",
+    "reserve": "Reserve a viewing",
+    "concierge": "Concierge",
+    "languageToggle": "عربي",
+    "menu": "Menu",
+    "close": "Close"
+  },
+  "common": {
+    "view": "View",
+    "enquire": "Enquire",
+    "messageConcierge": "Message the concierge",
+    "scroll": "Scroll",
+    "seeEveryCar": "See every car",
+    "seeWholeCollection": "See the whole collection",
+    "askConcierge": "Ask the concierge",
+    "askAboutSimilar": "Ask about similar",
+    "getDirections": "Get directions",
+    "available": "Available",
+    "reserved": "Reserved",
+    "sold": "Sold",
+    "nowShowing": "Now showing",
+    "cars": "cars",
+    "carCount": "{count} cars",
+    "specs": {
+      "engine": "Engine",
+      "power": "Power",
+      "acceleration": "0–100 km/h",
+      "drivetrain": "Drivetrain",
+      "year": "Year",
+      "mileage": "Mileage",
+      "exterior": "Exterior",
+      "interior": "Interior",
+      "km": "km"
+    },
+    "colourLine": "{exterior} over {interior}"
+  },
+  "whatsapp": {
+    "aboutCar": "Hello May Bach, I'd like to ask about the {car}.",
+    "viewing": "Hello May Bach, I'd like to arrange a viewing.",
+    "service": "Hello May Bach, I'd like to ask about {service}."
+  },
+  "meta": {
+    "titlePattern": "{page} — May Bach, Riyadh",
+    "homeTitle": "May Bach — Where Riyadh keeps its finest",
+    "description": "A private collection of the world's most desired motor cars — Rolls-Royce, Bentley, Mercedes-Benz, Range Rover and more — at one address in Riyadh. Viewings by appointment."
+  },
+  "footer": {
+    "columns": {
+      "collection": "The Collection",
+      "showroom": "The Showroom",
+      "services": "Services",
+      "visit": "Visit"
+    },
+    "address": "[Street], [District], Riyadh [Postal code]",
+    "hours": "Saturday–Thursday 10:00–22:00 · Friday 16:00–22:00",
+    "phone": "+966 [XX XXX XXXX]",
+    "copyright": "© 2026 May Bach. All rights reserved.",
+    "privacy": "Privacy",
+    "terms": "Terms"
+  },
+  "home": {
+    "hero": {
+      "eyebrow": "Riyadh · The Collection",
+      "giantWord": "MAY BACH",
+      "title": "Where Riyadh keeps its finest.",
+      "sub": "The world's most desired motor cars. One address.",
+      "primary": "View the Collection",
+      "secondary": "Reserve a private viewing"
+    },
+    "statement": {
+      "line": "Chosen, not stocked.",
+      "support": "Every car here was sought out, inspected, and admitted. Nothing arrives by accident."
+    },
+    "collection": {
+      "eyebrow": "The Collection",
+      "title": "Currently in residence."
+    },
+    "why": {
+      "eyebrow": "Why May Bach",
+      "title": "More than a showroom.",
+      "sub": "Three promises we make on every car.",
+      "cards": [
+        {
+          "title": "Curation",
+          "body": "If it's here, it earned its place.",
+          "icon": "gem"
+        },
+        {
+          "title": "Certainty",
+          "body": "Inspected, documented, history-checked. Every car, every time.",
+          "icon": "shield-check"
+        },
+        {
+          "title": "Concierge",
+          "body": "One person, from your first message to the keys.",
+          "icon": "key-round"
+        }
+      ]
+    },
+    "marques": {
+      "eyebrow": "The Marques",
+      "line": "Names that need no introduction.",
+      "list": [
+        "Rolls-Royce",
+        "Bentley",
+        "Mercedes-Benz",
+        "Range Rover",
+        "Chevrolet",
+        "GMC",
+        "Lamborghini",
+        "Porsche"
+      ]
+    },
+    "afterDark": {
+      "eyebrow": "The Showroom",
+      "title": "Come after dark.",
+      "sub": "The showroom is at its best at night. So are the cars.",
+      "button": "Plan your visit"
+    },
+    "featured": {
+      "eyebrow": "Featured",
+      "giantWord": "AZURE",
+      "name": "Bentley Continental GT Azure · Cambrian Grey",
+      "line": "Built for the long way home.",
+      "button": "Explore this car",
+      "carSlug": "bentley-continental-gt-azure"
+    },
+    "viewing": {
+      "eyebrow": "Private viewing",
+      "title": "The doors open for you.",
+      "sub": "At your hour. In the showroom, or at your residence.",
+      "primary": "Arrange a viewing",
+      "secondary": "Message the concierge"
+    },
+    "visitStrip": {
+      "eyebrow": "Visit",
+      "line": "Riyadh. [District]. Open daily."
+    }
+  },
+  "collection": {
+    "hero": {
+      "eyebrow": "The Collection",
+      "giantWord": "COLLECTION",
+      "title": "Each one, given the room it deserves.",
+      "sub": "No two alike. None shown alike."
+    },
+    "notHere": {
+      "title": "Looking for something not here?",
+      "sub": "Name it. We'll find it.",
+      "button": "Ask us to source it"
+    }
+  },
+  "car": {
+    "inBrief": "In brief",
+    "gallery": {
+      "eyebrow": "Gallery",
+      "title": "Every angle."
+    },
+    "inside": {
+      "title": "Inside.",
+      "caption": "{interior}, {material}, {feature}."
+    },
+    "provenance": {
+      "eyebrow": "Provenance",
+      "title": "Papers in order.",
+      "chips": {
+        "serviceHistory": "Full service history",
+        "accidentFree": "Accident-free",
+        "specification": "{spec} specification",
+        "specNames": {
+          "GCC": "GCC",
+          "UK": "UK",
+          "US": "US",
+          "EU": "European",
+          "Other": "Import"
+        },
+        "warranty": "Manufacturer warranty to {date}",
+        "keys": "Two keys",
+        "report": "Inspection report available"
+      },
+      "link": "Request the inspection report"
+    },
+    "enquire": {
+      "titleAvailable": "This car is available. Ask us anything.",
+      "titleReserved": "This car is reserved. We may have another.",
+      "titleSold": "This car has found its home. Ask about the next one.",
+      "sub": "Or reserve a private viewing — in the showroom, or at your residence."
+    },
+    "alsoInResidence": "Also in residence"
+  },
+  "form": {
+    "name": "Name",
+    "phone": "Phone",
+    "carOfInterest": "Car of interest (optional)",
+    "datetime": "Preferred date & time",
+    "message": "Message",
+    "submit": "Request a viewing",
+    "sending": "Sending",
+    "success": "Received. We'll be in touch within the hour.",
+    "successCar": "Received. The concierge will be in touch within the hour.",
+    "errorRequired": "Please add this.",
+    "errorPhone": "Please check the number.",
+    "errorGeneric": "That didn't go through. Please try again, or message the concierge."
+  },
+  "showroom": {
+    "hero": {
+      "eyebrow": "The Showroom",
+      "giantWord": "RIYADH",
+      "title": "Two floors of glass. One idea.",
+      "sub": "That a car this rare deserves a room this quiet."
+    },
+    "story": [
+      "May Bach began with a simple refusal: to treat extraordinary cars as inventory. Each one is sought out, inspected and admitted — then given the space to be seen properly.",
+      "Behind the glass on [Street], the floor is marble, the light is low, and the collection changes quietly through the year.",
+      "You are welcome to walk in. Or to have us close the doors for you."
+    ],
+    "numbers": [
+      {
+        "value": 8,
+        "label": "marques",
+        "animate": true
+      },
+      {
+        "value": 2,
+        "label": "floors",
+        "animate": true,
+        "arWhole": "طابقان"
+      },
+      {
+        "value": 1,
+        "label": "address",
+        "animate": true,
+        "arWhole": "عنوان واحد"
+      },
+      {
+        "value": 4447,
+        "label": "Licence",
+        "animate": false,
+        "prefixLabel": true
+      }
+    ],
+    "space": {
+      "captions": [
+        "The floor.",
+        "The light.",
+        "After hours."
+      ]
+    },
+    "majlis": {
+      "eyebrow": "The Majlis",
+      "title": "Coffee first.",
+      "sub": "Every visit begins in the majlis. The cars can wait a few minutes."
+    },
+    "cta": {
+      "title": "Come after dark."
+    }
+  },
+  "services": {
+    "hero": {
+      "eyebrow": "Services",
+      "giantWord": "BEYOND",
+      "title": "Beyond the sale.",
+      "sub": "What we take care of, so you don't have to."
+    },
+    "items": [
+      {
+        "key": "sourcing",
+        "number": "01",
+        "name": "Sourcing",
+        "title": "Name it. We'll find it.",
+        "line": "Any marque, any specification, anywhere in the world — delivered to Riyadh.",
+        "image": "sv-01",
+        "icon": "compass"
+      },
+      {
+        "key": "finance",
+        "number": "02",
+        "name": "Finance",
+        "title": "Terms as tailored as the car.",
+        "line": "Sharia-compliant financing through our banking partners, arranged discreetly.",
+        "image": "sv-02",
+        "icon": "scroll-text"
+      },
+      {
+        "key": "trade-in",
+        "number": "03",
+        "name": "Trade-in",
+        "title": "Your current car, valued fairly.",
+        "line": "Appraised in a day. Collected from your door.",
+        "image": "sv-03",
+        "icon": "scale"
+      },
+      {
+        "key": "registration-export",
+        "number": "04",
+        "name": "Registration & export",
+        "title": "Papers, plates and borders — handled.",
+        "line": "Registration in the Kingdom, and enclosed shipping across the GCC and beyond.",
+        "image": "sv-04",
+        "icon": "file-badge"
+      },
+      {
+        "key": "aftercare",
+        "number": "05",
+        "name": "Aftercare",
+        "title": "Kept as it arrived.",
+        "line": "Detailing, paint protection and servicing by people who know the marque.",
+        "image": "sv-05",
+        "icon": "droplets"
+      },
+      {
+        "key": "delivery",
+        "number": "06",
+        "name": "Delivery",
+        "title": "To your door, under cover.",
+        "line": "On your schedule. In an enclosed transporter. Unveiled where you choose.",
+        "image": "sv-06",
+        "icon": "truck"
+      }
+    ]
+  },
+  "visit": {
+    "hero": {
+      "eyebrow": "Visit",
+      "giantWord": "MAJLIS",
+      "title": "You are expected.",
+      "sub": "Walk in during opening hours, or tell us when to expect you."
+    },
+    "details": {
+      "addressLabel": "Address",
+      "hoursLabel": "Hours",
+      "phoneLabel": "Phone",
+      "emailLabel": "Email",
+      "email": "[hello@maybach.sa]",
+      "parking": "Private parking at the rear entrance."
+    },
+    "form": {
+      "title": "Tell us when to expect you.",
+      "aside": "Prefer to talk? The concierge answers WhatsApp 10:00–22:00."
+    },
+    "hospitality": "Coffee first. The cars can wait a few minutes."
+  },
+  "notFound": {
+    "giantWord": "404",
+    "title": "Nothing here. Yet.",
+    "button": "Back to the collection"
+  },
+  "settings": {
+    "whatsappNumber": "966XXXXXXXXX",
+    "phone": "+966XXXXXXXXX",
+    "email": "hello@maybach.sa",
+    "mapsUrl": "https://maps.google.com/?q=May+Bach+Riyadh",
+    "social": {
+      "instagram": "https://instagram.com/[handle]",
+      "snapchat": "https://snapchat.com/add/[handle]",
+      "tiktok": "https://tiktok.com/@[handle]",
+      "x": "https://x.com/[handle]"
+    },
+    "_verify": [
+      "whatsappNumber",
+      "phone",
+      "email",
+      "mapsUrl",
+      "social",
+      "footer.address",
+      "footer.hours",
+      "home.visitStrip.line",
+      "showroom.story[1] street",
+      "visit.details.email"
+    ]
+  },
+  "_locale": "en",
+  "_dir": "ltr",
+  "_readme": "Final site copy. Render verbatim. Placeholders in [brackets] and settings._verify must be confirmed with the client before launch. Never add exclamation marks. Arabic is never letter-spaced."
+}

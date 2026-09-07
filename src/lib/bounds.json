@@ -1,0 +1,134 @@
+{
+  "/images/mb-911-cut-a.png": {
+    "top": 0.2217,
+    "right": 0.0273,
+    "bottom": 0.2002,
+    "left": 0.0397
+  },
+  "/images/mb-911-cut-b.png": {
+    "top": 0.1953,
+    "right": 0.0195,
+    "bottom": 0.1699,
+    "left": 0.0286
+  },
+  "/images/mb-br-01.png": {
+    "top": 0.1786,
+    "right": 0.071,
+    "bottom": 0.1356,
+    "left": 0.0726
+  },
+  "/images/mb-br-02.png": {
+    "top": 0.3293,
+    "right": 0.0837,
+    "bottom": 0.3166,
+    "left": 0.0813
+  },
+  "/images/mb-c8-cut-a.png": {
+    "top": 0.2471,
+    "right": 0.0059,
+    "bottom": 0.1719,
+    "left": 0.013
+  },
+  "/images/mb-c8-cut-b.png": {
+    "top": 0.2314,
+    "right": 0.0189,
+    "bottom": 0.1572,
+    "left": 0.0267
+  },
+  "/images/mb-cgt-cut-a.png": {
+    "top": 0.2402,
+    "right": 0.0202,
+    "bottom": 0.1289,
+    "left": 0.0215
+  },
+  "/images/mb-cgt-cut-b.png": {
+    "top": 0.3125,
+    "right": 0.0169,
+    "bottom": 0.2324,
+    "left": 0.0182
+  },
+  "/images/mb-cul-cut-a.png": {
+    "top": 0.1133,
+    "right": 0.0273,
+    "bottom": 0.084,
+    "left": 0.0267
+  },
+  "/images/mb-cul-cut-b.png": {
+    "top": 0.2347,
+    "right": 0.008,
+    "bottom": 0.1676,
+    "left": 0.0205
+  },
+  "/images/mb-fsm-cut-a.png": {
+    "top": 0.2393,
+    "right": 0.0247,
+    "bottom": 0.1563,
+    "left": 0.0267
+  },
+  "/images/mb-fsm-cut-b.png": {
+    "top": 0.291,
+    "right": 0.0234,
+    "bottom": 0.2754,
+    "left": 0.0156
+  },
+  "/images/mb-g63-cut-a.png": {
+    "top": 0.126,
+    "right": 0.0195,
+    "bottom": 0.083,
+    "left": 0.0286
+  },
+  "/images/mb-g63-cut-b.png": {
+    "top": 0.1626,
+    "right": 0.016,
+    "bottom": 0.1305,
+    "left": 0.016
+  },
+  "/images/mb-rra-cut-a.png": {
+    "top": 0.1113,
+    "right": 0.0313,
+    "bottom": 0.1191,
+    "left": 0.0326
+  },
+  "/images/mb-rra-cut-b.png": {
+    "top": 0.1854,
+    "right": 0.0062,
+    "bottom": 0.1255,
+    "left": 0.0062
+  },
+  "/images/mb-scl-cut-a.png": {
+    "top": 0.1953,
+    "right": 0.0169,
+    "bottom": 0.1631,
+    "left": 0.0156
+  },
+  "/images/mb-scl-cut-b.png": {
+    "top": 0.276,
+    "right": 0.0285,
+    "bottom": 0.2518,
+    "left": 0.0267
+  },
+  "/images/mb-uru-cut-a.png": {
+    "top": 0.1787,
+    "right": 0.0579,
+    "bottom": 0.1367,
+    "left": 0.0319
+  },
+  "/images/mb-uru-cut-b.png": {
+    "top": 0.2168,
+    "right": 0.0187,
+    "bottom": 0.2026,
+    "left": 0.0187
+  },
+  "/images/mb-yuk-cut-a.png": {
+    "top": 0.1729,
+    "right": 0.0202,
+    "bottom": 0.0908,
+    "left": 0.0176
+  },
+  "/images/mb-yuk-cut-b.png": {
+    "top": 0.1805,
+    "right": 0.016,
+    "bottom": 0.1491,
+    "left": 0.0169
+  }
+}

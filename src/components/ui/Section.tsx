@@ -1,0 +1,29 @@
+import type { CSSProperties, ReactNode } from "react";
+import { cn } from "@/lib/cn";
+
+interface SectionProps {
+  id?: string;
+  className?: string;
+  /** 120 px fade to obsidian (or salon) at the bottom so sections melt into each other (docs/02 §2.1). */
+  fade?: boolean;
+  /** The one light room (docs/02 §2.1): salon background, ink type. */
+  light?: boolean;
+  /** Per-car --scene-accent, used only inside that car's own sections. */
+  accent?: string;
+  as?: "section" | "div" | "header" | "footer" | "article";
+  style?: CSSProperties;
+  children: ReactNode;
+}
+
+export function Section({ id, className, fade = true, light, accent, as: Tag = "section", style, children }: SectionProps) {
+  const vars = accent ? ({ "--scene-accent": accent } as CSSProperties) : undefined;
+  return (
+    <Tag
+      id={id}
+      className={cn("relative overflow-hidden", fade && "fade-bottom", light && "scene--light", className)}
+      style={vars || style ? { ...vars, ...style } : undefined}
+    >
+      {children}
+    </Tag>
+  );
+}

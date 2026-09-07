@@ -1,0 +1,307 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------ */
+/* Tokens: docs/02 §2 via docs/03 §3. Values are not to be changed.    */
+/* ------------------------------------------------------------------ */
+@theme {
+  /* The interface has no colour of its own (docs/02 §2.1): drop the default palette entirely. */
+  --color-*: initial;
+
+  --color-obsidian: #070708;
+  --color-carbon:   #0E0E10;
+  --color-graphite: #16161A;
+  --color-smoke:    #222226;
+  --color-ash:      #3A3A40;
+  --color-platinum: #ECEAE4;
+  --color-silver:   #B9B6AE;
+  --color-pewter:   #7E7B73;
+  --color-ok:       #8FA895;
+  --color-muted:    #A77E7E;
+  --color-salon:    #D8D5CF;
+  --color-salon-2:  #C9C6BF;
+  --color-ink:      #0E0E10;
+  --color-ink-2:    #55545A;
+
+  /* Values named in docs/02 that markup needs as tokens: primary hover (§2.6), hairlines (§2.3), secondary border (§3.2). */
+  --color-platinum-dim: #DEDCD5;
+  --color-line:         rgba(255,255,255,.10);
+  --color-line-strong:  rgba(255,255,255,.28);
+  --color-line-ink:     rgba(7,7,8,.12);
+
+  --font-display:    var(--font-bodoni), "Bodoni Moda", Georgia, serif;
+  --font-sans:       var(--font-manrope), "Manrope", system-ui, sans-serif;
+  /* Arabic stacks fall through to the Latin faces for Western numerals and Latin names (docs/02 §1.3, §2.9). */
+  --font-display-ar: var(--font-amiri), "Amiri", var(--font-bodoni), "Bodoni Moda", serif;
+  --font-sans-ar:    var(--font-plex-ar), "IBM Plex Sans Arabic", var(--font-manrope), "Manrope", system-ui, sans-serif;
+
+  --ease-out:   cubic-bezier(.16, 1, .3, 1);
+  --ease-inout: cubic-bezier(.65, 0, .35, 1);
+  --d-fast: 320ms;  --d-base: 800ms;  --d-slow: 1200ms;
+
+  --radius-chip: 8px; --radius-card: 20px; --radius-panel: 28px; --radius-img: 12px;
+  --container: 1440px;
+}
+
+/* ------------------------------------------------------------------ */
+/* Base                                                                */
+/* ------------------------------------------------------------------ */
+@layer base {
+  :root {
+    --scene-accent: var(--color-platinum);
+    --giant-m: clamp(72px, 22vw, 112px);
+    --giant-d: clamp(120px, 15vw, 300px);
+    color-scheme: dark;
+  }
+  html {
+    background: var(--color-obsidian);
+    color: var(--color-platinum);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    -webkit-text-size-adjust: 100%;
+  }
+  body { min-height: 100svh; overflow-x: clip; }
+  [dir="rtl"] { --font-display: var(--font-display-ar); --font-sans: var(--font-sans-ar); }
+  [dir="rtl"] * { letter-spacing: 0 !important; text-transform: none !important; }
+  ::selection { background: var(--color-platinum); color: var(--color-obsidian); }
+  :focus-visible { outline: 2px solid var(--color-platinum); outline-offset: 4px; }
+  .scene--light :focus-visible { outline-color: var(--color-ink); }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; color: inherit; }
+  /* Latin model names inside Arabic copy (docs/03 §12) */
+  [dir="rtl"] .ltr { direction: ltr; unicode-bidi: isolate; font-family: var(--font-manrope), "Manrope", system-ui, sans-serif; }
+}
+
+/* ------------------------------------------------------------------ */
+/* Layout                                                              */
+/* ------------------------------------------------------------------ */
+@layer components {
+  .wrap { width: 100%; max-width: var(--container); margin-inline: auto; padding-inline: 24px; }
+  @media (min-width: 641px)  { .wrap { padding-inline: 48px; } }
+  @media (min-width: 1025px) { .wrap { padding-inline: 80px; } }
+
+  .section-pad { padding-block: 96px; }
+  @media (min-width: 768px) { .section-pad { padding-block: clamp(96px, 12vw, 200px); } }
+
+  .hairline-top    { border-top: 1px solid var(--color-line); }
+  .hairline-bottom { border-bottom: 1px solid var(--color-line); }
+  .accent-dot      { background: var(--scene-accent); }
+
+  /* The light room (docs/02 §2.1): tokens swap so components inherit ink type and ink hairlines. */
+  .scene--light {
+    background: var(--color-salon);
+    color: var(--color-ink);
+    --scene-accent: var(--color-ink);
+    --color-line: var(--color-line-ink);
+    --color-line-strong: rgba(7,7,8,.28);
+    --color-silver: var(--color-ink-2);
+    --color-pewter: var(--color-ink-2);
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Glass: verbatim from docs/02 §2.4                                   */
+/* ------------------------------------------------------------------ */
+@layer components {
+  .glass {
+    background: linear-gradient(135deg, rgba(255,255,255,.085) 0%, rgba(255,255,255,.03) 100%);
+    -webkit-backdrop-filter: blur(24px) saturate(140%);
+    backdrop-filter: blur(24px) saturate(140%);
+    border: 1px solid rgba(255,255,255,.14);
+    border-radius: var(--radius-card);
+    position: relative;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.18),
+      inset 0 -1px 0 rgba(0,0,0,.25),
+      0 30px 60px -20px rgba(0,0,0,.6);
+  }
+  .glass::before {
+    content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+    background: radial-gradient(120% 80% at 0% 0%, rgba(255,255,255,.08), transparent 60%);
+  }
+  .scene--light .glass {
+    background: rgba(255,255,255,.42); border-color: rgba(0,0,0,.08);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.7), 0 30px 60px -24px rgba(0,0,0,.25);
+  }
+  @supports not (backdrop-filter: blur(1px)) {
+    .glass, .liquid { background: rgba(14,14,16,.82); }
+  }
+
+  .liquid {
+    background: rgba(255,255,255,.10);
+    -webkit-backdrop-filter: blur(18px) saturate(160%) brightness(1.1);
+    backdrop-filter: blur(18px) saturate(160%) brightness(1.1);
+    border: 1px solid rgba(255,255,255,.22);
+    border-radius: 999px;
+    padding: 8px 14px 8px 10px;
+    box-shadow: inset 0 1px 1px rgba(255,255,255,.35), inset 0 -2px 6px rgba(0,0,0,.15), 0 8px 24px -8px rgba(0,0,0,.5);
+    font: 500 12px/1 var(--font-sans); letter-spacing: .06em; color: var(--color-platinum);
+  }
+  [dir="rtl"] .liquid { padding: 8px 10px 8px 14px; }
+  .scene--light .liquid {
+    background: rgba(255,255,255,.42); border-color: rgba(0,0,0,.08); color: var(--color-ink);
+    box-shadow: inset 0 1px 1px rgba(255,255,255,.7), 0 8px 24px -8px rgba(0,0,0,.2);
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Giant word, overlays, fades, cut-out shadow: docs/02 §2.1, §2.5      */
+/* ------------------------------------------------------------------ */
+@layer components {
+  .giant {
+    font-family: var(--font-display); font-weight: 400; line-height: .85; letter-spacing: -.02em; text-transform: uppercase;
+    font-size: var(--giant-m); pointer-events: none; user-select: none;
+    font-optical-sizing: auto; text-wrap: balance;
+    background: linear-gradient(180deg, rgba(236,234,228,.92) 0%, rgba(236,234,228,.55) 55%, rgba(236,234,228,0) 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  @media (min-width: 768px) { .giant { font-size: var(--giant-d); } }
+  .scene--light .giant, .giant--light {
+    background: linear-gradient(180deg, rgba(14,14,16,.88) 0%, rgba(14,14,16,.60) 55%, rgba(14,14,16,0) 100%);
+    -webkit-background-clip: text; background-clip: text;
+  }
+  /* Page-hero words sit over a photograph at reduced opacity (docs/02 §3.9) */
+  .giant--hero { opacity: .6; }
+
+  .overlay-x { background: linear-gradient(90deg, rgba(7,7,8,.85) 0%, rgba(7,7,8,.35) 40%, rgba(7,7,8,0) 70%); }
+  [dir="rtl"] .overlay-x { background: linear-gradient(270deg, rgba(7,7,8,.85) 0%, rgba(7,7,8,.35) 40%, rgba(7,7,8,0) 70%); }
+  .overlay-y { background: linear-gradient(180deg, rgba(7,7,8,0) 30%, rgba(7,7,8,.85) 100%); }
+  .scene--light .overlay-x { background: linear-gradient(90deg, rgba(216,213,207,.85) 0%, rgba(216,213,207,.35) 40%, rgba(216,213,207,0) 70%); }
+  [dir="rtl"] .scene--light .overlay-x { background: linear-gradient(270deg, rgba(216,213,207,.85) 0%, rgba(216,213,207,.35) 40%, rgba(216,213,207,0) 70%); }
+  .scene--light .overlay-y { background: linear-gradient(180deg, rgba(216,213,207,0) 30%, rgba(216,213,207,.85) 100%); }
+
+  .fade-bottom::after {
+    content: ""; position: absolute; inset: auto 0 0 0; height: 120px; pointer-events: none; z-index: 1;
+    background: linear-gradient(180deg, transparent, var(--color-obsidian));
+  }
+  .scene--light.fade-bottom::after { background: linear-gradient(180deg, transparent, var(--color-salon)); }
+
+  .rim-glow { background: radial-gradient(60% 40% at 50% 70%, rgba(255,255,255,.07), transparent 70%); }
+  .scene--light .rim-glow { background: radial-gradient(60% 40% at 50% 70%, rgba(0,0,0,.06), transparent 70%); }
+
+  .car-cut { filter: drop-shadow(0 20px 25px rgba(0,0,0,.65)) drop-shadow(0 2px 6px rgba(0,0,0,.4)); }
+  @media (min-width: 768px) { .car-cut { filter: drop-shadow(0 40px 50px rgba(0,0,0,.65)) drop-shadow(0 4px 12px rgba(0,0,0,.4)); } }
+  .scene--light .car-cut { filter: drop-shadow(0 30px 40px rgba(0,0,0,.28)) drop-shadow(0 4px 10px rgba(0,0,0,.18)); }
+}
+
+/* ------------------------------------------------------------------ */
+/* The Scene: docs/02 §3.9 compositions (motion is added in Phase 2)   */
+/* ------------------------------------------------------------------ */
+@layer components {
+  .scene { display: flex; flex-direction: column; min-height: 100svh; }
+  .scene--row { min-height: 88svh; }
+  .scene__eyebrow { position: relative; z-index: 3; padding: calc(96px + env(safe-area-inset-top)) 24px 0; }
+  .scene__stage { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; margin-top: 16px; }
+  .scene__glow { position: absolute; inset: -20% -10%; z-index: 0; pointer-events: none; }
+  .scene__word { position: relative; z-index: 1; width: 100%; text-align: center; padding-inline: 8px; }
+  .scene__car { position: relative; z-index: 2; width: 112vw; max-width: none; height: auto; margin-top: var(--car-pull-m, 0px); }
+  .scene__car--d { display: none; }
+  .scene__copy { position: relative; z-index: 3; margin-top: auto; padding-top: 24px; padding-bottom: calc(24px + env(safe-area-inset-bottom)); }
+  .scene__copy .eyebrow { display: none; }
+  .scene__card { position: relative; z-index: 3; padding: 0 24px 24px; }
+
+  @media (min-width: 768px) {
+    .scene { min-height: max(100vh, 760px); flex-direction: row; align-items: flex-end; }
+    .scene--row { min-height: 92vh; }
+    .scene__eyebrow { display: none; }
+    .scene__copy .eyebrow { display: flex; }
+    .scene__stage { position: absolute; z-index: 2; bottom: var(--floor, 5vh); inset-inline-end: -6%; width: var(--stage-w, 58%); display: block; margin: 0; }
+    .scene__word { position: absolute; z-index: 1; inset-inline-end: var(--word-end, 0); bottom: var(--word-bottom, 58%); width: max-content; text-align: end; white-space: nowrap; padding: 0; }
+    .scene__car { width: 100%; margin: 0; }
+    .scene__car--m { display: none; }
+    .scene__car--d { display: block; }
+    .scene__copy { width: 100%; margin: 0; padding-bottom: 12vh; }
+    .scene__copy-inner { max-width: 44%; }
+    .scene__card { position: absolute; z-index: 3; inset-inline-end: 80px; bottom: 6vh; padding: 0; }
+
+    /* The one centred exhibit (Home featured) */
+    .scene--center { flex-direction: column; align-items: center; justify-content: flex-end; }
+    .scene--center .scene__stage { position: relative; inset: auto; bottom: auto; width: 70%; display: flex; flex-direction: column; align-items: center; margin-top: 10vh; }
+    .scene--center .scene__word { position: relative; inset: auto; bottom: auto; width: 100%; text-align: center; white-space: normal; margin-bottom: var(--word-pull-d, -.4em); }
+    .scene--center .scene__copy { text-align: center; padding-bottom: 10vh; }
+    .scene--center .scene__copy-inner { max-width: 60%; margin-inline: auto; }
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Type scale: docs/02 §2.2, clamp() between the 390 and 1440 ends      */
+/* ------------------------------------------------------------------ */
+@layer components {
+  .t-display-xl { font-family: var(--font-display); font-weight: 400; font-optical-sizing: auto; font-size: clamp(44px, calc(33.6px + 2.667vw), 72px); line-height: 1.02; letter-spacing: -.01em; }
+  .t-display-l  { font-family: var(--font-display); font-weight: 400; font-optical-sizing: auto; font-size: clamp(34px, calc(27.31px + 1.714vw), 52px); line-height: 1.08; letter-spacing: -.005em; }
+  .t-display-m  { font-family: var(--font-display); font-weight: 400; font-optical-sizing: auto; font-size: clamp(26px, calc(23.03px + .762vw), 34px); line-height: 1.15; letter-spacing: 0; }
+  .t-statement  { font-family: var(--font-display); font-weight: 400; font-style: italic; font-optical-sizing: auto; font-size: clamp(40px, calc(19.2px + 5.333vw), 96px); line-height: 1; letter-spacing: -.01em; }
+  .t-eyebrow    { font-family: var(--font-sans); font-weight: 500; font-size: clamp(11px, calc(10.63px + .095vw), 12px); line-height: 1.2; letter-spacing: .24em; text-transform: uppercase; color: var(--color-silver); }
+  .t-body-l     { font-family: var(--font-sans); font-weight: 400; font-size: clamp(17px, calc(16.26px + .19vw), 19px); line-height: 1.6; letter-spacing: 0; }
+  .t-body-m     { font-family: var(--font-sans); font-weight: 400; font-size: clamp(15px, calc(14.63px + .095vw), 16px); line-height: 1.6; letter-spacing: 0; }
+  .t-small      { font-family: var(--font-sans); font-weight: 400; font-size: 13px; line-height: 1.5; letter-spacing: .01em; }
+  .t-spec       { font-family: var(--font-sans); font-weight: 500; font-size: clamp(18px, calc(16.51px + .381vw), 22px); line-height: 1.1; letter-spacing: -.01em; font-variant-numeric: tabular-nums; }
+  .t-card-title { font-family: var(--font-display); font-weight: 400; font-optical-sizing: auto; font-size: clamp(26px, calc(24.51px + .381vw), 30px); line-height: 1.1; letter-spacing: 0; }
+  .t-button     { font-family: var(--font-sans); font-weight: 500; font-size: 14px; line-height: 1; letter-spacing: .08em; text-transform: uppercase; }
+  .t-spec-label { font-family: var(--font-sans); font-weight: 400; font-size: 13px; line-height: 1.5; letter-spacing: .12em; text-transform: uppercase; color: var(--color-pewter); }
+  .measure      { max-width: 52ch; }
+
+  /* Arabic: display 1.15, body 1.8, small 1.7, eyebrow +1 px, statement upright (docs/02 §2.2, §2.9) */
+  [dir="rtl"] .t-display-xl, [dir="rtl"] .t-display-l, [dir="rtl"] .t-display-m, [dir="rtl"] .t-card-title { line-height: 1.15; }
+  [dir="rtl"] .t-statement { font-style: normal; line-height: 1.15; }
+  [dir="rtl"] .t-body-l, [dir="rtl"] .t-body-m { line-height: 1.8; }
+  [dir="rtl"] .t-small, [dir="rtl"] .t-spec-label { line-height: 1.7; }
+  [dir="rtl"] .t-eyebrow { font-size: clamp(12px, calc(11.63px + .095vw), 13px); }
+  [dir="rtl"] .giant { line-height: 1.05; }
+  [dir="rtl"] .t-spec, [dir="rtl"] .liquid { font-variant-numeric: tabular-nums; }
+}
+
+/* ------------------------------------------------------------------ */
+/* Buttons and eyebrow: docs/02 §3.2, §3.3, §2.6                        */
+/* ------------------------------------------------------------------ */
+@layer components {
+  .btn {
+    position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    height: 48px; padding: 0 28px; border-radius: 999px; border: 1px solid transparent;
+    font-family: var(--font-sans); font-weight: 500; font-size: 14px; line-height: 1; letter-spacing: .08em; text-transform: uppercase;
+    white-space: nowrap; cursor: pointer; user-select: none; text-decoration: none;
+    transition: background-color var(--d-fast) var(--ease-out), border-color var(--d-fast) var(--ease-out), color var(--d-fast) var(--ease-out), transform var(--d-fast) var(--ease-out);
+  }
+  @media (min-width: 768px) { .btn { height: 52px; } }
+  .btn:active { transform: scale(.98); }
+  .btn__icon { flex: none; transition: transform var(--d-fast) var(--ease-out); }
+  .btn:hover .btn__icon { transform: translateX(4px); }
+  [dir="rtl"] .btn__icon { transform: scaleX(-1); }
+  [dir="rtl"] .btn:hover .btn__icon { transform: scaleX(-1) translateX(4px); }
+  .btn__glyph { flex: none; }
+
+  .btn--primary { background: var(--color-platinum); color: var(--color-obsidian); }
+  .btn--primary:hover { background: var(--color-platinum-dim); }
+  .scene--light .btn--primary { background: var(--color-ink); color: var(--color-platinum); }
+  .scene--light .btn--primary:hover { background: var(--color-smoke); }
+
+  .btn--secondary { background: transparent; border-color: var(--color-line-strong); color: var(--color-platinum); }
+  .btn--secondary:hover { border-color: var(--color-platinum); background: rgba(255,255,255,.06); }
+  .scene--light .btn--secondary { color: var(--color-ink); }
+  .scene--light .btn--secondary:hover { border-color: var(--color-ink); background: rgba(0,0,0,.05); }
+
+  .btn--glass { border-radius: 999px; color: var(--color-platinum); }
+  .btn--glass:hover { border-color: rgba(255,255,255,.22); }
+  .scene--light .btn--glass { color: var(--color-ink); }
+
+  .btn--text { height: auto; padding: 0; border: 0; border-radius: 0; gap: 6px; color: var(--color-platinum); }
+  .btn--text::after {
+    content: ""; position: absolute; inset-inline: 0; bottom: -4px; height: 1px; background: var(--scene-accent);
+    transform: scaleX(0); transform-origin: 0 50%; transition: transform var(--d-fast) var(--ease-out);
+  }
+  [dir="rtl"] .btn--text::after { transform-origin: 100% 50%; }
+  .btn--text:hover::after { transform: scaleX(1); }
+  .btn--text:active { transform: none; }
+  .scene--light .btn--text { color: var(--color-ink); }
+
+  .btn--block { width: 100%; }
+
+  .eyebrow { display: flex; align-items: center; gap: 12px; }
+  .eyebrow__mark { height: 10px; width: auto; flex: none; }
+  .eyebrow__rule { width: 24px; height: 1px; background: currentColor; opacity: .4; flex: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
