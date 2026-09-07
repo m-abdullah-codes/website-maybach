@@ -1,22 +1,38 @@
 import { setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { isLocale } from "@/lib/i18n";
-import { getSite } from "@/lib/content";
-import { Wordmark } from "@/components/brand/Wordmark";
+import { getSite, getCar, getFeaturedCar, getHomePreview } from "@/lib/content";
+import { Hero } from "@/components/sections/home/Hero";
+import { Statement } from "@/components/sections/home/Statement";
+import { CollectionPreview } from "@/components/sections/home/CollectionPreview";
+import { Promise as PromiseSection } from "@/components/sections/home/Promise";
+import { Marques } from "@/components/sections/home/Marques";
+import { AfterDark } from "@/components/sections/home/AfterDark";
+import { Featured } from "@/components/sections/home/Featured";
+import { Viewing } from "@/components/sections/home/Viewing";
+import { VisitStrip } from "@/components/sections/home/VisitStrip";
 
-// Phase 0 placeholder: the wordmark and tagline only. Home H1–H10 are built in Phase 2.
+/** docs/02 §5: ten sections, every one with a photograph. H10 is the shell footer. */
 export default async function Home({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
   setRequestLocale(locale);
   const site = getSite(locale);
+  const cullinan = getCar("rolls-royce-cullinan", locale)!;
+  const featured = getFeaturedCar(locale);
+  const preview = getHomePreview(locale);
 
   return (
-    <main className="grid min-h-svh place-items-center">
-      <div className="wrap text-center">
-        <Wordmark variant={locale === "ar" ? "arabic" : "latin"} className="mx-auto h-10 w-auto" title={site.brand.wordmark} />
-        <p className="t-body-l mt-6 text-silver">{site.brand.tagline}</p>
-      </div>
-    </main>
+    <>
+      <Hero site={site} car={cullinan} />
+      <Statement site={site} />
+      <CollectionPreview site={site} rows={preview} />
+      <PromiseSection site={site} />
+      <Marques site={site} />
+      <AfterDark site={site} />
+      <Featured site={site} car={featured} />
+      <Viewing site={site} locale={locale} />
+      <VisitStrip site={site} />
+    </>
   );
 }

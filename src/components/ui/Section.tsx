@@ -13,15 +13,17 @@ interface SectionProps {
   as?: "section" | "div" | "header" | "footer" | "article";
   style?: CSSProperties;
   children: ReactNode;
+  [dataAttr: `data-${string}`]: string | undefined;
 }
 
-export function Section({ id, className, fade = true, light, accent, as: Tag = "section", style, children }: SectionProps) {
+export function Section({ id, className, fade = true, light, accent, as: Tag = "section", style, children, ...rest }: SectionProps) {
   const vars = accent ? ({ "--scene-accent": accent } as CSSProperties) : undefined;
   return (
     <Tag
       id={id}
       className={cn("relative overflow-hidden", fade && "fade-bottom", light && "scene--light", className)}
       style={vars || style ? { ...vars, ...style } : undefined}
+      {...rest}
     >
       {children}
     </Tag>

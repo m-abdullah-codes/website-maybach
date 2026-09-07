@@ -9,6 +9,7 @@ interface GiantWordProps {
   light?: boolean;
   className?: string;
   style?: CSSProperties;
+  [dataAttr: `data-${string}`]: string | undefined;
 }
 
 // Bodoni Moda capitals measure ~0.62 em per character with the -0.02em tracking. On mobile a word longer
@@ -29,7 +30,7 @@ function fitSizes(text: string): CSSProperties | undefined {
 }
 
 /** The giant serif word. Decorative: aria-hidden; the real heading lives in the copy. Reserves its box for CLS 0. */
-export function GiantWord({ text, align = "start", hero, light, className, style }: GiantWordProps) {
+export function GiantWord({ text, align = "start", hero, light, className, style, ...rest }: GiantWordProps) {
   const vars = fitSizes(text);
   return (
     <div
@@ -42,6 +43,7 @@ export function GiantWord({ text, align = "start", hero, light, className, style
         className,
       )}
       style={{ minHeight: ".85em", ...vars, ...style }}
+      {...rest}
     >
       {text}
     </div>

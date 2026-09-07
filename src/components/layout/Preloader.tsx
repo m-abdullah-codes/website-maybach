@@ -29,7 +29,14 @@ export function Preloader({ arabic }: { arabic: boolean }) {
       /* storage unavailable: play once */
     }
     const reduced = reducedMotion();
-    const lift = window.setTimeout(() => setState("lifting"), reduced ? 400 : 850);
+    const lift = window.setTimeout(
+      () => {
+        setState("lifting");
+        // docs/02 H0: the hero starts its entrance as the curtain lifts.
+        window.dispatchEvent(new CustomEvent("mb:preloader-lift"));
+      },
+      reduced ? 400 : 850,
+    );
     const end = window.setTimeout(
       () => {
         setState("done");

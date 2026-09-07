@@ -2,7 +2,8 @@ import Image from "next/image";
 import { cn } from "@/lib/cn";
 import { img } from "@/lib/images";
 
-export type Overlay = "x" | "y" | "none";
+/** 'x' darkens the start side on desktop; 'x-end' the end side (copy end-side rows). Both turn vertical under 768 px. */
+export type Overlay = "x" | "x-end" | "y" | "none";
 
 interface MediaBgProps {
   /** Desktop master (-d). Used above 768 px. */
@@ -10,19 +11,30 @@ interface MediaBgProps {
   /** Mobile master (-m). Used under 768 px. Falls back to `desktop` for single-master images. */
   mobile?: string;
   priority?: boolean;
-  /** Legibility gradient (docs/02 §2.1): 'x' is horizontal on desktop and vertical on mobile. */
+  /** Legibility gradient (docs/02 §2.1). */
   overlay?: Overlay;
   className?: string;
   /** object-position for the desktop image, e.g. "50% 40%". */
   position?: string;
   positionMobile?: string;
+  /** Extra classes on both <img> elements (e.g. for hover scaling). */
+  imgClassName?: string;
 }
 
 /**
  * docs/03 §4.2: two next/image elements, one per breakpoint; only the visible one loads.
  * Backgrounds are presentational: empty alt, aria-hidden wrapper.
  */
-export function MediaBg({ desktop, mobile, priority, overlay = "none", className, position, positionMobile }: MediaBgProps) {
+export function MediaBg({
+  desktop,
+  mobile,
+  priority,
+  overlay = "none",
+  className,
+  position,
+  positionMobile,
+  imgClassName,
+}: MediaBgProps) {
   const d = img(desktop);
   const m = img(mobile ?? desktop);
   return (
@@ -36,7 +48,7 @@ export function MediaBg({ desktop, mobile, priority, overlay = "none", className
         priority={priority}
         placeholder="blur"
         blurDataURL={m.blurDataURL}
-        className="object-cover md:hidden"
+        className={cn("object-cover md:hidden", imgClassName)}
         style={positionMobile ? { objectPosition: positionMobile } : undefined}
       />
       <Image
@@ -48,13 +60,13 @@ export function MediaBg({ desktop, mobile, priority, overlay = "none", className
         fetchPriority={priority ? "high" : undefined}
         placeholder="blur"
         blurDataURL={d.blurDataURL}
-        className="hidden object-cover md:block"
+        className={cn("hidden object-cover md:block", imgClassName)}
         style={position ? { objectPosition: position } : undefined}
       />
-      {overlay === "x" && (
+      {(overlay === "x" || overlay === "x-end") && (
         <>
           <div className="overlay-y absolute inset-0 md:hidden" />
-          <div className="overlay-x absolute inset-0 hidden md:block" />
+          <div className={cn("absolute inset-0 hidden md:block", overlay === "x" ? "overlay-x" : "overlay-x-end")} />
         </>
       )}
       {overlay === "y" && <div className="overlay-y absolute inset-0" />}

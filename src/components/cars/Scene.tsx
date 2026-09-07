@@ -10,6 +10,8 @@ export interface SceneProps {
   id?: string;
   bg: { d: string; m: string };
   cut: { a: string; b: string };
+  /** Still photograph used if the cut-out fails to load (docs/02 §3.9). */
+  fallback?: { d: string; m: string };
   word: string;
   carAlt: string;
   side?: "start" | "end" | "center";
@@ -35,12 +37,13 @@ const STAGE_BLEED = 0.06;
 /**
  * The three-layer signature (docs/02 §3.9), used in exactly five places. Layers, bottom to top:
  * background photograph → legibility overlay → rim glow → giant word → car cut-out → copy and glass card.
- * This is the static composition; the entrance and parallax are attached by SceneMotion in Phase 2.
+ * Static composition with data hooks; SceneMotion attaches the entrance, parallax and pointer drift.
  */
 export function Scene({
   id,
   bg,
   cut,
+  fallback,
   word,
   carAlt,
   side = "end",
@@ -59,21 +62,30 @@ export function Scene({
   const ba = bounds(cut.a);
   const bb = bounds(cut.b);
 
-  // Desktop: the word is absolutely positioned inside the car box, so `bottom` is a % of the car image
-  // height. Roofline = (1 - top) of the box; the word box bottom sits `wordHidden` of its height below it.
   const roofline = ((1 - ba.top) * 100).toFixed(2);
   const wordBottom = `calc(${roofline}% - ${(wordHidden * 0.85).toFixed(3)} * var(--giant-d))`;
-  // The car box bleeds past the section edge; the word ends inside the viewport with a small gutter.
   const stageW = STAGE_WIDTH[height];
   const wordEnd = `calc(${((STAGE_BLEED / stageW) * 100).toFixed(2)}% + 2vw)`;
-  // Mobile: pull the car up over the word so the roof hides the bottom third of the letters.
+  // Mobile: front-on portrait cut-outs run 112vw (docs/02 §3.9); a landscape side profile would lose its
+  // nose and tail at 112vw, so it fills the viewport instead.
   const ratioB = b.height / b.width;
-  const carPull = `calc(-112vw * ${(ratioB * bb.top).toFixed(4)} - .34 * var(--giant-m))`;
+  const carWidthM = ratioB >= 1 ? "112vw" : "100vw";
+  const carPull = `calc(-${carWidthM} * ${(ratioB * bb.top).toFixed(4)} - .34 * var(--giant-m))`;
+  const copyPullM = `calc(-${carWidthM} * ${(ratioB * bb.bottom).toFixed(4)} + 24px)`;
+  // Centred exhibit on desktop: the car box is 70vw wide; pull it up over the word and the copy up over
+  // the transparent floor margin of the cut-out.
+  const ratioA = a.height / a.width;
+  const carPullD = `calc(-70vw * ${(ratioA * ba.top).toFixed(4)} - ${(wordHidden * 0.85).toFixed(3)} * var(--giant-d))`;
+  const copyPullD = `calc(-70vw * ${(ratioA * ba.bottom).toFixed(4)} + 32px)`;
 
   const vars = {
     "--word-bottom": wordBottom,
     "--word-end": side === "center" ? "auto" : wordEnd,
     "--car-pull-m": carPull,
+    "--car-w-m": carWidthM,
+    "--copy-pull-m": copyPullM,
+    "--car-pull-d": carPullD,
+    "--copy-pull-d": copyPullD,
     "--stage-w": `${stageW * 100}%`,
   } as CSSProperties;
 
@@ -84,46 +96,62 @@ export function Scene({
       accent={accent}
       className={cn("scene", `scene--${side}`, height === "hero" ? "scene--hero" : "scene--row", className)}
       style={vars}
+      data-scene=""
     >
-      <MediaBg desktop={bg.d} mobile={bg.m} priority={priority} overlay="x" />
+      <div className="absolute inset-0" data-scene-bg="">
+        <MediaBg desktop={bg.d} mobile={bg.m} priority={priority} overlay="x" />
+      </div>
+      {fallback && (
+        <div className="scene__fallback">
+          <MediaBg desktop={fallback.d} mobile={fallback.m} overlay="x" />
+        </div>
+      )}
 
       {eyebrow && <div className="scene__eyebrow">{eyebrow}</div>}
 
       <div className="scene__stage">
         <div className="rim-glow scene__glow" aria-hidden="true" />
-        <GiantWord text={word} className="scene__word" align={side === "center" ? "center" : "end"} />
-        <Image
-          src={a.src}
-          alt={carAlt}
-          width={a.width}
-          height={a.height}
-          sizes="(min-width: 768px) 60vw, 1px"
-          priority={priority}
-          placeholder="blur"
-          blurDataURL={a.blurDataURL}
-          className="car-cut scene__car scene__car--d"
-        />
-        <Image
-          src={b.src}
-          alt={carAlt}
-          width={b.width}
-          height={b.height}
-          sizes="(min-width: 768px) 1px, 112vw"
-          priority={priority}
-          placeholder="blur"
-          blurDataURL={b.blurDataURL}
-          className="car-cut scene__car scene__car--m"
-        />
+        <div className="scene__word" data-scene-word="">
+          <GiantWord text={word} align={side === "center" ? "center" : "end"} data-scene-word-inner="" />
+        </div>
+        <div className="scene__car-wrap" data-scene-car="">
+          <Image
+            src={a.src}
+            alt={carAlt}
+            width={a.width}
+            height={a.height}
+            sizes="(min-width: 768px) 60vw, 1px"
+            priority={priority}
+            placeholder="blur"
+            blurDataURL={a.blurDataURL}
+            className="car-cut scene__car scene__car--d"
+          />
+          <Image
+            src={b.src}
+            alt={carAlt}
+            width={b.width}
+            height={b.height}
+            sizes="(min-width: 768px) 1px, 112vw"
+            priority={priority}
+            placeholder="blur"
+            blurDataURL={b.blurDataURL}
+            className="car-cut scene__car scene__car--m"
+          />
+        </div>
       </div>
 
       <div className="wrap scene__copy">
-        <div className="scene__copy-inner">
+        <div className="scene__copy-inner" data-scene-copy="">
           {eyebrow}
           {children}
         </div>
       </div>
 
-      {card && <div className="scene__card">{card}</div>}
+      {card && (
+        <div className="scene__card" data-scene-card="">
+          {card}
+        </div>
+      )}
     </Section>
   );
 }

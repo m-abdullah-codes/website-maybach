@@ -47,7 +47,7 @@ if (selector && selector.startsWith("click:")) {
   await page.evaluate((y) => window.scrollTo(0, Number(y)), scrollY);
 }
 await page.waitForLoadState("networkidle");
-await page.waitForTimeout(400);
+await page.waitForTimeout(Number(process.env.PEEK_WAIT || 400));
 await page.screenshot({ path: out, fullPage: false });
 console.log(out);
 await browser.close();

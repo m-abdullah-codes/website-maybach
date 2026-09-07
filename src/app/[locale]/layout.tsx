@@ -24,8 +24,9 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   };
 }
 
-// Hides the preloader before hydration on repeat visits within the session (docs/02 §3.16).
-const PRELOAD_SCRIPT = `try{if(sessionStorage.getItem("mb-preloaded"))document.documentElement.classList.add("preloaded")}catch(e){}`;
+// Marks JS availability (reveals hide nothing without it) and hides the preloader before hydration on
+// repeat visits within the session (docs/02 §3.16).
+const PRELOAD_SCRIPT = `document.documentElement.classList.add("js");try{if(sessionStorage.getItem("mb-preloaded"))document.documentElement.classList.add("preloaded")}catch(e){}`;
 
 export default async function LocaleLayout({
   children,
