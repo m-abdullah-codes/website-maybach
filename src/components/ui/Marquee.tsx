@@ -6,13 +6,16 @@ import { reducedMotion } from "@/lib/motion";
 export interface MarqueTile {
   name: string;
   logo: string | null;
+  /** Intrinsic edge of the square logo derivative, from src/lib/marques.ts. */
+  size: number;
 }
 
 /**
  * docs/02 §3.7: eight marque tiles (120 / 96 px, carbon, hairline, radius 20, logo white at 70%),
  * continuous 40 s loop, pauses on hover, the tile nearest the centre scales 1.15 at full opacity.
- * Reduced motion: a static, wrapped row. Logos are official SVGs in /public/logos; a marque whose
- * file is missing shows its name in the UI face until the client supplies it.
+ * Reduced motion: a static, wrapped row. Logos come from src/lib/marques.ts — square, white-on-
+ * transparent derivatives of the official SVGs, already optically balanced against each other, so the
+ * tile just contains them at one size. A marque whose file is missing shows its name in the UI face.
  */
 export function Marquee({ tiles }: { tiles: MarqueTile[] }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -38,7 +41,15 @@ export function Marquee({ tiles }: { tiles: MarqueTile[] }) {
         <li key={`${key}-${t.name}`} className="mtile">
           {t.logo ? (
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={t.logo} alt={hidden ? "" : t.name} className="mtile__logo" loading="lazy" decoding="async" />
+            <img
+              src={t.logo}
+              alt={hidden ? "" : t.name}
+              width={t.size}
+              height={t.size}
+              className="mtile__logo"
+              loading="lazy"
+              decoding="async"
+            />
           ) : (
             <span className="mtile__name">{t.name}</span>
           )}

@@ -254,7 +254,7 @@
   .scene__glow { position: absolute; inset: -20% -10%; z-index: 0; pointer-events: none; }
   .scene__word { position: relative; z-index: 1; width: 100%; text-align: center; padding-inline: 8px; }
   .scene__car-wrap { position: relative; z-index: 2; display: flex; justify-content: center; width: 100%; margin-top: var(--car-pull-m, 0px); }
-  .scene__car { position: relative; flex: none; width: var(--car-w-m, 112vw); max-width: none; height: auto; aspect-ratio: var(--car-ratio-m, auto); }
+  .scene__car { position: relative; flex: none; width: var(--car-w-m, 96vw); max-width: none; height: auto; aspect-ratio: var(--car-ratio-m, auto); }
   .scene__copy { position: relative; z-index: 3; margin-top: var(--copy-pull-m, 0px); margin-bottom: auto; padding-top: 0; padding-bottom: calc(24px + env(safe-area-inset-bottom)); }
   .scene__copy .scroll-cue { display: none; }
   .scene__copy .eyebrow { display: none; }
@@ -663,7 +663,9 @@
   @media (min-width: 768px) { .mtile { width: 120px; height: 120px; } }
   .mtile:hover { transform: translateY(-4px); }
   .mtile.is-centre { transform: scale(1.15); }
-  .mtile__logo { width: 62%; height: 50%; object-fit: contain; opacity: .7; filter: brightness(0) invert(1); transition: opacity var(--d-fast) var(--ease-out); }
+  /* The derivative is already white on transparent and optically sized inside its square canvas
+     (scripts/brand-logos.mjs), so the tile contains it whole — no filter, no per-logo cap. */
+  .mtile__logo { width: 100%; height: 100%; object-fit: contain; opacity: .7; transition: opacity var(--d-fast) var(--ease-out); }
   .mtile__name { padding: 0 8px; font: 500 11px/1.3 var(--font-sans); letter-spacing: .12em; text-transform: uppercase; text-align: center; color: var(--color-platinum); opacity: .7; transition: opacity var(--d-fast) var(--ease-out); }
   .mtile.is-centre .mtile__logo, .mtile.is-centre .mtile__name { opacity: 1; }
 
@@ -679,6 +681,14 @@
   .promise__title .line:nth-child(3) { padding-inline-start: 2.2em; }
   @media (min-width: 768px) { .promise__title { max-width: 9ch; } .promise__title .line { overflow: visible; clip-path: inset(0 -1em -0.05em -1em); } }
   .promise__cards { display: flex; flex-direction: column; gap: 16px; margin: 0; padding: 0; list-style: none; }
+  /* Mobile, pinned (PromiseStack has taken over): the frame is exactly one viewport and the card list
+     hangs from its foot, clear of the sticky bar, reaching up into the space the head fades out of —
+     a phone cannot hold the headline block and three cards at once. Without the class — reduced
+     motion, no JS — the plain flow column above still applies and the section grows instead. */
+  @media (max-width: 767px) {
+    .promise.is-pinned .promise__inner { position: relative; height: 100svh; padding-top: 88px; }
+    .promise.is-pinned .promise__cards { position: absolute; inset-inline: 24px; bottom: calc(88px + env(safe-area-inset-bottom)); }
+  }
   html.js .promise__card--reveal { opacity: 0; transform: translateY(24px); transition: opacity var(--d-base) var(--ease-out) calc(var(--i, 0) * 80ms), transform var(--d-base) var(--ease-out) calc(var(--i, 0) * 80ms); }
   html.js .promise__card--reveal.is-in { opacity: 1; transform: none; }
 

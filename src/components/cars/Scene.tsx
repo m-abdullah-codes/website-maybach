@@ -31,12 +31,24 @@ export interface SceneProps {
    * hidden by the car. docs/02 §3.9 sketch: top of the word above the roofline, bottom behind the car.
    */
   wordHidden?: number;
+  /**
+   * Mobile: how much of the giant word's box height the car's roofline rises over. Lower means the car
+   * sits lower in the frame and more of the word survives.
+   */
+  wordHiddenMobile?: number;
+  /** Mobile: the cut-out's width, overriding the front-on / side-profile default. */
+  carWidthMobile?: string;
   /** "immediate": the entrance runs from the first paint (the hero). "inview": it waits for the viewport. */
   enter?: "immediate" | "inview";
 }
 
 const STAGE_WIDTH = { hero: 0.58, row: 0.54 } as const;
 const STAGE_BLEED = 0.06;
+// Mobile cut-out widths. docs/02 §3.9 sketches the front-on car at 112vw; at 390 px that is a 437 px
+// car over a 390 px frame — it bleeds off both edges, eats two thirds of the viewport height and
+// buries the giant word. 96vw keeps the drama and gives the word and the copy their air back.
+const CAR_WIDTH_M = { portrait: "96vw", landscape: "100vw" } as const;
+const WORD_HIDDEN_M = 0.18;
 
 /**
  * The three-layer signature (docs/02 §3.9), used in exactly five places. Layers, bottom to top:
@@ -61,6 +73,8 @@ export function Scene({
   card,
   className,
   wordHidden = 0.3,
+  wordHiddenMobile = WORD_HIDDEN_M,
+  carWidthMobile,
   enter = "inview",
 }: SceneProps) {
   const a = img(cut.a);
@@ -72,11 +86,11 @@ export function Scene({
   const wordBottom = `calc(${roofline}% - ${(wordHidden * 0.85).toFixed(3)} * var(--giant-d))`;
   const stageW = STAGE_WIDTH[height];
   const wordEnd = `calc(${((STAGE_BLEED / stageW) * 100).toFixed(2)}% + 2vw)`;
-  // Mobile: front-on portrait cut-outs run 112vw (docs/02 §3.9); a landscape side profile would lose its
-  // nose and tail at 112vw, so it fills the viewport instead.
+  // Mobile: a front-on portrait cut-out overhangs the frame slightly; a landscape side profile would
+  // lose its nose and tail at that width, so it fills the viewport exactly.
   const ratioB = b.height / b.width;
-  const carWidthM = ratioB >= 1 ? "112vw" : "100vw";
-  const carPull = `calc(-${carWidthM} * ${(ratioB * bb.top).toFixed(4)} - .34 * var(--giant-m))`;
+  const carWidthM = carWidthMobile ?? CAR_WIDTH_M[ratioB >= 1 ? "portrait" : "landscape"];
+  const carPull = `calc(-${carWidthM} * ${(ratioB * bb.top).toFixed(4)} - ${wordHiddenMobile.toFixed(3)} * var(--giant-m))`;
   const copyPullM = `calc(-${carWidthM} * ${(ratioB * bb.bottom).toFixed(4)} + 24px)`;
   // Centred exhibit on desktop: the car box is 70vw wide; pull it up over the word and the copy up over
   // the transparent floor margin of the cut-out.
