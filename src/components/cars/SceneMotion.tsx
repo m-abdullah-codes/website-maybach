@@ -112,21 +112,35 @@ export function SceneMotion({ afterPreloader, drift = -40, children }: SceneMoti
         };
       });
 
-    // docs/02 H0: the curtain lifts to reveal the hero already mid-motion.
+    // docs/02 H0: the curtain lifts to reveal the hero already mid-motion. Rows further down the page
+    // wait until they enter the viewport.
     const onLift = () => start();
     let fallbackTimer = 0;
+    let io: IntersectionObserver | undefined;
     const preloaderPending = !!document.querySelector(".preloader") && !document.documentElement.classList.contains("preloaded");
     if (afterPreloader && preloaderPending) {
       window.addEventListener("mb:preloader-lift", onLift, { once: true });
       fallbackTimer = window.setTimeout(start, 2500);
-    } else {
+    } else if (afterPreloader) {
       start();
+    } else {
+      io = new IntersectionObserver(
+        (entries) => {
+          if (entries.some((e) => e.isIntersecting)) {
+            io?.disconnect();
+            start();
+          }
+        },
+        { threshold: 0.2 },
+      );
+      io.observe(root);
     }
 
     return () => {
       cancelled = true;
       window.removeEventListener("mb:preloader-lift", onLift);
       window.clearTimeout(fallbackTimer);
+      io?.disconnect();
       cars.forEach((img) => img.removeEventListener("error", fail));
       cleanup?.();
     };

@@ -21,6 +21,8 @@ export interface SceneProps {
   accent?: string;
   /** Rendered at the top on mobile and inside the copy block on desktop. */
   eyebrow?: ReactNode;
+  /** Liquid badge and environment caption in the top corners (collection rows). */
+  badges?: ReactNode;
   children: ReactNode;
   card?: ReactNode;
   className?: string;
@@ -52,6 +54,7 @@ export function Scene({
   priority,
   accent,
   eyebrow,
+  badges,
   children,
   card,
   className,
@@ -107,6 +110,7 @@ export function Scene({
         </div>
       )}
 
+      {badges && <div className="scene__badges wrap">{badges}</div>}
       {eyebrow && <div className="scene__eyebrow">{eyebrow}</div>}
 
       <div className="scene__stage">

@@ -37,6 +37,10 @@ await page.waitForSelector(".preloader", { state: "detached", timeout: 5000 }).c
 if (selector && selector.startsWith("click:")) {
   await page.locator(selector.slice(6)).first().click();
   await page.waitForTimeout(1400);
+  if (scrollY) {
+    await page.evaluate((y) => window.scrollTo(0, Number(y)), scrollY);
+    await page.waitForTimeout(600);
+  }
 } else if (selector) {
   await page.locator(selector).first().scrollIntoViewIfNeeded();
   await page.evaluate((sel) => {
