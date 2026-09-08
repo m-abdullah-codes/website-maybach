@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useRef, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 import type { CategoryOption } from "@/lib/content";
 import { cn } from "@/lib/cn";
 import { loadGsap } from "@/lib/gsap";
@@ -25,7 +25,19 @@ export function CollectionFilter({ options, countTemplate, total, children }: Co
   const [count, setCount] = useState(total);
   const rowsRef = useRef<HTMLDivElement>(null);
   const barRef = useRef<HTMLDivElement>(null);
+  const sentinelRef = useRef<HTMLDivElement>(null);
   const busy = useRef(false);
+  const [stuck, setStuck] = useState(false);
+
+  // Once the bar leaves the hero's edge it floats over the rows, whose own badges and captions live in the
+  // same corners. A ground appears under it then — never over the hero, which keeps its clean bottom edge.
+  useEffect(() => {
+    const sentinel = sentinelRef.current;
+    if (!sentinel) return;
+    const io = new IntersectionObserver(([e]) => setStuck(!e.isIntersecting), { rootMargin: "-84px 0px 0px 0px" });
+    io.observe(sentinel);
+    return () => io.disconnect();
+  }, []);
 
   const apply = useCallback(
     async (key: string) => {
@@ -100,7 +112,8 @@ export function CollectionFilter({ options, countTemplate, total, children }: Co
 
   return (
     <div className="collection">
-      <div ref={barRef} className="filters">
+      <div ref={sentinelRef} className="filters__sentinel" aria-hidden="true" />
+      <div ref={barRef} className={cn("filters", stuck && "is-stuck")}>
         <div className="wrap filters__inner">
           <div className="filters__chips" role="group">
             {options.map((o) => (

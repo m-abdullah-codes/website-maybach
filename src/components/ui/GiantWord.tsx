@@ -4,6 +4,8 @@ import { cn } from "@/lib/cn";
 interface GiantWordProps {
   text: string;
   align?: "start" | "center" | "end";
+  /** Under 768 px the word takes this alignment instead; the Scene's mobile composition centres it (docs/02 §3.9). */
+  alignMobile?: "start" | "center" | "end";
   /** Page-hero treatment: over a photograph at reduced opacity, no cut-out (docs/02 §3.9). */
   hero?: boolean;
   light?: boolean;
@@ -29,8 +31,12 @@ function fitSizes(text: string): CSSProperties | undefined {
   } as CSSProperties;
 }
 
+// Written out so Tailwind sees every class it has to emit.
+const ALIGN = { start: "text-start", center: "text-center", end: "text-end" } as const;
+const ALIGN_MD = { start: "md:text-start", center: "md:text-center", end: "md:text-end" } as const;
+
 /** The giant serif word. Decorative: aria-hidden; the real heading lives in the copy. Reserves its box for CLS 0. */
-export function GiantWord({ text, align = "start", hero, light, className, style, ...rest }: GiantWordProps) {
+export function GiantWord({ text, align = "start", alignMobile, hero, light, className, style, ...rest }: GiantWordProps) {
   const vars = fitSizes(text);
   return (
     <div
@@ -39,7 +45,8 @@ export function GiantWord({ text, align = "start", hero, light, className, style
         "giant",
         hero && "giant--hero",
         light && "giant--light",
-        align === "center" ? "text-center" : align === "end" ? "text-end" : "text-start",
+        ALIGN[alignMobile ?? align],
+        alignMobile && ALIGN_MD[align],
         className,
       )}
       style={{ minHeight: ".85em", ...vars, ...style }}

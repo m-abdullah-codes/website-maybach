@@ -22,7 +22,7 @@ export function Numbers({ site, locale }: { site: Site; locale: Locale }) {
       <ScrollFx parallax={40} className="absolute -inset-y-6 inset-x-0 will-change-transform">
         <MediaBg desktop="sh-08-d" mobile="sh-08-m" overlay="y" />
       </ScrollFx>
-      <div className="wrap numbers__inner">
+      <div className="wrap numbers__inner scrim">
         <Reveal stagger as="ul" className="numbers__grid">
           {figures.map((f) => {
             const whole = locale === "ar" && f.arWhole ? f.arWhole : null;

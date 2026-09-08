@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { hasLocale } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { routing, dirOf, type Locale } from "@/lib/i18n";
-import { fontClass } from "@/lib/fonts";
+import { FONT_PRELOADS } from "@/lib/fonts";
 import { getSite } from "@/lib/content";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
 import { alternatesFor } from "@/lib/seo";
@@ -56,8 +56,11 @@ export default async function LocaleLayout({
   const whatsapp = buildWhatsAppUrl(locale);
 
   return (
-    <html lang={locale} dir={dirOf(locale)} className={fontClass(locale)}>
+    <html lang={locale} dir={dirOf(locale)}>
       <body>
+        {FONT_PRELOADS[locale].map((href) => (
+          <link key={href} rel="preload" as="font" type="font/woff2" href={href} crossOrigin="anonymous" />
+        ))}
         <script dangerouslySetInnerHTML={{ __html: PRELOAD_SCRIPT }} />
         <LocaleProvider locale={locale}>
           <Shell locale={locale} site={site} whatsappHref={whatsapp}>

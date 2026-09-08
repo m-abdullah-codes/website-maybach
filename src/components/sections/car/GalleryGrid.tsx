@@ -2,8 +2,8 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { X } from "lucide-react";
 import { cn } from "@/lib/cn";
+import { Icon } from "@/components/ui/Icon";
 import { getLenis } from "@/lib/lenis";
 
 export interface GalleryImage {
@@ -115,7 +115,7 @@ export function GalleryGrid({ images, closeLabel }: { images: GalleryImage[]; cl
           }}
         >
           <button ref={closeRef} type="button" className="lightbox__close" aria-label={closeLabel} onClick={close}>
-            <X size={20} strokeWidth={1.25} absoluteStrokeWidth aria-hidden="true" />
+            <Icon name="x" size={20} />
           </button>
           <div className="lightbox__stage" onClick={(e) => e.stopPropagation()}>
             <Image

@@ -1,8 +1,8 @@
 "use client";
 
 import NextLink from "next/link";
-import { usePathname as useNextPathname } from "next/navigation";
-import { createContext, useContext, type ComponentProps, type ReactNode } from "react";
+import { usePathname as useNextPathname, useRouter } from "next/navigation";
+import { createContext, useCallback, useContext, useRef, type ComponentProps, type MouseEvent, type ReactNode, type TouchEvent } from "react";
 import type { Locale } from "./i18n";
 
 // Locale-aware links without shipping next-intl's client runtime (docs/03 §13.2 JS budget).
@@ -29,9 +29,36 @@ export function localizeHref(href: string, locale: Locale): string {
 
 type LinkProps = Omit<ComponentProps<typeof NextLink>, "href" | "locale"> & { href: string; locale?: Locale };
 
-export function Link({ href, locale, ...rest }: LinkProps) {
+export function Link({ href, locale, prefetch, onMouseEnter, onTouchStart, ...rest }: LinkProps) {
   const current = useLocale();
-  return <NextLink href={localizeHref(href, locale ?? current)} {...rest} />;
+  const router = useRouter();
+  const target = localizeHref(href, locale ?? current);
+  const warmed = useRef(false);
+
+  // Viewport prefetching pulled six route payloads (~96 KB) on every first visit, competing with the
+  // hero photograph for bandwidth. Nothing is fetched until the pointer or the thumb says the visit
+  // is real; by then the page-transition curtain covers the fetch.
+  const warm = useCallback(() => {
+    if (warmed.current || EXTERNAL.test(target)) return;
+    warmed.current = true;
+    router.prefetch(target);
+  }, [router, target]);
+
+  return (
+    <NextLink
+      href={target}
+      prefetch={prefetch ?? false}
+      onMouseEnter={(e: MouseEvent<HTMLAnchorElement>) => {
+        warm();
+        onMouseEnter?.(e);
+      }}
+      onTouchStart={(e: TouchEvent<HTMLAnchorElement>) => {
+        warm();
+        onTouchStart?.(e);
+      }}
+      {...rest}
+    />
+  );
 }
 
 /** The pathname without the locale prefix, so the same route can be linked in the other locale. */

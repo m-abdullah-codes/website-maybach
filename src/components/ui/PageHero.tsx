@@ -45,7 +45,7 @@ export function PageHero({
           <Eyebrow>{eyebrow}</Eyebrow>
           <GiantWord text={word} hero className="page-hero__word" />
         </div>
-        <div className="page-hero__copy">
+        <div className="page-hero__copy scrim">
           <h1 className="t-display-xl measure">{title}</h1>
           {sub && <p className="t-body-l measure mt-4 text-silver">{sub}</p>}
           {children}

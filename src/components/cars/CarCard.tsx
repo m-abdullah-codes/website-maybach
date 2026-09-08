@@ -1,9 +1,9 @@
 import { getImageProps } from "next/image";
-import { ArrowUpRight } from "lucide-react";
 import type { Car, Site } from "@/lib/content";
 import { img } from "@/lib/images";
 import { Link } from "@/lib/navigation";
 import { cn } from "@/lib/cn";
+import { Icon } from "@/components/ui/Icon";
 import { LiquidBadge } from "@/components/ui/LiquidBadge";
 
 /**
@@ -32,6 +32,7 @@ export function CarCard({ car, site }: { car: Car; site: Site }) {
     <Link
       href={`/collection/${car.slug}`}
       className={cn("ccard", sold && "ccard--sold")}
+      data-cursor-view=""
       style={{ "--scene-accent": car.accent } as React.CSSProperties}
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -45,7 +46,7 @@ export function CarCard({ car, site }: { car: Car; site: Site }) {
         <p className="t-eyebrow">{`${car.marque} · ${car.year}`}</p>
         <p className="ccard__title t-card-title">
           <span>{car.title}</span>
-          <ArrowUpRight className="ccard__arrow" size={20} strokeWidth={1.25} absoluteStrokeWidth aria-hidden="true" />
+          <Icon name="arrow-up-right" className="ccard__arrow" size={20} />
         </p>
         <p className="t-body-m mt-1.5 text-silver">{car.whisper}</p>
       </div>

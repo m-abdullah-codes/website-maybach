@@ -5,6 +5,7 @@ import { Nav } from "./Nav";
 import { Footer } from "./Footer";
 import { StickyBar } from "./StickyBar";
 import { Grain } from "./Grain";
+import { Cursor } from "./Cursor";
 import { SmoothScroll } from "./SmoothScroll";
 import { Preloader } from "./Preloader";
 import { PageTransition } from "./PageTransition";
@@ -60,6 +61,7 @@ export function Shell({
         whatsappHref={whatsappHref}
       />
       <Grain />
+      <Cursor label={site.common.view} />
       <RevealObserver />
       <PageTransition />
       <SmoothScroll />

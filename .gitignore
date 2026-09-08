@@ -43,3 +43,8 @@ next-env.d.ts
 # local logs
 build.log
 server.log
+
+# design-pass working files
+build-design.log
+qa/tmp/
+.next-qa/

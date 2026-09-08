@@ -103,6 +103,7 @@ export function Scene({
       className={cn("scene scene--enter", enter === "immediate" && "is-in", `scene--${side}`, height === "hero" ? "scene--hero" : "scene--row", className)}
       style={vars}
       data-scene=""
+      data-cursor-view={height === "row" ? "" : undefined}
       data-reveal={enter === "inview" ? "" : undefined}
     >
       <div className="absolute inset-0" data-scene-bg="">
@@ -120,7 +121,7 @@ export function Scene({
       <div className="scene__stage">
         <div className="rim-glow scene__glow" aria-hidden="true" />
         <div className="scene__word" data-scene-word="">
-          <GiantWord text={word} align={side === "center" ? "center" : "end"} data-scene-word-inner="" />
+          <GiantWord text={word} align={side === "center" ? "center" : "end"} alignMobile="center" data-scene-word-inner="" />
         </div>
         <div className="scene__car-wrap" data-scene-car="">
           <SceneCut a={a} b={b} alt={carAlt} priority={priority} />
@@ -128,7 +129,9 @@ export function Scene({
       </div>
 
       <div className="wrap scene__copy">
-        <div className="scene__copy-inner" data-scene-copy="">
+        {/* The centred exhibit puts its copy in the middle of the frame, where a wet road or a horizon can
+            sit under it; the other compositions keep their copy on the side the overlay already darkens. */}
+        <div className={cn("scene__copy-inner", side === "center" && "scrim")} data-scene-copy="">
           {eyebrow}
           {children}
         </div>

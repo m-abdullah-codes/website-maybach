@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
-import { ArrowUpRight } from "lucide-react";
 import { Link } from "@/lib/navigation";
 import { cn } from "@/lib/cn";
+import { Icon } from "./Icon";
 import { WhatsAppGlyph } from "./WhatsAppGlyph";
 
 export type ButtonVariant = "primary" | "secondary" | "glass" | "text" | "whatsapp";
@@ -50,7 +50,7 @@ export function Button(props: ButtonProps) {
     <>
       {variant === "whatsapp" && <WhatsAppGlyph className="btn__glyph" />}
       <span>{children}</span>
-      {showArrow && <ArrowUpRight className="btn__icon" size={18} strokeWidth={1.25} absoluteStrokeWidth aria-hidden="true" />}
+      {showArrow && <Icon name="arrow-up-right" className="btn__icon" size={18} />}
     </>
   );
 

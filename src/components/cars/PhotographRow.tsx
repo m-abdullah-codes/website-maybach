@@ -39,7 +39,7 @@ export function PhotographRow({ car, site, side = "start", height = "row", id }:
         <MediaBg desktop={car.images.heroD} mobile={car.images.heroM} overlay={side === "start" ? "x" : "x-end"} priority={height === "hero"} />
       </ScrollFx>
 
-      <Link href={href} className="prow__cover" aria-hidden="true" tabIndex={-1} />
+      <Link href={href} className="prow__cover" aria-hidden="true" tabIndex={-1} data-cursor-view="" />
 
       <div className="prow__badges wrap">
         <LiquidBadge state={car.availability} label={site.common[car.availability]} />
@@ -76,7 +76,7 @@ export function PhotographRow({ car, site, side = "start", height = "row", id }:
           </Reveal>
         </div>
 
-        <Reveal delay={200} className="prow__card glass">
+        <Reveal delay={200} className="prow__card glass glass--ground">
           <SpecChip label={site.common.specs.engine} value={car.specs.engine} />
           <SpecChip label={site.common.specs.power} value={car.specs.power} />
           <SpecChip label={site.common.specs.acceleration} value={car.specs.acceleration} />

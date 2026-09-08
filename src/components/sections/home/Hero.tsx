@@ -30,7 +30,7 @@ export function Hero({ site, car }: { site: Site; car: Car }) {
         enter="immediate"
         eyebrow={<Eyebrow>{h.eyebrow}</Eyebrow>}
         card={
-          <Link href={`/collection/${car.slug}`} className="glass now-showing">
+          <Link href={`/collection/${car.slug}`} className="glass glass--ground now-showing">
             <Image
               src={mini.src}
               alt=""

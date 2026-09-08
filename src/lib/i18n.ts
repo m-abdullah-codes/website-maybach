@@ -8,6 +8,12 @@ export const routing = defineRouting({
   locales,
   defaultLocale,
   localePrefix: "as-needed",
+  // The canonical and the hreflang set are declared once, in the document head (docs/02 §13.3,
+  // src/lib/seo.ts). next-intl otherwise repeats them as a `Link:` response header built from the
+  // request host, which on any host that is not the canonical one — a preview deployment, an
+  // apex/www mismatch, localhost — advertises that host as the alternate and leaves the canonical
+  // pointing outside its own hreflang set.
+  alternateLinks: false,
 });
 
 export function isLocale(value: string): value is Locale {

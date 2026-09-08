@@ -19,7 +19,7 @@ export function Promise({ site }: { site: Site }) {
       </div>
       <PromiseStack>
         <div className="wrap promise__inner">
-          <div className="promise__head">
+          <div className="promise__head scrim">
             <Reveal>
               <Eyebrow>{w.eyebrow}</Eyebrow>
             </Reveal>

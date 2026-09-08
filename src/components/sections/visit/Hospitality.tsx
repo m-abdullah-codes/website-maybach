@@ -8,7 +8,7 @@ export function Hospitality({ site }: { site: Site }) {
   return (
     <Section id="hospitality" className="hosp" fade={false}>
       <MediaBg desktop="hm-view-d" mobile="hm-view-m" overlay="y" />
-      <div className="wrap hosp__inner">
+      <div className="wrap hosp__inner scrim scrim--center">
         <Reveal as="p" lines className="t-display-l">
           {site.visit.hospitality}
         </Reveal>

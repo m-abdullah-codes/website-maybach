@@ -23,7 +23,7 @@ export function Viewing({ site, locale, title, desktop = "hm-view-d", mobile = "
   return (
     <Section id={id} className="viewing">
       <MediaBg desktop={desktop} mobile={mobile} overlay="y" />
-      <div className="wrap viewing__inner">
+      <div className="wrap viewing__inner scrim scrim--center">
         <Reveal>
           <Eyebrow className="justify-center">{v.eyebrow}</Eyebrow>
         </Reveal>

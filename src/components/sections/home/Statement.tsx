@@ -12,7 +12,7 @@ export function Statement({ site }: { site: Site }) {
       <ScrollFx parallax={60} className="absolute -inset-y-8 inset-x-0 will-change-transform">
         <MediaBg desktop="hm-statement-bg-d" mobile="hm-statement-bg-m" />
       </ScrollFx>
-      <div className="wrap statement__inner">
+      <div className="wrap statement__inner scrim scrim--center">
         <RevealWords as="h2" className="t-statement" text={s.line} />
         <Reveal as="p" delay={400} className="t-small statement__support text-pewter">
           {s.support}

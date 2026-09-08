@@ -35,7 +35,7 @@ export function SceneRow({ car, site, side = "end", light }: { car: Car; site: S
           </>
         }
         card={
-          <div className="glass scene-row__card">
+          <div className="glass glass--ground scene-row__card">
             <SpecChip label={site.common.specs.engine} value={car.specs.engine} />
             <SpecChip label={site.common.specs.power} value={car.specs.power} />
             <SpecChip label={site.common.specs.acceleration} value={car.specs.acceleration} />

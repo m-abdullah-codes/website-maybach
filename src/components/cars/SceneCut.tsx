@@ -11,16 +11,9 @@ import type { Img } from "@/lib/images";
  */
 export function SceneCut({ a, b, alt, priority }: { a: Img; b: Img; alt: string; priority?: boolean }) {
   const { props: pa } = getImageProps({ src: a.src, alt, width: a.width, height: a.height, sizes: "60vw", quality: 80 });
-  const { props: pb } = getImageProps({
-    src: b.src,
-    alt,
-    width: b.width,
-    height: b.height,
-    sizes: "100vw",
-    quality: 78,
-    placeholder: "blur",
-    blurDataURL: b.blurDataURL,
-  });
+  // No blur placeholder here: the cut-out is a transparent PNG, so a placeholder background would sit
+  // behind the alpha as a grey box and never clear (getImageProps has no onLoad to remove it).
+  const { props: pb } = getImageProps({ src: b.src, alt, width: b.width, height: b.height, sizes: "100vw", quality: 78 });
   const vars = { "--car-ratio-d": `${a.width} / ${a.height}`, "--car-ratio-m": `${b.width} / ${b.height}` } as CSSProperties;
   return (
     <>

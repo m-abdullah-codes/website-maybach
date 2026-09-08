@@ -1,6 +1,26 @@
 @import "tailwindcss";
 
 /* ------------------------------------------------------------------ */
+/* Faces: docs/02 §2.2. Self-hosted WOFF2, cut from the masters in      */
+/* src/fonts/masters by scripts/subset-fonts.py. next/font is not used: */
+/* it emits no <link rel=preload> for a route behind the dynamic        */
+/* [locale] segment, and §2.2 asks for the display faces to be          */
+/* preloaded (the links are in src/lib/fonts.ts). The "… Fallback"      */
+/* faces are Arial under the metric overrides next/font measured from   */
+/* these same files, so the swap does not move the page. Bump the ?v    */
+/* token here and in src/lib/fonts.ts when a face is rebuilt.           */
+/* ------------------------------------------------------------------ */
+@font-face { font-family: bodoni; src: url("/fonts/bodoni-moda-latin.woff2?v=1") format("woff2"); font-display: swap; font-weight: 400; font-style: normal; }
+@font-face { font-family: "bodoni Fallback"; src: local("Arial"); ascent-override: 106.94%; descent-override: 38.02%; line-gap-override: 0.00%; size-adjust: 105.20%; }
+@font-face { font-family: bodoniItalic; src: url("/fonts/bodoni-moda-latin-italic.woff2?v=1") format("woff2"); font-display: swap; font-weight: 400; font-style: italic; }
+@font-face { font-family: "bodoniItalic Fallback"; src: local("Arial"); ascent-override: 115.16%; descent-override: 40.95%; line-gap-override: 0.00%; size-adjust: 97.69%; }
+@font-face { font-family: manrope; src: url("/fonts/manrope-latin.woff2?v=1") format("woff2"); font-display: swap; font-weight: 400 500; font-style: normal; }
+@font-face { font-family: "manrope Fallback"; src: local("Arial"); ascent-override: 102.74%; descent-override: 28.91%; line-gap-override: 0.00%; size-adjust: 103.76%; }
+@font-face { font-family: amiri; src: url("/fonts/amiri-arabic.woff2?v=1") format("woff2"); font-display: swap; font-weight: 400; font-style: normal; }
+@font-face { font-family: plexArabic; src: url("/fonts/plex-sans-arabic-400.woff2?v=1") format("woff2"); font-display: swap; font-weight: 400; font-style: normal; }
+@font-face { font-family: plexArabic; src: url("/fonts/plex-sans-arabic-500.woff2?v=1") format("woff2"); font-display: swap; font-weight: 500; font-style: normal; }
+
+/* ------------------------------------------------------------------ */
 /* Tokens: docs/02 §2 via docs/03 §3. Values are not to be changed.    */
 /* ------------------------------------------------------------------ */
 @theme {
@@ -27,6 +47,13 @@
   --color-line:         rgba(255,255,255,.10);
   --color-line-strong:  rgba(255,255,255,.28);
   --color-line-ink:     rgba(7,7,8,.12);
+
+  /* The faces themselves, in the stacks next/font used to build (real face, metric-matched Arial, system). */
+  --font-bodoni:        "bodoni", "bodoni Fallback", Georgia, serif;
+  --font-bodoni-italic: "bodoniItalic", "bodoniItalic Fallback", Georgia, serif;
+  --font-manrope:       "manrope", "manrope Fallback", system-ui, sans-serif;
+  --font-amiri:         "amiri";
+  --font-plex-ar:       "plexArabic";
 
   --font-display:    var(--font-bodoni), "Bodoni Moda", Georgia, serif;
   --font-sans:       var(--font-manrope), "Manrope", system-ui, sans-serif;
@@ -122,6 +149,11 @@
     content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
     background: radial-gradient(120% 80% at 0% 0%, rgba(255,255,255,.08), transparent 60%);
   }
+  /* A glass panel that has to sit over a car's own bodywork rather than over its environment: the blur
+     has chrome and lamps to average, so the panel takes the nav pill's carbon ground (docs/02 §3.1)
+     and its type survives. Only where a panel and a car overlap by design. */
+  .glass--ground { background: linear-gradient(135deg, rgba(255,255,255,.085) 0%, rgba(255,255,255,.03) 100%), rgba(14,14,16,.82); }
+  .scene--light .glass--ground { background: rgba(255,255,255,.62); }
   .scene--light .glass {
     background: rgba(255,255,255,.42); border-color: rgba(0,0,0,.08);
     box-shadow: inset 0 1px 0 rgba(255,255,255,.7), 0 30px 60px -24px rgba(0,0,0,.25);
@@ -171,7 +203,26 @@
   [dir="rtl"] .overlay-x { background: linear-gradient(270deg, rgba(7,7,8,.85) 0%, rgba(7,7,8,.35) 40%, rgba(7,7,8,0) 70%); }
   .overlay-x-end { background: linear-gradient(270deg, rgba(7,7,8,.85) 0%, rgba(7,7,8,.35) 40%, rgba(7,7,8,0) 70%); }
   [dir="rtl"] .overlay-x-end { background: linear-gradient(90deg, rgba(7,7,8,.85) 0%, rgba(7,7,8,.35) 40%, rgba(7,7,8,0) 70%); }
-  .overlay-y { background: linear-gradient(180deg, rgba(7,7,8,0) 30%, rgba(7,7,8,.85) 100%); }
+  .overlay-y { background: linear-gradient(180deg, rgba(7,7,8,0) 22%, rgba(7,7,8,.42) 58%, rgba(7,7,8,.9) 100%); }
+
+  /*
+   * Legibility band (docs/02 §2.10: silver never sits on photography unprotected; §2.1: legibility comes
+   * from a gradient, never from darkening the whole photograph). A feathered scrim behind one copy block,
+   * full-bleed horizontally so it reads as light falling off rather than as a panel.
+   */
+  .scrim { position: relative; }
+  .scrim::before {
+    content: ""; position: absolute; z-index: -1; inset: -56px -50vw; pointer-events: none;
+    background: linear-gradient(180deg, rgba(7,7,8,0) 0%, rgba(7,7,8,.74) 20%, rgba(7,7,8,.74) 80%, rgba(7,7,8,0) 100%);
+  }
+  /* Centred copy in a lit part of the frame (H2, H8, S3, M4): an ellipse, so the light still reads. */
+  .scrim--center::before {
+    inset: -12vh -50vw;
+    background: radial-gradient(66% 62% at 50% 50%, rgba(7,7,8,.84) 0%, rgba(7,7,8,.74) 42%, rgba(7,7,8,.34) 74%, rgba(7,7,8,0) 100%);
+  }
+  .scene--light .scrim::before {
+    background: linear-gradient(180deg, rgba(216,213,207,0) 0%, rgba(216,213,207,.74) 20%, rgba(216,213,207,.74) 80%, rgba(216,213,207,0) 100%);
+  }
   .scene--light .overlay-x { background: linear-gradient(90deg, rgba(216,213,207,.85) 0%, rgba(216,213,207,.35) 40%, rgba(216,213,207,0) 70%); }
   [dir="rtl"] .scene--light .overlay-x { background: linear-gradient(270deg, rgba(216,213,207,.85) 0%, rgba(216,213,207,.35) 40%, rgba(216,213,207,0) 70%); }
   .scene--light .overlay-y { background: linear-gradient(180deg, rgba(216,213,207,0) 30%, rgba(216,213,207,.85) 100%); }
@@ -268,7 +319,9 @@
   .t-card-title { font-family: var(--font-display); font-weight: 400; font-optical-sizing: auto; font-size: clamp(26px, calc(24.51px + .381vw), 30px); line-height: 1.1; letter-spacing: 0; }
   .t-button     { font-family: var(--font-sans); font-weight: 500; font-size: 14px; line-height: 1; letter-spacing: .08em; text-transform: uppercase; }
   .t-spec-label { font-family: var(--font-sans); font-weight: 400; font-size: 13px; line-height: 1.5; letter-spacing: .12em; text-transform: uppercase; color: var(--color-pewter); }
-  .measure      { max-width: 52ch; }
+  /* docs/02 §2.2: body never exceeds 52 characters per line. The ch unit measures the "0" advance,
+     which is wider than the average letter, so 40ch lands a real line at about 52 characters. */
+  .measure      { max-width: 40ch; }
 
   /* Arabic: display 1.15, body 1.8, small 1.7, eyebrow +1 px, statement upright (docs/02 §2.2, §2.9) */
   [dir="rtl"] .t-display-xl, [dir="rtl"] .t-display-l, [dir="rtl"] .t-display-m, [dir="rtl"] .t-card-title { line-height: 1.15; }
@@ -337,6 +390,15 @@
 @layer components {
   .nav { position: fixed; inset-inline: 0; top: 0; z-index: 50; display: flex; justify-content: center; padding-inline: 16px; pointer-events: none; }
   @media (min-width: 641px) { .nav { padding-inline: 24px; } }
+  /* Transparent over the hero (docs/02 §3.1): a top fall-off so the links keep their contrast over a lit
+     façade or a pale room. It dissolves as the bar becomes the glass pill, which carries its own ground. */
+  .nav::before {
+    content: ""; position: absolute; inset-inline: 0; top: 0; height: 200px; pointer-events: none;
+    background: linear-gradient(180deg, rgba(7,7,8,.5) 0%, rgba(7,7,8,.22) 45%, rgba(7,7,8,0) 100%);
+    transition: opacity var(--d-base) var(--ease-out);
+  }
+  .nav--pill::before, .nav--open::before { opacity: 0; }
+  html[data-nav-light] .nav::before { background: linear-gradient(180deg, rgba(216,213,207,.55) 0%, rgba(216,213,207,.24) 45%, rgba(216,213,207,0) 100%); }
   .nav__bar {
     pointer-events: auto; position: relative; width: 100%; max-width: var(--container); height: 72px; margin-top: 0;
     padding: 0 8px 0 0; display: flex; align-items: center; justify-content: space-between; gap: 24px;
@@ -394,7 +456,7 @@
   }
   .menu.is-open { visibility: visible; opacity: 1; transition: opacity var(--d-base) var(--ease-out); }
   @media (min-width: 1024px) { .menu { display: none; } }
-  .menu__texture { opacity: .5; }
+  .menu__texture { opacity: .22; }
   .menu__links { position: relative; display: flex; flex-direction: column; gap: 8px; }
   .menu__link {
     position: relative; display: inline-block; width: max-content; padding: 8px 0; color: var(--color-platinum);
@@ -434,7 +496,11 @@
   .preloader { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; overflow: hidden; background: var(--color-obsidian); }
   .preloader.is-lifting { animation: curtain-lift var(--d-base) var(--ease-inout) forwards; }
   .preloaded .preloader { display: none; }
-  .preloader__glow { position: absolute; left: 50%; top: 50%; width: 60vmin; height: 60vmin; transform: translate(-50%, -50%); opacity: .45; }
+  .preloader__glow {
+    position: absolute; left: 50%; top: 50%; width: 72vmin; height: 72vmin; transform: translate(-50%, -50%); opacity: .5;
+    -webkit-mask-image: radial-gradient(closest-side, #000 34%, transparent 78%);
+    mask-image: radial-gradient(closest-side, #000 34%, transparent 78%);
+  }
   .preloader__lockup { position: relative; display: flex; flex-direction: column; align-items: center; gap: 24px; }
   .preloader__emblem { width: 120px; height: auto; color: var(--color-platinum); }
   .preloader__emblem path { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 700ms var(--ease-out) forwards; }
@@ -458,7 +524,7 @@
   }
 
   .footer { position: relative; overflow: hidden; background: var(--color-obsidian); border-top: 1px solid rgba(236,234,228,.2); }
-  .footer__texture { opacity: .4; }
+  .footer__texture { opacity: .18; }
   .footer__inner { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 48px; padding-block: 64px calc(96px + env(safe-area-inset-bottom)); }
   @media (min-width: 768px) { .footer__inner { gap: 64px; padding-block: 96px 40px; } }
   .footer__row1 { display: flex; flex-direction: column; gap: 24px; }
@@ -581,7 +647,9 @@
 
   .marques { position: relative; overflow: hidden; background: var(--color-carbon); padding-top: 96px; padding-bottom: 96px; }
   @media (min-width: 768px) { .marques { padding-block: clamp(96px, 12vw, 200px); } }
-  .marques__watermark { position: absolute; left: 50%; top: 50%; width: 70vw; max-width: 900px; height: auto; transform: translate(-50%, -50%); opacity: .03; color: var(--color-platinum); pointer-events: none; }
+  /* The 3% watermark sits behind the marquee band, not behind the headline: crossing the type is what
+     made it read as a graphic rather than as an ornament (docs/02 H5). */
+  .marques__watermark { position: absolute; left: 50%; bottom: -14%; width: 82vw; max-width: 1000px; height: auto; transform: translateX(-50%); opacity: .03; color: var(--color-platinum); pointer-events: none; }
   .marques__head { position: relative; padding-bottom: 56px; }
   @media (min-width: 768px) { .marques__head { padding-bottom: 72px; } }
   .marquee { position: relative; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); }
@@ -626,7 +694,20 @@
 
   /* Collection page: filters (docs/02 §3.8), row wrappers, Not here (C3) */
   .collection__hero .page-hero__inner { padding-bottom: calc(96px + env(safe-area-inset-bottom)); }
+  .filters__sentinel { height: 1px; margin-bottom: -1px; }
+  /* Desktop only: a row's badge and environment caption come to rest under the sticky filter bar rather
+     than against it. Under 768 px the row already opens with its eyebrow at 88 px and the giant word
+     under that, so the badges stay in their corner and simply pass behind the bar's ground. */
+  @media (min-width: 768px) { .collection__rows .scene__badges, .collection__rows .prow__badges { top: 136px; } }
   .filters { position: sticky; top: 84px; z-index: 30; margin-top: -68px; pointer-events: none; }
+  /* Stuck over the rows, the bar needs a ground: without one the chips and the count interleave with each
+     row's own badge and environment caption as the row passes under them. */
+  .filters::before {
+    content: ""; position: absolute; z-index: -1; inset-inline: 0; top: -40px; height: 148px; pointer-events: none;
+    opacity: 0; transition: opacity var(--d-base) var(--ease-out);
+    background: linear-gradient(180deg, rgba(7,7,8,.99) 0%, rgba(7,7,8,.97) 50%, rgba(7,7,8,.55) 76%, rgba(7,7,8,0) 100%);
+  }
+  .filters.is-stuck::before { opacity: 1; }
   .filters__inner { display: flex; align-items: center; gap: 16px; }
   .filters__chips { display: flex; gap: 8px; max-width: 100%; overflow-x: auto; padding: 4px; margin: -4px; scrollbar-width: none; pointer-events: auto; -webkit-mask-image: linear-gradient(90deg, #000 88%, transparent); mask-image: linear-gradient(90deg, #000 88%, transparent); }
   [dir="rtl"] .filters__chips { -webkit-mask-image: linear-gradient(270deg, #000 88%, transparent); mask-image: linear-gradient(270deg, #000 88%, transparent); }
@@ -659,7 +740,7 @@
   .nothere { display: flex; min-height: 80svh; }
   @media (min-width: 768px) { .nothere { min-height: 90vh; } }
   .nothere__inner { position: relative; z-index: 2; display: flex; justify-content: center; align-items: center; width: 100%; padding-block: 96px; }
-  .nothere__panel { width: 100%; max-width: 560px; padding: 32px; text-align: center; }
+  .nothere__panel { width: 100%; max-width: 680px; padding: 32px; text-align: center; }
   @media (min-width: 768px) { .nothere__panel { padding: 48px; } }
 
   /* Car detail: docs/02 §7 D1–D8 */
@@ -871,4 +952,61 @@
   .marquee__set:last-child { display: none; }
   .marquee { -webkit-mask-image: none; mask-image: none; }
   .ccard__img, .ccard__strip { transition: none; }
+}
+
+/* ------------------------------------------------------------------ */
+/* Design-pass corrections (docs/02 §2.10, §3.8, §3.14)                 */
+/* ------------------------------------------------------------------ */
+@layer components {
+  /* Under 768 px the sticky bar (64 px + safe area) floats over the foot of the page (docs/02 §3.14).
+     Every block that anchors itself to the bottom of a full-height photograph has to come to rest above
+     it, not behind it. Heroes are exempt: the bar only appears once the hero has been passed. */
+  @media (max-width: 767px) {
+    .collection__rows .scene__copy,
+    .collection__rows .prow__inner,
+    .afterdark__inner,
+    .inside__inner,
+    .numbers__inner { padding-bottom: calc(88px + env(safe-area-inset-bottom)); }
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Desktop cursor: docs/02 §3.17                                        */
+/* ------------------------------------------------------------------ */
+@layer components {
+  .cursor {
+    position: fixed; left: 0; top: 0; z-index: 90; display: none; place-items: center;
+    pointer-events: none; will-change: transform;
+  }
+  /* Shown only once a real mouse has moved: touch and keyboard visitors never see it. */
+  html.has-cursor .cursor[data-on] { display: grid; }
+  /* The page loses its arrow, but every control keeps a cursor of its own — the dot hides over them. */
+  html.has-cursor { cursor: none; }
+  html.has-cursor a, html.has-cursor button, html.has-cursor [role="button"], html.has-cursor label, html.has-cursor summary { cursor: pointer; }
+  html.has-cursor input, html.has-cursor textarea, html.has-cursor select { cursor: auto; }
+  html.has-cursor [data-cursor-view] { cursor: none; }
+  .cursor__dot {
+    grid-area: 1 / 1; width: 10px; height: 10px; border-radius: 999px; background: transparent;
+    /* The difference blend of §3.17, done as a backdrop filter so it survives the cursor's own
+       stacking context: the dot inverts whatever is behind it and stays visible on the light room too. */
+    -webkit-backdrop-filter: invert(1); backdrop-filter: invert(1);
+    transition: opacity var(--d-fast) var(--ease-out), transform var(--d-fast) var(--ease-out);
+  }
+  @supports not (backdrop-filter: invert(1)) { .cursor__dot { background: var(--color-platinum); mix-blend-mode: difference; } }
+  .cursor__ring {
+    grid-area: 1 / 1; display: grid; place-items: center; width: 72px; height: 72px; border-radius: 999px;
+    background: linear-gradient(135deg, rgba(255,255,255,.085) 0%, rgba(255,255,255,.03) 100%), rgba(14,14,16,.5);
+    -webkit-backdrop-filter: blur(14px) saturate(140%); backdrop-filter: blur(14px) saturate(140%);
+    border: 1px solid rgba(255,255,255,.22);
+    opacity: 0; transform: scale(.4);
+    transition: opacity var(--d-fast) var(--ease-out), transform var(--d-fast) var(--ease-out);
+  }
+  .cursor__label { font: 500 12px/1 var(--font-sans); letter-spacing: .08em; text-transform: uppercase; color: var(--color-platinum); }
+  [dir="rtl"] .cursor__label { letter-spacing: 0; text-transform: none; }
+  .cursor[data-state="view"] .cursor__dot, .cursor[data-state="hidden"] .cursor__dot { opacity: 0; transform: scale(.4); }
+  .cursor[data-state="view"] .cursor__ring { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cursor__dot, .cursor__ring { transition-duration: 200ms; }
 }
