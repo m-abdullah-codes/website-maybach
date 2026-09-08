@@ -225,7 +225,9 @@
   }
   .scene--light .overlay-x { background: linear-gradient(90deg, rgba(216,213,207,.85) 0%, rgba(216,213,207,.35) 40%, rgba(216,213,207,0) 70%); }
   [dir="rtl"] .scene--light .overlay-x { background: linear-gradient(270deg, rgba(216,213,207,.85) 0%, rgba(216,213,207,.35) 40%, rgba(216,213,207,0) 70%); }
-  .scene--light .overlay-y { background: linear-gradient(180deg, rgba(216,213,207,0) 30%, rgba(216,213,207,.85) 100%); }
+  /* The light room under 768 px: the composed photograph puts the car where the ink copy sits, so the
+     salon has to come up over its lower half far enough for ink to read on it (docs/02 §2.1). */
+  .scene--light .overlay-y { background: linear-gradient(180deg, rgba(216,213,207,0) 16%, rgba(216,213,207,.62) 50%, rgba(216,213,207,.97) 100%); }
 
   .fade-bottom::after {
     content: ""; position: absolute; inset: auto 0 0 0; height: 120px; pointer-events: none; z-index: 1;
