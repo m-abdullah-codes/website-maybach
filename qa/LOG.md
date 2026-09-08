@@ -67,3 +67,13 @@
 **Decisions:** no live map: the address is still bracketed and no Mapbox/Google key exists, so the tile shows the HM-MAP photograph with the emblem pin and links to `settings.mapsUrl`; a dark-styled embed can replace the tile later. The Services rows alternate start / end in order (01 start … 06 end) since the spec does not assign sides per service. The showroom numbers stack in one column under 768 px so "8 marques" never breaks across lines.
 
 **Screenshots:** `qa/phase-5/{showroom,services,visit}-{390,1440}.png`, the `ar-*` set, `detail-*` per section in both widths, `form-*`.
+
+## Phase 6 — Arabic pass
+
+**Checked:** every route at `/ar` at 390 and 1440 (`scripts/rtl-audit.mjs` plus viewport captures of each section). `dir="rtl"` and `lang="ar"` on the root; headings and giant words in Amiri, body and UI in IBM Plex Sans Arabic; no element with letter-spacing or uppercase; no mirrored photograph; every arrow-up-right mirrored; WhatsApp links carry the Arabic text (viewing, per car, per service); the sticky bar keeps Concierge on the end (left) side; no horizontal overflow. Layout mirrors through logical properties: nav, menu, footer, Scene rows (car on the mirrored side, word aligned to it), photograph rows, card strips and arrows, filter chips and count, glance strip scroll-snap, gallery masonry, provenance chips, the map tile and details panel, forms with right-aligned floating labels and Arabic errors, the 404. Western numerals stay in the Latin faces inside Arabic copy ("9,800 كم", "563 hp", "+966") and Latin model names keep their order through the LTR isolate. Arabic form submission tested (`qa/phase-6/form-success-390.png`).
+
+**Fixed:** the promise section's legibility gradient now stays on the headlamp side in RTL, so the mirrored glass cards sit over darkened photography as the spec intends.
+
+**Decisions:** the mirrored promise composition keeps the cards on the left (over the lamp, darkened) and the headline on the right, following §2.9 (layout mirrors, photographs do not). Arabic giant words use line-height 1.05 instead of .85 so Amiri ascenders and descenders are not clipped.
+
+**Screenshots:** `qa/phase-6/ar-*` full pages for Home, Collection, two detail pages, Showroom, Services, Visit and the 404, plus `detail-*` section captures and `form-*`.

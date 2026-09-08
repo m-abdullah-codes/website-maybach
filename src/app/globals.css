@@ -588,6 +588,8 @@
   .mtile.is-centre .mtile__logo, .mtile.is-centre .mtile__name { opacity: 1; }
 
   .promise { min-height: 100svh; }
+  /* The headlamp is on the left of the photograph in both directions; keep the darkening under the cards in RTL. */
+  [dir="rtl"] .promise .overlay-x { background: linear-gradient(90deg, rgba(7,7,8,.85) 0%, rgba(7,7,8,.35) 40%, rgba(7,7,8,0) 70%); }
   .promise__pin { position: relative; z-index: 2; }
   .promise__inner { display: flex; flex-direction: column; gap: 40px; min-height: 100svh; padding-top: 96px; padding-bottom: 96px; }
   @media (min-width: 768px) {
