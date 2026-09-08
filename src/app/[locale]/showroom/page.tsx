@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
 import { isLocale } from "@/lib/i18n";
+import { alternatesFor } from "@/lib/seo";
 import { getSite } from "@/lib/content";
 import { PageHero } from "@/components/ui/PageHero";
 import { Story } from "@/components/sections/showroom/Story";
@@ -17,7 +18,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
   const site = getSite(locale);
-  return { title: site.nav.showroom };
+  return { title: site.nav.showroom, alternates: alternatesFor(locale, "/showroom") };
 }
 
 /** docs/02 §8: the building is the brand. S1 hero, story, numbers, the space, coffee, marques, visit CTA. */

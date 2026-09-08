@@ -45,7 +45,15 @@ export function GiantWord({ text, align = "start", hero, light, className, style
       style={{ minHeight: ".85em", ...vars, ...style }}
       {...rest}
     >
-      {text}
+      {/* Multi-word texts (MAY BACH) break one word per line under 768 px regardless of which font has loaded, so the box never shifts. */}
+      {text.includes(" ")
+        ? text.split(" ").map((w, i) => (
+            <span key={i} className="giant__word">
+              {w}
+              {i < text.split(" ").length - 1 ? " " : ""}
+            </span>
+          ))
+        : text}
     </div>
   );
 }

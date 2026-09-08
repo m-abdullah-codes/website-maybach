@@ -1,8 +1,8 @@
 import type { ReactNode } from "react";
 import { ArrowUpRight } from "lucide-react";
-import { Link } from "@/lib/i18n";
+import { Link } from "@/lib/navigation";
 import { cn } from "@/lib/cn";
-import { WhatsAppGlyph } from "./Icon";
+import { WhatsAppGlyph } from "./WhatsAppGlyph";
 
 export type ButtonVariant = "primary" | "secondary" | "glass" | "text" | "whatsapp";
 

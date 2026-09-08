@@ -20,25 +20,16 @@ export function Marquee({ tiles }: { tiles: MarqueTile[] }) {
   useEffect(() => {
     const root = ref.current;
     if (!root || reducedMotion()) return;
+    // A 2%-wide band at the centre: the tile crossing it is the one nearest the middle. No per-frame work.
     const items = Array.from(root.querySelectorAll<HTMLElement>(".mtile"));
-    let frame = 0;
-    const tick = () => {
-      const mid = root.getBoundingClientRect().left + root.clientWidth / 2;
-      let best: HTMLElement | null = null;
-      let bestD = Infinity;
-      for (const el of items) {
-        const r = el.getBoundingClientRect();
-        const d = Math.abs(r.left + r.width / 2 - mid);
-        if (d < bestD) {
-          bestD = d;
-          best = el;
-        }
-      }
-      for (const el of items) el.classList.toggle("is-centre", el === best);
-      frame = requestAnimationFrame(tick);
-    };
-    frame = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(frame);
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) e.target.classList.toggle("is-centre", e.isIntersecting);
+      },
+      { root, rootMargin: "0px -49% 0px -49%", threshold: 0 },
+    );
+    items.forEach((el) => io.observe(el));
+    return () => io.disconnect();
   }, []);
 
   const set = (key: string, hidden: boolean) => (

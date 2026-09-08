@@ -8,8 +8,11 @@ import { Grain } from "./Grain";
 import { SmoothScroll } from "./SmoothScroll";
 import { Preloader } from "./Preloader";
 import { PageTransition } from "./PageTransition";
+import { RevealObserver } from "@/components/ui/RevealObserver";
 import { JsonLd } from "@/components/ui/JsonLd";
 import { autoDealerJsonLd } from "@/lib/seo";
+import { img } from "@/lib/images";
+import { MediaBg } from "@/components/ui/MediaBg";
 
 /** The global shell (docs/03 Phase 1): preloader, nav, main, footer, sticky bar, grain, transition, smooth scroll. */
 export function Shell({
@@ -41,8 +44,13 @@ export function Shell({
   return (
     <>
       <JsonLd data={autoDealerJsonLd(site, locale)} />
-      <Preloader arabic={locale === "ar"} />
-      <Nav locale={locale} labels={labels} whatsappHref={whatsappHref} />
+      <Preloader arabic={locale === "ar"} glow={img("ut-glow-01")} />
+      <Nav
+        locale={locale}
+        labels={labels}
+        whatsappHref={whatsappHref}
+        menuTexture={<MediaBg desktop="br-03-d" mobile="br-03-m" overlay="none" className="menu__texture" />}
+      />
       <main id="main">{children}</main>
       <Footer locale={locale} />
       <StickyBar
@@ -52,6 +60,7 @@ export function Shell({
         whatsappHref={whatsappHref}
       />
       <Grain />
+      <RevealObserver />
       <PageTransition />
       <SmoothScroll />
     </>

@@ -1,5 +1,4 @@
 import { defineRouting } from "next-intl/routing";
-import { createNavigation } from "next-intl/navigation";
 
 export const locales = ["en", "ar"] as const;
 export type Locale = (typeof locales)[number];
@@ -19,5 +18,5 @@ export function dirOf(locale: Locale): "ltr" | "rtl" {
   return locale === "ar" ? "rtl" : "ltr";
 }
 
-export const { Link, redirect, usePathname, useRouter, getPathname } =
-  createNavigation(routing);
+// Client-side links and pathname live in ./navigation (no next-intl runtime on the client).
+export { Link, usePathname, useLocale, localizeHref, LocaleProvider } from "./navigation";

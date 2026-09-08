@@ -11,6 +11,25 @@ export function localePath(locale: Locale, path: string): string {
   return locale === "ar" ? `/ar${path === "/" ? "" : path}` : path;
 }
 
+/** Canonical + hreflang pair for a route (docs/02 §13.3). */
+export function alternatesFor(locale: Locale, path: string) {
+  return {
+    canonical: absoluteUrl(localePath(locale, path)),
+    languages: {
+      en: absoluteUrl(localePath("en", path)),
+      ar: absoluteUrl(localePath("ar", path)),
+      "x-default": absoluteUrl(localePath("en", path)),
+    },
+  };
+}
+
+/** The deviceSizes from next.config, used to hand-build srcsets for media-scoped preloads. */
+export const DEVICE_SIZES = [390, 640, 768, 1024, 1280, 1440, 1680];
+
+export function optimizedSrcSet(src: string, quality = 75, sizes = DEVICE_SIZES): string {
+  return sizes.map((w) => `/_next/image?url=${encodeURIComponent(src)}&w=${w}&q=${quality} ${w}w`).join(", ");
+}
+
 /** docs/02 §13.3: AutoDealer on every page. Placeholders stay bracketed until the client confirms them. */
 export function autoDealerJsonLd(site: Site, locale: Locale) {
   return {

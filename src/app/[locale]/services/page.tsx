@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
 import { isLocale } from "@/lib/i18n";
+import { alternatesFor } from "@/lib/seo";
 import { getSite } from "@/lib/content";
 import { PageHero } from "@/components/ui/PageHero";
 import { ServiceRows } from "@/components/sections/services/ServiceRows";
@@ -13,7 +14,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
   const site = getSite(locale);
-  return { title: site.nav.services };
+  return { title: site.nav.services, alternates: alternatesFor(locale, "/services") };
 }
 
 /** docs/02 §9: the sale is the middle of the relationship. V1 hero, six services, the viewing CTA. */

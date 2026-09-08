@@ -1,8 +1,9 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 import { usePathname as useNextPathname } from "next/navigation";
-import { Link, usePathname, type Locale } from "@/lib/i18n";
+import type { Locale } from "@/lib/i18n";
+import { Link, usePathname } from "@/lib/navigation";
 import { cn } from "@/lib/cn";
 import { getLenis } from "@/lib/lenis";
 import { Wordmark } from "@/components/brand/Wordmark";
@@ -23,13 +24,14 @@ interface NavProps {
   locale: Locale;
   labels: NavLabels;
   whatsappHref: string;
+  menuTexture: ReactNode;
 }
 
 /**
  * docs/02 §3.1: transparent over the hero; after 80 px a floating glass pill (56 px, max 1120 px, carbon
  * 82% behind the blur). Desktop: wordmark · links · language toggle + Reserve pill. Mobile: wordmark · ☰.
  */
-export function Nav({ locale, labels, whatsappHref }: NavProps) {
+export function Nav({ locale, labels, whatsappHref, menuTexture }: NavProps) {
   const pathname = usePathname();
   const fullPath = useNextPathname();
   const [scrolled, setScrolled] = useState(false);
@@ -119,6 +121,7 @@ export function Nav({ locale, labels, whatsappHref }: NavProps) {
         whatsappHref={whatsappHref}
         isActive={isActive}
         currentPath={pathname}
+        texture={menuTexture}
       />
     </>
   );

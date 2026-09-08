@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useRef, type CSSProperties } from "react";
-import { Link, type Locale } from "@/lib/i18n";
+import { useEffect, useRef, type CSSProperties, type ReactNode } from "react";
+import type { Locale } from "@/lib/i18n";
+import { Link } from "@/lib/navigation";
 import { cn } from "@/lib/cn";
-import { MediaBg } from "@/components/ui/MediaBg";
 import { Button } from "@/components/ui/Button";
 import type { NavLabels } from "./Nav";
 
@@ -16,13 +16,15 @@ interface MobileMenuProps {
   whatsappHref: string;
   isActive: (href: string) => boolean;
   currentPath: string;
+  /** BR-03 texture, rendered on the server and passed through (keeps the image manifest off the client). */
+  texture: ReactNode;
 }
 
 /**
  * docs/02 §3.1: full-screen obsidian overlay with BR-03 as texture, Display L links stacked with a
  * staggered reveal, language toggle and WhatsApp at the bottom.
  */
-export function MobileMenu({ id, open, onClose, locale, labels, whatsappHref, isActive, currentPath }: MobileMenuProps) {
+export function MobileMenu({ id, open, onClose, locale, labels, whatsappHref, isActive, currentPath, texture }: MobileMenuProps) {
   const ref = useRef<HTMLDivElement>(null);
   const other: Locale = locale === "ar" ? "en" : "ar";
 
@@ -65,7 +67,7 @@ export function MobileMenu({ id, open, onClose, locale, labels, whatsappHref, is
       aria-label={labels.menu}
       aria-hidden={!open}
     >
-      <MediaBg desktop="br-03-d" mobile="br-03-m" overlay="none" className="menu__texture" />
+      {texture}
       <nav className="menu__links">
         {labels.links.map((l, i) => (
           <Link

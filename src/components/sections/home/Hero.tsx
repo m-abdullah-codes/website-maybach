@@ -1,7 +1,7 @@
 import Image from "next/image";
 import type { Car, Site } from "@/lib/content";
 import { img } from "@/lib/images";
-import { Link } from "@/lib/i18n";
+import { Link } from "@/lib/navigation";
 import { Scene } from "@/components/cars/Scene";
 import { SceneMotion } from "@/components/cars/SceneMotion";
 import { Eyebrow } from "@/components/ui/Eyebrow";
@@ -16,7 +16,7 @@ export function Hero({ site, car }: { site: Site; car: Car }) {
   const h = site.home.hero;
   const mini = img(car.images.details[0]);
   return (
-    <SceneMotion afterPreloader drift={-40}>
+    <SceneMotion drift={-40}>
       <Scene
         id="hero"
         bg={{ d: "hm-hero-bg-d", m: "hm-hero-bg-m" }}
@@ -27,6 +27,7 @@ export function Hero({ site, car }: { site: Site; car: Car }) {
         side="end"
         height="hero"
         priority
+        enter="immediate"
         eyebrow={<Eyebrow>{h.eyebrow}</Eyebrow>}
         card={
           <Link href={`/collection/${car.slug}`} className="glass now-showing">

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
 import { isLocale } from "@/lib/i18n";
+import { alternatesFor } from "@/lib/seo";
 import { getSite, getRows, getCategories, getCars } from "@/lib/content";
 import { PageHero } from "@/components/ui/PageHero";
 import { CollectionFilter } from "@/components/cars/CollectionFilter";
@@ -16,7 +17,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
   const site = getSite(locale);
-  return { title: site.nav.collection };
+  return { title: site.nav.collection, alternates: alternatesFor(locale, "/collection") };
 }
 
 // Scene rows alternate the car side so the page zig-zags with the photograph rows (docs/02 §3.10, C2).

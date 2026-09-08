@@ -9,7 +9,8 @@ const nextConfig: NextConfig = {
   images: {
     formats: ["image/avif", "image/webp"],
     deviceSizes: [390, 640, 768, 1024, 1280, 1440, 1680],
-    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384, 512, 640, 768],
+    // No overlap with deviceSizes, so srcsets carry no duplicate candidates.
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384, 512],
     minimumCacheTTL: 31536000,
   },
 };

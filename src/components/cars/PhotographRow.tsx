@@ -1,7 +1,7 @@
 import type { Car, Site, Side } from "@/lib/content";
 import { cn } from "@/lib/cn";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
-import { Link } from "@/lib/i18n";
+import { Link } from "@/lib/navigation";
 import { Section } from "@/components/ui/Section";
 import { MediaBg } from "@/components/ui/MediaBg";
 import { ScrollFx } from "@/components/ui/ScrollFx";

@@ -1,10 +1,10 @@
-import Image from "next/image";
 import type { CSSProperties, ReactNode } from "react";
 import { cn } from "@/lib/cn";
 import { img, bounds } from "@/lib/images";
 import { Section } from "@/components/ui/Section";
 import { MediaBg } from "@/components/ui/MediaBg";
 import { GiantWord } from "@/components/ui/GiantWord";
+import { SceneCut } from "./SceneCut";
 
 export interface SceneProps {
   id?: string;
@@ -31,6 +31,8 @@ export interface SceneProps {
    * hidden by the car. docs/02 §3.9 sketch: top of the word above the roofline, bottom behind the car.
    */
   wordHidden?: number;
+  /** "immediate": the entrance runs from the first paint (the hero). "inview": it waits for the viewport. */
+  enter?: "immediate" | "inview";
 }
 
 const STAGE_WIDTH = { hero: 0.58, row: 0.54 } as const;
@@ -59,6 +61,7 @@ export function Scene({
   card,
   className,
   wordHidden = 0.3,
+  enter = "inview",
 }: SceneProps) {
   const a = img(cut.a);
   const b = img(cut.b);
@@ -97,9 +100,10 @@ export function Scene({
       id={id}
       light={light}
       accent={accent}
-      className={cn("scene", `scene--${side}`, height === "hero" ? "scene--hero" : "scene--row", className)}
+      className={cn("scene scene--enter", enter === "immediate" && "is-in", `scene--${side}`, height === "hero" ? "scene--hero" : "scene--row", className)}
       style={vars}
       data-scene=""
+      data-reveal={enter === "inview" ? "" : undefined}
     >
       <div className="absolute inset-0" data-scene-bg="">
         <MediaBg desktop={bg.d} mobile={bg.m} priority={priority} overlay="x" />
@@ -119,28 +123,7 @@ export function Scene({
           <GiantWord text={word} align={side === "center" ? "center" : "end"} data-scene-word-inner="" />
         </div>
         <div className="scene__car-wrap" data-scene-car="">
-          <Image
-            src={a.src}
-            alt={carAlt}
-            width={a.width}
-            height={a.height}
-            sizes="(min-width: 768px) 60vw, 1px"
-            priority={priority}
-            placeholder="blur"
-            blurDataURL={a.blurDataURL}
-            className="car-cut scene__car scene__car--d"
-          />
-          <Image
-            src={b.src}
-            alt={carAlt}
-            width={b.width}
-            height={b.height}
-            sizes="(min-width: 768px) 1px, 112vw"
-            priority={priority}
-            placeholder="blur"
-            blurDataURL={b.blurDataURL}
-            className="car-cut scene__car scene__car--m"
-          />
+          <SceneCut a={a} b={b} alt={carAlt} priority={priority} />
         </div>
       </div>
 

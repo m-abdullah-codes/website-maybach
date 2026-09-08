@@ -3,20 +3,25 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { cn } from "@/lib/cn";
-import { img } from "@/lib/images";
 import { reducedMotion } from "@/lib/motion";
 import { Emblem } from "@/components/brand/Emblem";
 import { Wordmark } from "@/components/brand/Wordmark";
 
 const KEY = "mb-preloaded";
-const glow = img("ut-glow-01");
+
+export interface GlowImage {
+  src: string;
+  width: number;
+  height: number;
+  blurDataURL?: string;
+}
 
 /**
  * docs/02 §3.16: obsidian screen, UT-GLOW-01 faint at the centre, the emblem drawing itself (700 ms),
  * the wordmark fading in beneath (400 ms), then the curtain lifts (--d-base). ≤ 1.6 s, once per session.
  * The inline script in the layout hides it before hydration on repeat visits.
  */
-export function Preloader({ arabic }: { arabic: boolean }) {
+export function Preloader({ arabic, glow }: { arabic: boolean; glow: GlowImage }) {
   const [state, setState] = useState<"idle" | "lifting" | "done">("idle");
 
   useEffect(() => {
@@ -65,7 +70,8 @@ export function Preloader({ arabic }: { arabic: boolean }) {
         width={glow.width}
         height={glow.height}
         sizes="60vmin"
-        priority
+        loading="eager"
+        fetchPriority="low"
         className="preloader__glow"
       />
       <div className="preloader__lockup">

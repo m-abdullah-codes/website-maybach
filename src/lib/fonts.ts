@@ -8,21 +8,29 @@ import type { Locale } from "./i18n";
 // fall through to Bodoni / Manrope by design (font stacks in globals.css).
 
 export const bodoni = localFont({
-  src: [
-    { path: "../fonts/bodoni-moda-latin.woff2", weight: "400 900", style: "normal" },
-    { path: "../fonts/bodoni-moda-latin-italic.woff2", weight: "400 900", style: "italic" },
-  ],
+  src: [{ path: "../fonts/bodoni-moda-latin.woff2", weight: "400 900", style: "normal" }],
   variable: "--font-bodoni",
   display: "swap",
   preload: true,
   fallback: ["Georgia", "serif"],
 });
 
+// The italic is used by the Statement only (below the fold): not preloaded, so it never competes with the hero.
+export const bodoniItalic = localFont({
+  src: [{ path: "../fonts/bodoni-moda-latin-italic.woff2", weight: "400 900", style: "italic" }],
+  variable: "--font-bodoni-italic",
+  display: "swap",
+  preload: false,
+  fallback: ["Georgia", "serif"],
+});
+
+// docs/02 §2.2 preloads the two display faces; the UI face swaps in from its metric-matched fallback
+// without competing with the hero image on the critical path.
 export const manrope = localFont({
   src: [{ path: "../fonts/manrope-latin.woff2", weight: "200 800", style: "normal" }],
   variable: "--font-manrope",
   display: "swap",
-  preload: true,
+  preload: false,
   fallback: ["system-ui", "sans-serif"],
 });
 
@@ -47,6 +55,6 @@ export const plexArabic = localFont({
 
 /** Font CSS-variable classes for <html>; the Arabic faces are attached only on /ar. */
 export function fontClass(locale: Locale): string {
-  const base = `${bodoni.variable} ${manrope.variable}`;
+  const base = `${bodoni.variable} ${bodoniItalic.variable} ${manrope.variable}`;
   return locale === "ar" ? `${base} ${amiri.variable} ${plexArabic.variable}` : base;
 }

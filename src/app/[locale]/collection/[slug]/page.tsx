@@ -4,7 +4,7 @@ import { setRequestLocale } from "next-intl/server";
 import { isLocale, routing } from "@/lib/i18n";
 import { getSite, getCar, getCars, getCarSlugs } from "@/lib/content";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
-import { carJsonLd, absoluteUrl, localePath } from "@/lib/seo";
+import { carJsonLd, absoluteUrl, alternatesFor } from "@/lib/seo";
 import { JsonLd } from "@/components/ui/JsonLd";
 import { CarHero } from "@/components/sections/car/CarHero";
 import { SpecStrip } from "@/components/sections/car/SpecStrip";
@@ -30,13 +30,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   return {
     title: { absolute: car.seo.title },
     description: car.seo.description,
-    alternates: {
-      canonical: absoluteUrl(localePath(locale, `/collection/${slug}`)),
-      languages: {
-        en: absoluteUrl(`/collection/${slug}`),
-        ar: absoluteUrl(`/ar/collection/${slug}`),
-      },
-    },
+    alternates: alternatesFor(locale, `/collection/${slug}`),
     openGraph: { images: [{ url: absoluteUrl(car.images.heroD), width: 1672, height: 941 }] },
   };
 }

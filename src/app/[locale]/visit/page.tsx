@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
 import { isLocale } from "@/lib/i18n";
+import { alternatesFor } from "@/lib/seo";
 import { getSite, getCars } from "@/lib/content";
 import { PageHero } from "@/components/ui/PageHero";
 import { Details } from "@/components/sections/visit/Details";
@@ -14,7 +15,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
   const site = getSite(locale);
-  return { title: site.nav.visit };
+  return { title: site.nav.visit, alternates: alternatesFor(locale, "/visit") };
 }
 
 /** docs/02 §10: the majlis. M1 hero, details and map, the form, the hospitality line. */

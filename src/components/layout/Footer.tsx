@@ -1,4 +1,5 @@
-import { Link, type Locale } from "@/lib/i18n";
+import type { Locale } from "@/lib/i18n";
+import { Link } from "@/lib/navigation";
 import { getSite } from "@/lib/content";
 import { Wordmark } from "@/components/brand/Wordmark";
 import { MediaBg } from "@/components/ui/MediaBg";
