@@ -8,6 +8,8 @@ import { Grain } from "./Grain";
 import { SmoothScroll } from "./SmoothScroll";
 import { Preloader } from "./Preloader";
 import { PageTransition } from "./PageTransition";
+import { JsonLd } from "@/components/ui/JsonLd";
+import { autoDealerJsonLd } from "@/lib/seo";
 
 /** The global shell (docs/03 Phase 1): preloader, nav, main, footer, sticky bar, grain, transition, smooth scroll. */
 export function Shell({
@@ -38,6 +40,7 @@ export function Shell({
 
   return (
     <>
+      <JsonLd data={autoDealerJsonLd(site, locale)} />
       <Preloader arabic={locale === "ar"} />
       <Nav locale={locale} labels={labels} whatsappHref={whatsappHref} />
       <main id="main">{children}</main>
