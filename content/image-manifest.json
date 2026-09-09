@@ -905,7 +905,7 @@
       "car": null,
       "environment": null,
       "role": "site",
-      "use": "Home H6 \"Come after dark\" full-bleed — the façade at deep blue hour, the sign lit and the cars visible through the glass. Also the base plate for the SH-01 façade refresh (imagery brief §7.1)."
+      "use": "The façade the client photographed in September (sand limestone, charcoal fascia, licence 4924), retouched to deep blue hour. Rendered nowhere: it ran as the Home hero briefly, then SH-01 took that slot so the site shows one building throughout. Keep — it is the base plate for the SH-01 façade refresh if the new premises are confirmed (imagery brief §7.1, qa/QUESTIONS.md)."
     },
     {
       "file": "/images/mb-hm-facade-m.png",
@@ -918,7 +918,7 @@
       "car": null,
       "environment": null,
       "role": "site",
-      "use": "Home H6 \"Come after dark\" full-bleed — the façade at deep blue hour, the sign lit and the cars visible through the glass. Also the base plate for the SH-01 façade refresh (imagery brief §7.1)."
+      "use": "The façade the client photographed in September (sand limestone, charcoal fascia, licence 4924), retouched to deep blue hour. Rendered nowhere: it ran as the Home hero briefly, then SH-01 took that slot so the site shows one building throughout. Keep — it is the base plate for the SH-01 façade refresh if the new premises are confirmed (imagery brief §7.1, qa/QUESTIONS.md)."
     },
     {
       "file": "/images/mb-hm-feat-bg-d.png",
@@ -951,7 +951,7 @@
       "ratio": 1.777,
       "variant": "desktop",
       "role": "site",
-      "use": "Home H1 hero, full-bleed — the showroom interior after hours, the Cullinan alone under one pool of downlight. The hero’s only photographic layer: no cut-out over it. The giant word MAY BACH sits over the dark glass wall at 60% opacity."
+      "use": "The showroom interior after hours, the Cullinan alone under one pool of downlight. Rendered nowhere: it was the Home hero until the client asked for the façade, and SH-05 is the same composition. Keep — it is the strongest plate in the set."
     },
     {
       "file": "/images/mb-hm-hero-bg-m.png",
@@ -962,7 +962,7 @@
       "ratio": 0.563,
       "variant": "mobile",
       "role": "site",
-      "use": "Home H1 hero, full-bleed — the showroom interior after hours, the Cullinan alone under one pool of downlight. The hero’s only photographic layer: no cut-out over it. The giant word MAY BACH sits over the dark glass wall at 60% opacity."
+      "use": "The showroom interior after hours, the Cullinan alone under one pool of downlight. Rendered nowhere: it was the Home hero until the client asked for the façade, and SH-05 is the same composition. Keep — it is the strongest plate in the set."
     },
     {
       "file": "/images/mb-hm-hero-still-d.png",
@@ -1375,7 +1375,7 @@
       "ratio": 1.777,
       "variant": "desktop",
       "role": "site",
-      "use": "Showroom page hero (S1) — façade at blue hour. Word RIYADH sits over the sky at 60% opacity."
+      "use": "Showroom page hero, full-bleed; and Home H1 hero — both open on the same photograph of the building, at the client’s request."
     },
     {
       "file": "/images/mb-sh-01-m.png",
@@ -1386,7 +1386,7 @@
       "ratio": 0.563,
       "variant": "mobile",
       "role": "site",
-      "use": "Showroom page hero (S1) — façade at blue hour. Word RIYADH sits over the sky at 60% opacity."
+      "use": "Showroom page hero, full-bleed; and Home H1 hero — both open on the same photograph of the building, at the client’s request."
     },
     {
       "file": "/images/mb-sh-02-d.png",
@@ -1452,7 +1452,7 @@
       "ratio": 1.777,
       "variant": "desktop",
       "role": "site",
-      "use": "Showroom S4 \"After hours\" full-bleed. (Was also Home H6 \"Come after dark\"; that slot is now HM-FACADE.)"
+      "use": "Home H6 \"Come after dark\" full-bleed; Showroom S4 \"After hours\"."
     },
     {
       "file": "/images/mb-sh-05-m.png",
@@ -1463,7 +1463,7 @@
       "ratio": 0.563,
       "variant": "mobile",
       "role": "site",
-      "use": "Showroom S4 \"After hours\" full-bleed. (Was also Home H6 \"Come after dark\"; that slot is now HM-FACADE.)"
+      "use": "Home H6 \"Come after dark\" full-bleed; Showroom S4 \"After hours\"."
     },
     {
       "file": "/images/mb-sh-06-d.png",

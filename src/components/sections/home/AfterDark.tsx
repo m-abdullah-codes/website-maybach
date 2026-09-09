@@ -22,7 +22,7 @@ export function AfterDark({ site }: { site: Site }) {
   return (
     <Section id="after-dark" className="afterdark">
       <ScrollFx scaleFrom={1.08} className="absolute inset-0 will-change-transform">
-        <MediaBg desktop="hm-facade-d" mobile="hm-facade-m" overlay="y" />
+        <MediaBg desktop="sh-05-d" mobile="sh-05-m" overlay="y" />
       </ScrollFx>
       <div className="wrap afterdark__inner">
         <Reveal>

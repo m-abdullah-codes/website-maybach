@@ -325,7 +325,6 @@
   .scene__car-wrap { position: relative; z-index: 2; display: flex; justify-content: center; width: 100%; margin-top: var(--car-pull-m, 0px); margin-inline-start: var(--car-x-m, 0px); margin-inline-end: calc(-1 * var(--car-x-m, 0px)); }
   .scene__car { position: relative; flex: none; width: var(--car-w-m, 96vw); max-width: none; height: auto; aspect-ratio: var(--car-ratio-m, auto); }
   .scene__copy { position: relative; z-index: 3; margin-top: var(--copy-top-m, 140vw); padding-top: 0; padding-bottom: calc(var(--pad-bottom-m, 24px) + env(safe-area-inset-bottom)); }
-  .scene__copy .scroll-cue { display: none; }
   .scene__copy .eyebrow { display: none; }
   .scene--center .scene__copy { text-align: center; }
   .scene--center .scene__copy .eyebrow { justify-content: center; }
@@ -334,10 +333,8 @@
      card keeps its space in the layout (so nothing shifts, CLS stays 0) and arrives on the first scroll.
      Hidden rather than transparent, so it is never a focus stop while it cannot be seen. */
   @media (max-width: 767px) {
-    .scene--hero .scene__card,
-    .page-hero__card { opacity: 0; visibility: hidden; transition: opacity var(--d-base) var(--ease-out), visibility 0s linear var(--d-base); }
-    html[data-scrolled] .scene--hero .scene__card,
-    html[data-scrolled] .page-hero__card { opacity: 1; visibility: visible; transition: opacity var(--d-base) var(--ease-out), visibility 0s; }
+    .scene--hero .scene__card { opacity: 0; visibility: hidden; transition: opacity var(--d-base) var(--ease-out), visibility 0s linear var(--d-base); }
+    html[data-scrolled] .scene--hero .scene__card { opacity: 1; visibility: visible; transition: opacity var(--d-base) var(--ease-out), visibility 0s; }
   }
   .scene__fallback { display: none; }
   [data-cut-failed] .scene__fallback { display: block; position: absolute; inset: 0; z-index: 1; }
@@ -379,7 +376,6 @@
     .scene__car-wrap { display: block; width: 100%; margin: 0; }
     .scene__car { width: 100%; aspect-ratio: var(--car-ratio-d, auto); }
     .scene__copy { width: 100%; margin: 0; padding-bottom: var(--copy-bottom, 12vh); }
-    .scene__copy .scroll-cue { display: flex; }
     .scene__copy-inner { max-width: var(--copy-w, 44%); margin-inline-start: var(--copy-inset, 0px); }
     .scene__card { position: absolute; z-index: 3; inset-inline-end: var(--card-end, 80px); bottom: var(--card-bottom, 6vh); padding: 0; }
 
@@ -647,15 +643,6 @@
   .page-hero__copy { margin-top: auto; padding-top: 48px; }
   .page-hero--top .page-hero__copy { margin-top: 0; padding-top: 32px; }
   .page-hero--sky .page-hero__word { margin-top: 8px; }
-  /* The "Now showing" card, in the one page hero that has one (Home). PageHero sets none of the Scene's
-     custom properties, so the two insets .scene__card reads from --card-end / --card-bottom are written
-     out here instead: the same 80 px and 6vh, measured from .page-hero__inner, which is the .wrap — so
-     at 1440 and below the card lands exactly where the Scene put it, and above 1440 it stays on the
-     copy's gutter instead of drifting to the viewport edge. Under 768 px it is in flow beneath the copy
-     and waits for the first scroll (the rule with .scene--hero above), so the first screen is the word,
-     the headline and the two buttons. It keeps its box either way: CLS stays 0. */
-  .page-hero__card { margin-top: 32px; }
-  @media (min-width: 768px) { .page-hero__card { position: absolute; z-index: 3; inset-inline-end: 80px; bottom: 6vh; margin-top: 0; } }
   .page-404 { display: grid; place-items: center; min-height: 100svh; text-align: center; }
   .page-404__inner { position: relative; z-index: 2; padding-block: 120px; }
 
@@ -684,25 +671,12 @@
   html.js .split-text { opacity: 0; }
   html.js .split-text.is-in { opacity: 1; transition: opacity 200ms linear; }
   html.js .split-text.is-split { opacity: 1; }
-  .scroll-cue { display: flex; align-items: center; gap: 12px; margin-top: 40px; font: 400 13px/1 var(--font-sans); letter-spacing: .01em; color: var(--color-pewter); }
-  .scroll-cue::after { content: ""; width: 40px; height: 1px; background: currentColor; opacity: .5; transform-origin: 0 50%; animation: cue 2.4s var(--ease-inout) infinite; }
-  [dir="rtl"] .scroll-cue::after { transform-origin: 100% 50%; }
 }
 
 /* ------------------------------------------------------------------ */
 /* Home sections and car rows: docs/02 §5, §3.10, §3.11, §3.7           */
 /* ------------------------------------------------------------------ */
 @layer components {
-  .now-showing { display: flex; align-items: center; gap: 16px; width: 100%; padding: 16px 20px 16px 16px; color: var(--color-platinum); }
-  [dir="rtl"] .now-showing { padding: 16px 16px 16px 20px; }
-  @media (min-width: 768px) { .now-showing { width: 380px; } }
-  .now-showing__img { flex: none; width: 72px; height: 72px; border-radius: var(--radius-img); object-fit: cover; }
-  .now-showing__text { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
-  .now-showing__view { margin-top: 4px; color: var(--color-silver); }
-  .hero__actions { display: flex; flex-direction: column; gap: 12px; margin-top: 32px; }
-  .hero__actions .btn { width: 100%; }
-  @media (min-width: 768px) { .hero__actions { flex-direction: row; align-items: center; gap: 16px; } .hero__actions .btn { width: auto; } }
-
   .statement { display: flex; min-height: 70svh; }
   @media (min-width: 768px) { .statement { min-height: 100vh; } }
   .statement__inner { position: relative; z-index: 2; margin: auto; padding-block: 96px; text-align: center; }
@@ -749,6 +723,20 @@
   .ccard__strip { position: absolute; inset-inline: 16px; bottom: 16px; z-index: 2; padding: 24px; transition: transform var(--d-fast) var(--ease-out); }
   .ccard:hover .ccard__strip { transform: translateY(-4px); }
   .ccard__title { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-top: 10px; }
+  /* A glass strip takes the colour of the photograph under it. Where that photograph is pale — which,
+     since the cars moved indoors, is most of them — the strip sets its type in ink instead of platinum.
+     Which cards get this is measured, not guessed: src/lib/luma.json, written by npm run blur. The
+     tokens are the light room's, so no new colour enters the interface. */
+  .ccard__strip--ink {
+    color: var(--color-ink);
+    /* Not --color-ink-2, which is the light room's secondary. The salon is a flat #D8D5CF and ink-2
+       clears 4.5:1 on it; this strip is translucent glass over a photograph and lands nearer #7A7266,
+       where ink-2 measures about 1.4:1 and the whisper line vanishes. All three lines take full ink and
+       the hierarchy is carried by type size and letterspacing, which is where it belongs. */
+    --color-silver: var(--color-ink);
+    --color-pewter: var(--color-ink);
+  }
+  .ccard__strip--ink .ccard__arrow { color: var(--color-ink); }
   .ccard__arrow { flex: none; align-self: center; color: var(--color-silver); }
   [dir="rtl"] .ccard__arrow { transform: scaleX(-1); }
 
@@ -864,12 +852,13 @@
   @media (min-width: 768px) { .nothere__panel { padding: 48px; } }
 
   /* Car detail: docs/02 §7 D1–D8 */
-  .car-hero__inner { position: relative; z-index: 2; display: flex; flex-direction: column; margin-top: auto; padding-top: 40vh; padding-bottom: 96px; }
-  @media (min-width: 768px) { .car-hero__inner { padding-top: 0; padding-bottom: calc(9vh + 56px); } }
-  .car-hero__copy { max-width: 640px; }
-  .car-hero__actions { display: flex; flex-direction: column; gap: 12px; margin-top: 32px; }
-  .car-hero__actions .btn { width: 100%; }
-  @media (min-width: 640px) { .car-hero__actions { flex-direction: row; align-items: center; gap: 16px; } .car-hero__actions .btn { width: auto; } }
+  /* The same column as .page-hero--sky: the word high in the photograph, the copy pinned to the bottom.
+     padding-top clears the liquid badge and the environment caption, which are absolutely placed at
+     96 px (mobile) and 112 px (desktop) by .prow--hero .prow__badges. */
+  .car-hero__inner { position: relative; z-index: 2; display: flex; flex: 1; flex-direction: column; padding-top: calc(148px + env(safe-area-inset-top)); padding-bottom: 96px; }
+  @media (min-width: 768px) { .car-hero__inner { padding-top: 164px; padding-bottom: calc(9vh + 56px); } }
+  .car-hero__word { margin-top: 0; }
+  .car-hero__copy { max-width: 640px; margin-top: auto; padding-top: 48px; }
 
   .glance { position: relative; z-index: 4; margin-top: -48px; }
   /* scroll-padding matters: with `scroll-snap-align: start` and no scroll-padding, the browser snaps
@@ -1060,7 +1049,6 @@
 @keyframes scene-car { from { opacity: .55; transform: translateY(40px); } to { opacity: 1; transform: none; } }
 @keyframes scene-fade { from { opacity: .6; } to { opacity: 1; } }
 @keyframes scene-rise { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
-@keyframes cue { 0%, 100% { transform: scaleX(.3); opacity: .3; } 50% { transform: scaleX(1); opacity: .6; } }
 @keyframes marquee { to { transform: translateX(-50%); } }
 @keyframes marquee-rtl { to { transform: translateX(50%); } }
 @keyframes draw { to { stroke-dashoffset: 0; } }
@@ -1079,7 +1067,6 @@
   .giant--gated.is-in .giant__char { animation: piece-fade 200ms linear backwards; animation-delay: 0ms; }
   html.js .scene--enter:not(.is-in) [data-scene-car] { transform: none; }
   .scene--enter.is-in [data-scene-bg], .scene--enter.is-in [data-scene-word], .scene--enter.is-in [data-scene-car], .scene--enter.is-in [data-scene-copy] > *, .scene--enter.is-in [data-scene-card] { animation: scene-fade 200ms linear backwards; animation-delay: 0ms; }
-  .scroll-cue::after { animation: none; transform: none; }
   .marquee__track { animation: none; flex-wrap: wrap; justify-content: center; width: auto; }
   .marquee__set:last-child { display: none; }
   .marquee { -webkit-mask-image: none; mask-image: none; }

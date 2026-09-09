@@ -18,8 +18,6 @@ interface PageHeroProps {
   /** "top": word under the eyebrow (Collection, Services, Visit). "sky": word high in the photo, copy at the bottom (Showroom). */
   wordPlacement?: "top" | "sky";
   children?: ReactNode;
-  /** A floating glass card, bottom-end on desktop and under the copy on mobile (the Home hero's "Now showing"). */
-  card?: ReactNode;
   className?: string;
   position?: string;
   positionMobile?: string;
@@ -29,9 +27,8 @@ interface PageHeroProps {
  * docs/02 §3.9: the page-hero words (COLLECTION, RIYADH, BEYOND, MAJLIS) sit over a photograph at
  * reduced opacity, with no cut-out. A two-layer treatment that shares the type but never competes with a car.
  *
- * The Home hero uses this too since September 2026 (see Hero.tsx), which is why the two optional slots
- * below exist: `wordAlt` makes the word cycle, and `card` gives it somewhere to put the "Now showing"
- * panel. Neither is passed by the four page heroes, so their markup is unchanged.
+ * The Home hero uses this too since September 2026 (see Hero.tsx), which is why `wordAlt` exists: it
+ * makes the word cycle. The four page heroes do not pass it, so their markup is unchanged.
  *
  * The word stays decorative in both cases and the headline keeps the h1 — "Where Riyadh keeps its
  * finest." names the page better than a wordmark that changes every few seconds, and a heading whose
@@ -47,7 +44,6 @@ export function PageHero({
   sub,
   wordPlacement = "top",
   children,
-  card,
   className,
   position,
   positionMobile,
@@ -69,7 +65,6 @@ export function PageHero({
           {sub && <p className="t-body-l measure mt-4 text-silver">{sub}</p>}
           {children}
         </div>
-        {card && <div className="page-hero__card">{card}</div>}
       </div>
     </Section>
   );

@@ -468,3 +468,44 @@ The 20 cut-outs (`*-CUT-A/-B`) and therefore `src/lib/bounds.json`; the 10 car i
 
 **Screenshots:** `qa/showroom-set/` (60 routes, `sections/` for four pages, `scenes/` for the four Scenes, `reduced-motion-*`).
 **Open questions:** `qa/QUESTIONS.md` — the façade discrepancy and licence 4924 vs 4447, the G 63 wadi line, and the eight Arabic room names pending a native check.
+
+
+## The heroes go minimal, and the card strips learn to read
+
+Four client notes in one sitting, all about the same instinct: *"the content on it should be very minimal, so to give a premium, luxury and a clean feel."*
+
+**The home hero is now four things.** Eyebrow, giant word, headline, support line — the identical set the Showroom, Services, Visit and Collection heroes carry. Gone: the two buttons, the scroll cue, and the floating "Now showing" card. The landing page therefore carries **no call to action of its own**, which is a real departure from `docs/02 §5 H1` and is named here rather than buried: it leans on the nav's standing "Reserve a viewing" pill, the sticky Enquire / Concierge bar that appears the moment the hero is passed, and H3 "Currently in residence" one scroll down. If that proves too quiet in use, one `<div className="hero__actions">` brings the buttons back.
+
+**And it is the Showroom page's own photograph.** `SH-01`, not a plate of its own — the client asked for "the same photo as on the showroom page", so the two pages open on the same building in the same light. It got there in three steps: the interior-after-hours plate, then `HM-FACADE` (the façade he photographed in September), then `SH-01`. Both of the others stay on disk. **`SH-05` is back at H6 "Come after dark"**, where `docs/02` put it, so no room appears twice on the page.
+
+One consequence to put in front of him, and it is the same open question as before, now sharper: **`SH-01` is the *old* façade** — the white-framed glass building with the navy sign and licence **4447** — not the sand-limestone one with licence **4924** that he photographed. Using it makes the site internally consistent (Home, Showroom and Visit all show one building) at the price of showing the older premises everywhere, and it leaves `HM-FACADE`, generated this round, rendering nowhere. `qa/QUESTIONS.md §6` asks which building is current; the answer decides whether eleven images get regenerated.
+
+**The giant word leads with THE FINEST, not MAY BACH.** The imagery brief asked this question in advance (§9.3, "the giant word over the sign") and pre-answered it: it only matters if a façade is ever promoted to the hero, "and then the answer is to lead with THE FINEST". It has been, and the giant wordmark was landing directly above the real one on the fascia — badly at 1440, worse at 390, where the ghosted BACH sat on the lit sign. The cycle itself is unchanged; only which phrase is painted first. Two lines in `Hero.tsx` swap it back.
+
+**The car detail hero is the same recipe.** `overlay="y"` instead of `"x"`, so the photograph darkens from the bottom and the car keeps its whole width, which is the point of a full-bleed photograph of one car. Three lines of copy instead of five: the colour line went because `EXTERIOR` and `INTERIOR` are already two chips in the spec strip a hundred pixels below it, and the two buttons went because D6 "Enquire" is a whole section of the same page. And it carries the giant word now, resolved exactly as the Collection rows resolve it — `giantWord ?? model` — so the three cars that have a word cycle it and the other seven set their model name once. No copy was invented for it; on the Flying Spur's salon the word turns ink by itself, because `.scene--light .giant` already remaps the fill.
+
+### The card strips: a measurement, not a colour
+
+The client's note was *"the text on the cards like mercedes benz s class should have darker font color — it's not very visible"*, and the first attempt got it wrong: the strip was given `glass--ground`, which fixed legibility by killing the glass. He was right to push back — *"the glass morphism was looking good"* — and the second attempt is the correct one.
+
+The strip is glass, so its legibility is the photograph's, not the panel's. Since the cars moved indoors every card photograph ends in polished cream marble and platinum type all but vanished. But a single darker colour is not the answer either. Measured behind the strip, in the exact band the strip covers:
+
+```
+c8  20 · cul 51 · cgt 57 · scl-m 69 · g63 72 · yuk 74 · uru-m 74 · rra 79 · 911 79 · g63-m 84 · uru 96 · scl 107 · fsm 170
+```
+
+Ink would have fixed the bright end and destroyed the Corvette's black studio and the Cullinan's dark marble. So `scripts/blur-placeholders.mjs` now writes a third file, **`src/lib/luma.json`** — for every image a card can use, the mean luminance of the band the strip sits over — and `CarCard` picks ink above 65 and platinum below it. Ten cards, every one over 3.8:1. Nothing about the glass recipe changed, and `bounds.json` is byte-identical after the re-run (md5 `8008fa72…`), because no cut-out moved.
+
+One detail that needed a second look: the ink strip sets **all three lines in full `--color-ink`**, not `--color-ink-2`. The light room's secondary token clears 4.5:1 on the flat salon, but this strip is translucent glass over a photograph and lands nearer #7A7266, where ink-2 measures about **1.4:1** and the whisper line disappears. Hierarchy is carried by type size and letterspacing instead, which is where it belongs.
+
+### Dead code removed with the furniture
+
+`.hero__actions`, `.now-showing` and its four children, `.scroll-cue` and its `@keyframes cue`, the two `.scene__copy .scroll-cue` rules, `.car-hero__actions`, and the `card` slot on `PageHero` with its `.page-hero__card` rules — all had exactly one user each and that user is gone. The `.scene--hero .scene__card` reveal rule goes back to naming only the Scene's card. `Hero` no longer takes a `car`, so the home page stopped fetching the Cullinan for it.
+
+### Checked
+
+`npm run build`, `typecheck` and `lint` clean — 0 errors, the same six pre-existing warnings. **60 route captures console-clean**, 30 `en` and 30 `ar`, at 390 and 1440, no 4xx. **Exactly one `h1` on all 22 route/locale combinations**, and on Home it is still the headline. **CLS 0.0000** on `/`, `/collection`, both car pages and `/ar/collection/rolls-royce-cullinan` at both widths; `/ar` 0.0001 and `/ar/collection` 0.0003 at 390, the pre-existing Arabic font swap. A 0.0159 reading on Home at 1440 appeared once and did not reproduce in four consecutive runs — a flake, recorded because it was seen. **Giant-word / car parity stable in all 10 scene/width combinations**, both hand-overs observed. **Reduced motion**: one word painted, no cycle, no animation, console clean. **LCP** is the `h1` at 656 ms (390) and 692 ms (1440), equal to first paint. **Weights**: `sh-01-m` 26 KB against a 180 KB cap, `sh-01-d` 76 KB against 350 KB; Home's first screen is 35 KB over 4 requests at 390 and 137 KB over 4 at 1440.
+
+**One QA trap worth writing down.** Clearing `.next/cache/images` and then running `scripts/shoot.mjs` will hang on the Corvette page: `networkidle` never settles while its clip loops, playwright aborts the navigation at 30 s, and that leaves Next's image optimiser holding an in-flight lock on `mb-c8-hero-m.png` — every later request for that exact URL then waits forever, and `load` never fires on that route. The file is fine (sharp resizes and encodes it to AVIF in 439 ms) and so is the cache; restarting the server clears it. It cost half an hour of looking for a defect that was not there.
+
+**Screenshots:** `qa/showroom-set/`.
