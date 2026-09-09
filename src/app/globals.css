@@ -113,6 +113,15 @@
 
   .media-bg__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: var(--pos-m, 50% 50%); }
   @media (min-width: 768px) { .media-bg__img { object-position: var(--pos-d, 50% 50%); } }
+  /* The moving version of a mobile still (src/lib/videos.ts), laid over the photograph it matches and
+     faded in once it is actually playing — the clip opens three quarters of a second into the master
+     (the seam the loop is cut on), so a cut would show a lighting change the dissolve absorbs.
+     display:none above 768 px is load-bearing: an element with no box never intersects, so the
+     observer never gives it a src and no desktop connection ever pays for it. */
+  .media-bg__video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: var(--pos-m, 50% 50%); opacity: 0; transition: opacity 700ms var(--ease-out); }
+  .media-bg__video.is-playing { opacity: 1; }
+  @media (min-width: 768px) { .media-bg__video { display: none; } }
+  @media (prefers-reduced-motion: reduce) { .media-bg__video { display: none; } }
   .hairline-top    { border-top: 1px solid var(--color-line); }
   .hairline-bottom { border-bottom: 1px solid var(--color-line); }
   .accent-dot      { background: var(--scene-accent); }
@@ -187,17 +196,42 @@
     font-family: var(--font-display); font-weight: 400; line-height: .85; letter-spacing: -.02em; text-transform: uppercase;
     font-size: var(--giant-m); pointer-events: none; user-select: none;
     font-optical-sizing: auto; text-wrap: balance;
-    background: linear-gradient(180deg, rgba(236,234,228,.92) 0%, rgba(236,234,228,.55) 55%, rgba(236,234,228,0) 100%);
+    --giant-fill: linear-gradient(180deg, rgba(236,234,228,.92) 0%, rgba(236,234,228,.55) 55%, rgba(236,234,228,0) 100%);
+    background-image: var(--giant-fill);
     -webkit-background-clip: text; background-clip: text; color: transparent;
   }
   @media (max-width: 767px) { .giant__word { display: block; } }
   @media (min-width: 768px) { .giant { font-size: var(--giant-d); } }
   .scene--light .giant, .giant--light {
-    background: linear-gradient(180deg, rgba(14,14,16,.88) 0%, rgba(14,14,16,.60) 55%, rgba(14,14,16,0) 100%);
-    -webkit-background-clip: text; background-clip: text;
+    --giant-fill: linear-gradient(180deg, rgba(14,14,16,.88) 0%, rgba(14,14,16,.60) 55%, rgba(14,14,16,0) 100%);
   }
   /* Page-hero words sit over a photograph at reduced opacity (docs/02 §3.9) */
   .giant--hero { opacity: .6; }
+
+  /* Cut into its letters (GiantWord). The fill moves onto the characters: a character that carries its own
+     opacity and transform cannot be painted through an ancestor's background-clip. Every character box is
+     the same height, so on one line the gradient is identical to the undivided word; where the word breaks
+     over lines each line takes its slice of it (--fill-h / --fill-y) and the fade still runs top to bottom
+     across the whole word. Letters are separate boxes, so nowrap holds each word together. */
+  /* The alternating word (GiantCycle): every phrase in one grid cell, so the container is as tall as
+     the tallest of them and never resizes as they swap. That is what keeps the car — which is
+     positioned under this box on mobile — still, and CLS at 0. Layers waiting their turn are hidden
+     rather than transparent so they are never picked up by find-in-page or the a11y tree. */
+  .giant-cycle { display: grid; }
+  .giant-cycle > .giant { grid-area: 1 / 1; }
+  .giant-cycle__layer--waiting { visibility: hidden; }
+  @media (prefers-reduced-motion: reduce) { .giant-cycle__layer--waiting { display: none; } }
+
+  .giant--split { background-image: none; }
+  .giant__word { white-space: nowrap; }
+  .giant--split .giant__char {
+    display: inline-block;
+    background-image: var(--giant-fill); background-repeat: no-repeat;
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  @media (max-width: 767px) {
+    .giant--split .giant__char { background-size: 100% var(--fill-h, 100%); background-position: 0 var(--fill-y, 0%); }
+  }
 
   .overlay-x { background: linear-gradient(90deg, rgba(7,7,8,.85) 0%, rgba(7,7,8,.35) 40%, rgba(7,7,8,0) 70%); }
   [dir="rtl"] .overlay-x { background: linear-gradient(270deg, rgba(7,7,8,.85) 0%, rgba(7,7,8,.35) 40%, rgba(7,7,8,0) 70%); }
@@ -233,7 +267,40 @@
     content: ""; position: absolute; inset: auto 0 0 0; height: 120px; pointer-events: none; z-index: 1;
     background: linear-gradient(180deg, transparent, var(--color-obsidian));
   }
-  .scene--light.fade-bottom::after { background: linear-gradient(180deg, transparent, var(--color-salon)); }
+  /* The light room keeps its floor. A full 120 px fade to flat salon erased the last of the
+     photograph, so a plain swatch met the night picture below it and the join read as a drawn line.
+     Shorter, and eased rather than linear — `transparent` here is the salon at zero alpha, not
+     CSS `transparent` (rgba(0,0,0,0)), which would pull the middle of the ramp toward black. */
+  .scene--light.fade-bottom::after {
+    height: 64px;
+    background: linear-gradient(180deg,
+      rgba(216,213,207,0) 0%,
+      rgba(216,213,207,.18) 30%,
+      rgba(216,213,207,.55) 62%,
+      rgba(216,213,207,.86) 84%,
+      rgba(216,213,207,1) 100%);
+  }
+  /* The other half of that join: a dark section that follows the light room comes up out of salon
+     rather than starting at an edge.
+     Two things this went through. A 200 px linear wash was too long — it greyed the top of the
+     photograph for a third of a phone screen. Cutting it to 88 px with a flat hold then a cliff was
+     too abrupt, and worse: the eye does not catch the gradient, it catches the *corner* where a flat
+     plateau turns into a falloff, and drew a line there. So: no plateau, and an eased multi-stop
+     ramp whose slope changes smoothly from one end to the other, over a distance that still reads as
+     a seam rather than a haze. Every stop is the salon at a decreasing alpha — never CSS
+     `transparent`, which is rgba(0,0,0,0) and darkens the middle of a light-to-dark ramp. */
+  .fade-top-salon::before {
+    content: ""; position: absolute; inset: 0 0 auto 0; height: 132px; pointer-events: none; z-index: 1;
+    background: linear-gradient(180deg,
+      rgba(216,213,207,1) 0%,
+      rgba(216,213,207,.94) 14%,
+      rgba(216,213,207,.80) 28%,
+      rgba(216,213,207,.60) 44%,
+      rgba(216,213,207,.38) 60%,
+      rgba(216,213,207,.20) 74%,
+      rgba(216,213,207,.07) 88%,
+      rgba(216,213,207,0) 100%);
+  }
 
   .rim-glow { background: radial-gradient(60% 40% at 50% 70%, rgba(255,255,255,.07), transparent 70%); }
   .scene--light .rim-glow { background: radial-gradient(60% 40% at 50% 70%, rgba(0,0,0,.06), transparent 70%); }
@@ -249,29 +316,38 @@
 @layer components {
   .scene { display: flex; flex-direction: column; min-height: 100svh; isolation: isolate; }
   .scene--row { min-height: 88svh; }
-  .scene__eyebrow { position: relative; z-index: 3; padding: calc(88px + env(safe-area-inset-top)) 24px 0; }
-  .scene__stage { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; margin-top: auto; padding-top: 12px; }
+  /* Mobile geometry. Every offset here is a margin, an inset or a width, never a transform: transforms
+     on the [data-scene-*] nodes belong to the motion layer. The values come from src/lib/scene-config.ts. */
+  .scene__eyebrow { position: absolute; z-index: 3; top: calc(var(--pad-top-m, 88px) + env(safe-area-inset-top)); inset-inline: 0; padding: 0 24px; }
+  .scene__stage { position: absolute; z-index: 2; top: var(--stage-top-m, 113px); inset-inline: 0; display: flex; flex-direction: column; align-items: center; }
   .scene__glow { position: absolute; inset: -20% -10%; z-index: 0; pointer-events: none; }
-  .scene__word { position: relative; z-index: 1; width: 100%; text-align: center; padding-inline: 8px; }
-  .scene__car-wrap { position: relative; z-index: 2; display: flex; justify-content: center; width: 100%; margin-top: var(--car-pull-m, 0px); }
+  .scene__word { position: relative; z-index: 1; width: 100%; text-align: center; padding-inline: 8px; margin-inline-start: var(--word-x-m, 0px); margin-inline-end: calc(-1 * var(--word-x-m, 0px)); }
+  .scene__car-wrap { position: relative; z-index: 2; display: flex; justify-content: center; width: 100%; margin-top: var(--car-pull-m, 0px); margin-inline-start: var(--car-x-m, 0px); margin-inline-end: calc(-1 * var(--car-x-m, 0px)); }
   .scene__car { position: relative; flex: none; width: var(--car-w-m, 96vw); max-width: none; height: auto; aspect-ratio: var(--car-ratio-m, auto); }
-  .scene__copy { position: relative; z-index: 3; margin-top: var(--copy-pull-m, 0px); margin-bottom: auto; padding-top: 0; padding-bottom: calc(24px + env(safe-area-inset-bottom)); }
+  .scene__copy { position: relative; z-index: 3; margin-top: var(--copy-top-m, 140vw); padding-top: 0; padding-bottom: calc(var(--pad-bottom-m, 24px) + env(safe-area-inset-bottom)); }
   .scene__copy .scroll-cue { display: none; }
   .scene__copy .eyebrow { display: none; }
   .scene--center .scene__copy { text-align: center; }
   .scene--center .scene__copy .eyebrow { justify-content: center; }
   .scene__card { position: relative; z-index: 3; padding: 0 24px 24px; }
+  /* The Home hero on a phone is the word, the car and the two buttons — nothing else. The Now-showing
+     card keeps its space in the layout (so nothing shifts, CLS stays 0) and arrives on the first scroll.
+     Hidden rather than transparent, so it is never a focus stop while it cannot be seen. */
+  @media (max-width: 767px) {
+    .scene--hero .scene__card,
+    .page-hero__card { opacity: 0; visibility: hidden; transition: opacity var(--d-base) var(--ease-out), visibility 0s linear var(--d-base); }
+    html[data-scrolled] .scene--hero .scene__card,
+    html[data-scrolled] .page-hero__card { opacity: 1; visibility: visible; transition: opacity var(--d-base) var(--ease-out), visibility 0s; }
+  }
   .scene__fallback { display: none; }
   [data-cut-failed] .scene__fallback { display: block; position: absolute; inset: 0; z-index: 1; }
   [data-cut-failed] .scene__word, [data-cut-failed] .scene__car-wrap, [data-cut-failed] .scene__glow { display: none !important; }
   /* The three-layer entrance (docs/02 §2.6), in CSS so it starts at first paint: background settles from 1.06
      over 1600 ms, the word rises under a mask over --d-slow, the car completes its fade and rises 40 px with a
      200 ms delay, the copy staggers 80 ms, the glass card arrives last. Rows wait for the viewport (.is-in). */
-  html.js .scene--enter:not(.is-in) [data-scene-word] { clip-path: inset(0 0 100% 0); }
   html.js .scene--enter:not(.is-in) [data-scene-copy] > *, html.js .scene--enter:not(.is-in) [data-scene-card] { opacity: 0; }
   html.js .scene--enter:not(.is-in) [data-scene-car] { opacity: .55; transform: translateY(40px); }
   .scene--enter.is-in [data-scene-bg] { animation: scene-bg 1600ms var(--ease-out) backwards; }
-  .scene--enter.is-in [data-scene-word] { animation: scene-word var(--d-slow) var(--ease-out) 100ms backwards; }
   .scene--enter.is-in [data-scene-car] { animation: scene-car var(--d-slow) var(--ease-out) 300ms backwards; }
   .scene--enter.is-in [data-scene-copy] > * { animation: scene-rise var(--d-base) var(--ease-out) backwards; animation-delay: calc(500ms + var(--n, 0) * 80ms); }
   .scene--enter.is-in [data-scene-copy] > :nth-child(2) { --n: 1; }
@@ -281,27 +357,39 @@
   .scene--enter.is-in [data-scene-copy] > :nth-child(6) { --n: 5; }
   .scene--enter.is-in [data-scene-card] { animation: scene-rise var(--d-base) var(--ease-out) 1000ms backwards; }
 
+  /* The giant word arrives a letter at a time, in place of the single masked rise of docs/02 2.6 (a client
+     change; see qa/LOG.md). The pieces are server-rendered and the keyframes are plain CSS, so the word --
+     above the fold on every page it appears on, sandwiched between the background and the car cut-out --
+     starts moving on the first paint, with no script, no measurement and no layout work. Transform and
+     opacity are composited for the length of the run and released after it: no standing will-change. */
+  html.js .giant--gated:not(.is-in):not(.is-lettered) .giant__char { opacity: 0; transform: translateY(.42em); }
+  .giant--gated.is-in .giant__char {
+    /* power3.out, so the CSS fallback carries the same unhurried letter as the GSAP path. */
+    animation: giant-char var(--giant-dur, 1400ms) var(--giant-ease, cubic-bezier(.165, .84, .44, 1)) backwards;
+    animation-delay: calc(var(--giant-in, 0ms) + var(--i, 0) * var(--giant-step, 90ms));
+  }
+
   @media (min-width: 768px) {
     .scene { min-height: max(100vh, 760px); flex-direction: row; align-items: flex-end; }
     .scene--row { min-height: 92vh; }
     .scene__eyebrow { display: none; }
     .scene__copy .eyebrow { display: flex; }
-    .scene__stage { position: absolute; z-index: 2; bottom: var(--floor, 5vh); inset-inline-end: -6%; width: var(--stage-w, 58%); display: block; margin: 0; }
-    .scene__word { position: absolute; z-index: 1; inset-inline-end: var(--word-end, 0); bottom: var(--word-bottom, 58%); width: max-content; text-align: end; white-space: nowrap; padding: 0; }
+    .scene__stage { position: absolute; z-index: 2; top: auto; bottom: var(--floor, 5vh); inset-inline-start: auto; inset-inline-end: var(--stage-bleed, -6%); width: var(--stage-w, 58%); display: block; margin: 0; }
+    .scene__word { position: absolute; z-index: 1; inset-inline-end: var(--word-end, 0); bottom: var(--word-bottom, 58%); width: max-content; text-align: end; white-space: nowrap; padding: 0; margin-inline: 0; }
     .scene__car-wrap { display: block; width: 100%; margin: 0; }
     .scene__car { width: 100%; aspect-ratio: var(--car-ratio-d, auto); }
-    .scene__copy { width: 100%; margin: 0; padding-bottom: 12vh; }
+    .scene__copy { width: 100%; margin: 0; padding-bottom: var(--copy-bottom, 12vh); }
     .scene__copy .scroll-cue { display: flex; }
-    .scene__copy-inner { max-width: 44%; }
-    .scene__card { position: absolute; z-index: 3; inset-inline-end: 80px; bottom: 6vh; padding: 0; }
+    .scene__copy-inner { max-width: var(--copy-w, 44%); margin-inline-start: var(--copy-inset, 0px); }
+    .scene__card { position: absolute; z-index: 3; inset-inline-end: var(--card-end, 80px); bottom: var(--card-bottom, 6vh); padding: 0; }
 
     /* The one centred exhibit (Home featured) */
     .scene--center { flex-direction: column; align-items: center; justify-content: flex-start; }
-    .scene--center .scene__stage { position: relative; inset: auto; bottom: auto; width: 70%; display: flex; flex-direction: column; align-items: center; margin-top: calc(120px + 4vh); }
+    .scene--center .scene__stage { position: relative; inset: auto; bottom: auto; width: var(--stage-w, 70%); display: flex; flex-direction: column; align-items: center; margin-top: var(--centre-top, calc(120px + 4vh)); }
     .scene--center .scene__word { position: relative; inset: auto; bottom: auto; width: 100%; text-align: center; white-space: normal; }
     .scene--center .scene__car-wrap { margin-top: var(--car-pull-d, 0px); }
-    .scene--center .scene__copy { margin-top: var(--copy-pull-d, 0px); padding-bottom: 12vh; }
-    .scene--center .scene__copy-inner { max-width: 60%; margin-inline: auto; }
+    .scene--center .scene__copy { margin-top: var(--copy-pull-d, 0px); padding-bottom: var(--copy-bottom, 12vh); }
+    .scene--center .scene__copy-inner { max-width: var(--copy-w, 60%); margin-inline: auto; }
   }
 }
 
@@ -429,6 +517,13 @@
   html[data-nav-light] .nav:not(.nav--pill):not(.nav--open) .btn--primary { background: var(--color-ink); color: #ECEAE4; }
   html[data-nav-light] .nav:not(.nav--pill):not(.nav--open) .btn--primary:hover { background: var(--color-smoke); }
   .nav__brand { position: relative; z-index: 1; display: flex; align-items: center; height: 44px; padding-inline-start: 16px; color: var(--color-platinum); transition: padding var(--d-base) var(--ease-out); }
+  /* One mark at a time: the emblem while the nav is transparent over a hero, the wordmark once it has
+     become the pill (or opened the menu). Both are always in the DOM so neither reflows the bar. */
+  .nav__emblem { width: auto; height: 13px; opacity: 1; transition: opacity var(--d-base) var(--ease-out); }
+  .nav__wordmark { position: absolute; inset-inline-start: 16px; opacity: 0; transition: opacity var(--d-base) var(--ease-out); }
+  .nav--pill .nav__emblem, .nav--open .nav__emblem { opacity: 0; }
+  .nav--pill .nav__wordmark, .nav--open .nav__wordmark { opacity: 1; }
+  .nav--pill:not(.nav--open) .nav__wordmark { inset-inline-start: 0; }
   .nav--pill:not(.nav--open) .nav__brand { padding-inline-start: 0; }
   .nav__links { position: relative; z-index: 1; display: none; align-items: center; gap: 32px; }
   @media (min-width: 1024px) { .nav__links { display: flex; } }
@@ -552,6 +647,15 @@
   .page-hero__copy { margin-top: auto; padding-top: 48px; }
   .page-hero--top .page-hero__copy { margin-top: 0; padding-top: 32px; }
   .page-hero--sky .page-hero__word { margin-top: 8px; }
+  /* The "Now showing" card, in the one page hero that has one (Home). PageHero sets none of the Scene's
+     custom properties, so the two insets .scene__card reads from --card-end / --card-bottom are written
+     out here instead: the same 80 px and 6vh, measured from .page-hero__inner, which is the .wrap — so
+     at 1440 and below the card lands exactly where the Scene put it, and above 1440 it stays on the
+     copy's gutter instead of drifting to the viewport edge. Under 768 px it is in flow beneath the copy
+     and waits for the first scroll (the rule with .scene--hero above), so the first screen is the word,
+     the headline and the two buttons. It keeps its box either way: CLS stays 0. */
+  .page-hero__card { margin-top: 32px; }
+  @media (min-width: 768px) { .page-hero__card { position: absolute; z-index: 3; inset-inline-end: 80px; bottom: 6vh; margin-top: 0; } }
   .page-404 { display: grid; place-items: center; min-height: 100svh; text-align: center; }
   .page-404__inner { position: relative; z-index: 2; padding-block: 120px; }
 
@@ -572,13 +676,14 @@
   html.js .reveal-stagger > :nth-child(4) { transition-delay: 240ms; }
   html.js .reveal-stagger > :nth-child(5) { transition-delay: 320ms; }
   html.js .reveal-stagger > :nth-child(6) { transition-delay: 400ms; }
-  html.js .reveal--lines { transform: none; transition: opacity 0s linear var(--delay, 0ms); }
-  html.js .reveal--lines.is-in { opacity: 1; }
-  .reveal--lines .line { display: block; overflow: hidden; padding-bottom: .1em; margin-bottom: -.1em; white-space: nowrap; }
-  html.js .reveal--lines .line > span { display: block; transform: translateY(110%); transition: transform var(--d-slow) var(--ease-out) calc(var(--delay, 0ms) + var(--i, 0) * 80ms); }
-  html.js .reveal--lines.is-in .line > span { transform: none; }
-  html.js .words .word { display: inline-block; opacity: 0; transform: translateY(.35em); transition: opacity var(--d-base) var(--ease-out) calc(var(--delay, 0ms) + var(--i, 0) * 120ms), transform var(--d-base) var(--ease-out) calc(var(--delay, 0ms) + var(--i, 0) * 120ms); }
-  html.js .words.is-in .word { opacity: 1; transform: none; }
+
+  /* Headings that arrive a letter at a time (SplitText). The heading itself only ever uncovers -- the
+     letters carry the entrance -- so it is hidden just long enough for the pieces to be put in their start
+     position, and never for longer than the fallback allows. Text is real text in the markup: with no
+     script (no html.js) nothing here applies and the heading simply renders. */
+  html.js .split-text { opacity: 0; }
+  html.js .split-text.is-in { opacity: 1; transition: opacity 200ms linear; }
+  html.js .split-text.is-split { opacity: 1; }
   .scroll-cue { display: flex; align-items: center; gap: 12px; margin-top: 40px; font: 400 13px/1 var(--font-sans); letter-spacing: .01em; color: var(--color-pewter); }
   .scroll-cue::after { content: ""; width: 40px; height: 1px; background: currentColor; opacity: .5; transform-origin: 0 50%; animation: cue 2.4s var(--ease-inout) infinite; }
   [dir="rtl"] .scroll-cue::after { transform-origin: 100% 50%; }
@@ -677,9 +782,12 @@
   @media (min-width: 768px) {
     .promise__inner { display: grid; grid-template-columns: minmax(0, 1fr) 420px; align-items: start; column-gap: 64px; min-height: 100vh; padding-top: 18vh; padding-bottom: 12vh; }
   }
+  /* The staircase (docs/02 H4) hangs off the line boxes SplitText leaves in place. Each line keeps the
+     words it was measured with: the indent narrows line 2 and 3, and without nowrap they would re-wrap. */
+  .promise__title .line { display: block; white-space: nowrap; }
   .promise__title .line:nth-child(2) { padding-inline-start: 1.1em; }
   .promise__title .line:nth-child(3) { padding-inline-start: 2.2em; }
-  @media (min-width: 768px) { .promise__title { max-width: 9ch; } .promise__title .line { overflow: visible; clip-path: inset(0 -1em -0.05em -1em); } }
+  @media (min-width: 768px) { .promise__title { max-width: 9ch; } }
   .promise__cards { display: flex; flex-direction: column; gap: 16px; margin: 0; padding: 0; list-style: none; }
   /* Mobile, pinned (PromiseStack has taken over): the frame is exactly one viewport and the card list
      hangs from its foot, clear of the sticky bar, reaching up into the space the head fades out of —
@@ -744,10 +852,10 @@
   .scene-row__card { display: none; }
   @media (min-width: 768px) { .scene-row__card { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 16px; width: 380px; padding: 20px 24px; } }
   @media (min-width: 768px) {
-    .scene--start .scene__stage { inset-inline-end: auto; inset-inline-start: -6%; }
+    .scene--start .scene__stage { inset-inline-end: auto; inset-inline-start: var(--stage-bleed, -6%); }
     .scene--start .scene__word { inset-inline-end: auto; inset-inline-start: var(--word-end, 0); text-align: start; }
-    .scene--start .scene__copy-inner { margin-inline-start: auto; }
-    .scene--start .scene__card { inset-inline-end: auto; inset-inline-start: 80px; }
+    .scene--start .scene__copy-inner { margin-inline-start: auto; margin-inline-end: var(--copy-inset, 0px); }
+    .scene--start .scene__card { inset-inline-end: auto; inset-inline-start: var(--card-end, 80px); }
   }
   .nothere { display: flex; min-height: 80svh; }
   @media (min-width: 768px) { .nothere { min-height: 90vh; } }
@@ -764,10 +872,22 @@
   @media (min-width: 640px) { .car-hero__actions { flex-direction: row; align-items: center; gap: 16px; } .car-hero__actions .btn { width: auto; } }
 
   .glance { position: relative; z-index: 4; margin-top: -48px; }
-  .glance__strip { display: flex; gap: 24px; padding: 24px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+  /* scroll-padding matters: with `scroll-snap-align: start` and no scroll-padding, the browser snaps
+     the first chip's edge to the scrollport's edge, which scrolls the strip's own 24 px of padding out
+     of view and leaves ENGINE sitting 1 px off the glass border. */
+  .glance__strip { display: flex; gap: 24px; padding: 24px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: 24px; scrollbar-width: none; }
   .glance__strip::-webkit-scrollbar { display: none; }
   .glance__chip { flex: 0 0 148px; scroll-snap-align: start; }
-  @media (min-width: 1024px) { .glance__strip { display: grid; grid-template-columns: 1.5fr repeat(7, 1fr); gap: 20px; padding: 28px 32px; overflow: visible; } .glance__chip { flex: none; } }
+  /* The scroll position, as a hairline under the strip (docs/02 §D3's idiom for a mobile scroller). */
+  .glance__progress { margin-top: 14px; }
+  .glance__progress-track { position: relative; display: block; height: 1px; background: rgba(236,234,228,.18); }
+  .glance__progress-bar { position: absolute; inset: 0; display: block; background: var(--color-platinum); opacity: .55; transform-origin: 0 50%; transition: transform var(--d-fast) var(--ease-out); }
+  [dir="rtl"] .glance__progress-bar { transform-origin: 100% 50%; }
+  @media (min-width: 1024px) {
+    .glance__strip { display: grid; grid-template-columns: 1.5fr repeat(7, 1fr); gap: 20px; padding: 28px 32px; overflow: visible; }
+    .glance__chip { flex: none; }
+    .glance__progress { display: none; }
+  }
 
   .brief { display: grid; gap: 40px; padding-block: 96px; }
   @media (min-width: 1024px) { .brief { grid-template-columns: 1fr 1fr; align-items: center; gap: 80px; padding-block: clamp(96px, 12vw, 200px); } .brief__image { order: 2; } }
@@ -935,7 +1055,8 @@
 }
 
 @keyframes scene-bg { from { transform: scale(1.06); } to { transform: scale(1); } }
-@keyframes scene-word { from { clip-path: inset(0 0 100% 0); transform: translateY(40px); } to { clip-path: inset(0 0 0% 0); transform: none; } }
+@keyframes giant-char { from { opacity: 0; transform: translateY(.42em); } to { opacity: 1; transform: none; } }
+@keyframes piece-fade { from { opacity: 0; } to { opacity: 1; } }
 @keyframes scene-car { from { opacity: .55; transform: translateY(40px); } to { opacity: 1; transform: none; } }
 @keyframes scene-fade { from { opacity: .6; } to { opacity: 1; } }
 @keyframes scene-rise { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
@@ -953,10 +1074,9 @@
   .preloader.is-lifting { animation-duration: 200ms; }
   .menu__link, .menu__foot { transition-duration: 200ms; transition-delay: 0s; transform: none; }
   .sticky-bar { transition-duration: 200ms; }
-  html.js .reveal, html.js .reveal-stagger > *, html.js .words .word, html.js .promise__card--reveal { transform: none; transition: opacity 200ms linear; }
-  html.js .reveal--lines .line > span { transform: none; transition: none; }
-  html.js .reveal--lines { transition: opacity 200ms linear; }
-  html.js .scene--enter:not(.is-in) [data-scene-word] { clip-path: none; }
+  html.js .reveal, html.js .reveal-stagger > *, html.js .promise__card--reveal { transform: none; transition: opacity 200ms linear; }
+  html.js .giant--gated:not(.is-in):not(.is-lettered) .giant__char { transform: none; }
+  .giant--gated.is-in .giant__char { animation: piece-fade 200ms linear backwards; animation-delay: 0ms; }
   html.js .scene--enter:not(.is-in) [data-scene-car] { transform: none; }
   .scene--enter.is-in [data-scene-bg], .scene--enter.is-in [data-scene-word], .scene--enter.is-in [data-scene-car], .scene--enter.is-in [data-scene-copy] > *, .scene--enter.is-in [data-scene-card] { animation: scene-fade 200ms linear backwards; animation-delay: 0ms; }
   .scroll-cue::after { animation: none; transform: none; }
@@ -974,7 +1094,9 @@
      Every block that anchors itself to the bottom of a full-height photograph has to come to rest above
      it, not behind it. Heroes are exempt: the bar only appears once the hero has been passed. */
   @media (max-width: 767px) {
-    .collection__rows .scene__copy,
+    /* .collection__rows .scene__copy is not here: a Scene's mobile padding is a tuning knob now
+       (src/lib/scene-config.ts, LAYOUT_DEFAULTS.row.mobile.padBottom), and an inline custom property
+       cannot be overridden from a stylesheet. */
     .collection__rows .prow__inner,
     .afterdark__inner,
     .inside__inner,

@@ -1,12 +1,18 @@
-// Samples the hero stage geometry over time: node scripts/stage-probe.mjs <url> [width]
+// Samples a Scene's stage geometry over time: node scripts/stage-probe.mjs <url> [width] [ms]
+//
+// The window must outlast GiantCycle's FIRST_HOLD (6400 ms) or the probe stops before the word has
+// ever handed over and reports "nothing moved" whatever is broken. Default is 16 s, which covers the
+// first hand-over and the one after it (HOLD 5600 ms).
 import { chromium } from "playwright-core";
 
-const [, , url, w = "412"] = process.argv;
+const [, , url, w = "412", ms = "16000"] = process.argv;
 const width = Number(w);
+const windowMs = Number(ms);
 const browser = await chromium.launch({ channel: "chrome" });
 const ctx = await browser.newContext({ viewport: { width, height: width < 768 ? 823 : 900 }, deviceScaleFactor: 1, isMobile: width < 768 });
 const page = await ctx.newPage();
-await page.addInitScript(() => {
+await page.addInitScript((windowMs) => {
+  window.__windowMs = windowMs;
   window.__samples = [];
   const t0 = performance.now();
   const tick = () => {
@@ -29,12 +35,12 @@ await page.addInitScript(() => {
       entered: !!q("[data-scene][data-entered]"),
       pre: !!q(".preloader"),
     });
-    if (performance.now() - t0 < 4000) setTimeout(tick, 150);
+    if (performance.now() - t0 < window.__windowMs) setTimeout(tick, 150);
   };
   document.addEventListener("DOMContentLoaded", tick);
-});
+}, windowMs);
 await page.goto(url, { waitUntil: "load" });
-await page.waitForTimeout(4200);
+await page.waitForTimeout(windowMs + 400);
 const samples = await page.evaluate(() => window.__samples);
 let last = "";
 for (const s of samples) {
