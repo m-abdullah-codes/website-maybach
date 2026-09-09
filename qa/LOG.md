@@ -598,3 +598,18 @@ and it returned `[]` on the old deployment as well, so enquiries have always bee
 emailed. The form confirms either way; setting those two secrets is what makes it deliver.
 
 **Screenshots:** `qa/static/`.
+
+### Deployed and measured in production
+
+`wrangler deploy` — 1,975 files, Worker 773 kB (121 kB gzipped) with one binding, `ASSETS`. Verified on
+`maybach.turbosystems.workers.dev` with a tail attached: nine routes 200 in 0.8–1.9 s, `/nonexistent` and
+`/ar/nonexistent` 404 to their own localised pages, `/en/collection` 301 to `/collection`. Fourteen
+route/width combinations in Chrome: no 4xx, no console errors, no request to a master or to `/_next/image`.
+`/api/enquiry` answers `{"status":"ok"}` and the field errors, at **2–4 ms of CPU**.
+
+Two things the tail proves. **Page views invoked the Worker zero times** — 47 page requests, 38 concurrent
+photograph requests, the redirects and the 404s all served by the asset store, and the only two records in
+the tail were the two form POSTs. So 1102 is not something to tune here; there is nothing left to exhaust.
+And the same 38-request burst that averaged **8.6 s** against the Worker now averages **2.29 s**, from
+Pakistan, cold. HTML comes back `CF-Cache-Status: HIT` — a Worker response on a workers.dev hostname never
+could.
