@@ -48,3 +48,10 @@ server.log
 build-design.log
 qa/tmp/
 .next-qa/
+
+# cloudflare workers build
+.open-next/
+.wrangler/
+
+# image drop staging — never deploy: anything under public/ is served
+/public/new-generations/

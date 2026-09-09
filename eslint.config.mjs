@@ -17,6 +17,11 @@ const eslintConfig = [
       ".next/**",
       "out/**",
       "build/**",
+      // Cloudflare build output (gitignored, but eslint does not read .gitignore): 844 errors of
+      // bundled vendor code that drowned the six real warnings and made `npm run lint` useless as a gate.
+      ".open-next/**",
+      ".wrangler/**",
+      ".next-qa/**",
       "next-env.d.ts",
     ],
   },

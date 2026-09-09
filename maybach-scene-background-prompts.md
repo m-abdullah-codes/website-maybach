@@ -2,7 +2,13 @@
 
 **Companion to** `docs/01-imagery-prompts.md` (house prompt style, reusable blocks) and
 `docs/02-site-blueprint-design-system.md → §3.9` (the Scene).
-**Written:** September 2026 · **Status:** prompts only — nothing in `public/images` has been replaced.
+**Written:** September 2026
+**Status: DONE.** All six images (four required + the two optional) were generated from the prompts below
+and are in `public/images` as `mb-cul-bg-d/-m`, `mb-cgt-bg-d/-m` and `mb-hm-feat-bg-d/-m`. The two new
+`HM-FEAT-BG` entries are in `content/image-manifest.json`, the Home featured section points at them, and
+`npm run blur` has been re-run. The originals are recoverable from git (`git show 74405fb:public/images/mb-cul-bg-d.png > out.png`).
+The prompts are kept below so a room can be regenerated without reconstructing the brief.
+**Still open:** the environment-caption decision in §6.
 
 ---
 
@@ -158,7 +164,7 @@ on the start side. So it must stay calm across the whole lower band **and** down
 
 ---
 
-## 5. Optional — a second cool room (2 more images)
+## 5. Optional — a second cool room (2 more images) — TAKEN
 
 The Continental GT appears twice on the site as a Scene: the Home featured exhibit and Collection row 7.
 Today they share one background, so a visitor who scrolls the Home page and then the Collection sees the
@@ -187,9 +193,8 @@ the Home featured section at it.
 > 40% and 65% of the frame height, with its floor reflection below. The top 28% and the bottom 30% are
 > near-black and free of detail."* [MOBILE SAFE ZONE]
 
-Wiring, if you take this option: `src/components/sections/home/Featured.tsx`, change
-`bg={{ d: car.images.bgD, m: car.images.bgM }}` to `bg={{ d: "hm-feat-bg-d", m: "hm-feat-bg-m" }}`, and
-add the two entries to `content/image-manifest.json`.
+Done: `src/components/sections/home/Featured.tsx` now reads `bg={{ d: "hm-feat-bg-d", m: "hm-feat-bg-m" }}`
+and both entries are in `content/image-manifest.json`.
 
 ---
 

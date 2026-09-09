@@ -1,6 +1,6 @@
 {
   "_readme": "Every file under /public/images, with real pixel sizes. Backgrounds/heroes are 1672×941 (desktop) and 941×1672 (mobile); serve them with sizes= so next/image never upsamples; on ≥1400px viewports at 2× they will be slightly soft, which is acceptable for low-key photography (regenerate at 2560 later if the client wants). Cut-outs are RGBA with alpha 253–254 on the car (effectively opaque) — no halo. Use -m files under 768px via <picture> or next/image with media queries; never crop a -d file for mobile.",
-  "count": 151,
+  "count": 155,
   "images": [
     {
       "file": "/images/mb-911-bg-d.png",
@@ -70,9 +70,9 @@
       "variant": "single",
       "car": "Porsche 911 Carrera",
       "carCode": "911",
-      "environment": "The Pass",
+      "environment": "The Reflection",
       "role": "det",
-      "use": "Exterior macro — car detail D3 \"In brief\" image; gallery."
+      "use": "Exterior macro — car detail D3 \"In brief\" image. Not in the D4 gallery: that renders heroD, heroM and -DET-03 (docs/02 D4)."
     },
     {
       "file": "/images/mb-911-det-02.png",
@@ -98,7 +98,7 @@
       "variant": "single",
       "car": "Porsche 911 Carrera",
       "carCode": "911",
-      "environment": "The Pass",
+      "environment": "The Reflection",
       "role": "det",
       "use": "Rear/side in environment — gallery."
     },
@@ -112,7 +112,7 @@
       "variant": "desktop",
       "car": "Porsche 911 Carrera",
       "carCode": "911",
-      "environment": "The Pass",
+      "environment": "The Reflection",
       "role": "hero",
       "use": "Composed photograph of the car in its environment — Photograph rows and the car detail hero."
     },
@@ -126,7 +126,7 @@
       "variant": "mobile",
       "car": "Porsche 911 Carrera",
       "carCode": "911",
-      "environment": "The Pass",
+      "environment": "The Reflection",
       "role": "hero",
       "use": "Composed photograph of the car in its environment — Photograph rows and the car detail hero."
     },
@@ -255,7 +255,7 @@
       "carCode": "C8",
       "environment": "The Light Lines",
       "role": "det",
-      "use": "Exterior macro — car detail D3 \"In brief\" image; gallery."
+      "use": "Exterior macro — car detail D3 \"In brief\" image. Not in the D4 gallery: that renders heroD, heroM and -DET-03 (docs/02 D4)."
     },
     {
       "file": "/images/mb-c8-det-02.png",
@@ -345,7 +345,7 @@
       "variant": "desktop",
       "car": "Bentley Continental GT Azure",
       "carCode": "CGT",
-      "environment": "The Coast Road",
+      "environment": "The Glass Wall",
       "role": "bg",
       "use": "Environment background with no car — layer 0 of the Scene; also the base under a detail hero."
     },
@@ -359,7 +359,7 @@
       "variant": "mobile",
       "car": "Bentley Continental GT Azure",
       "carCode": "CGT",
-      "environment": "The Coast Road",
+      "environment": "The Glass Wall",
       "role": "bg",
       "use": "Environment background with no car — layer 0 of the Scene; also the base under a detail hero."
     },
@@ -403,9 +403,9 @@
       "variant": "single",
       "car": "Bentley Continental GT Azure",
       "carCode": "CGT",
-      "environment": "The Coast Road",
+      "environment": "The Glass Wall",
       "role": "det",
-      "use": "Exterior macro — car detail D3 \"In brief\" image; gallery."
+      "use": "Exterior macro — car detail D3 \"In brief\" image. Not in the D4 gallery: that renders heroD, heroM and -DET-03 (docs/02 D4)."
     },
     {
       "file": "/images/mb-cgt-det-02.png",
@@ -431,7 +431,7 @@
       "variant": "single",
       "car": "Bentley Continental GT Azure",
       "carCode": "CGT",
-      "environment": "The Coast Road",
+      "environment": "The Glass Wall",
       "role": "det",
       "use": "Rear/side in environment — gallery."
     },
@@ -445,7 +445,7 @@
       "variant": "desktop",
       "car": "Bentley Continental GT Azure",
       "carCode": "CGT",
-      "environment": "The Coast Road",
+      "environment": "The Glass Wall",
       "role": "hero",
       "use": "Composed photograph of the car in its environment — Photograph rows and the car detail hero."
     },
@@ -459,7 +459,7 @@
       "variant": "mobile",
       "car": "Bentley Continental GT Azure",
       "carCode": "CGT",
-      "environment": "The Coast Road",
+      "environment": "The Glass Wall",
       "role": "hero",
       "use": "Composed photograph of the car in its environment — Photograph rows and the car detail hero."
     },
@@ -506,7 +506,7 @@
       "variant": "desktop",
       "car": "Rolls-Royce Cullinan",
       "carCode": "CUL",
-      "environment": "The Courtyard",
+      "environment": "The Marble",
       "role": "bg",
       "use": "Environment background with no car — layer 0 of the Scene; also the base under a detail hero."
     },
@@ -520,7 +520,7 @@
       "variant": "mobile",
       "car": "Rolls-Royce Cullinan",
       "carCode": "CUL",
-      "environment": "The Courtyard",
+      "environment": "The Marble",
       "role": "bg",
       "use": "Environment background with no car — layer 0 of the Scene; also the base under a detail hero."
     },
@@ -564,9 +564,9 @@
       "variant": "single",
       "car": "Rolls-Royce Cullinan",
       "carCode": "CUL",
-      "environment": "The Courtyard",
+      "environment": "The Marble",
       "role": "det",
-      "use": "Exterior macro — car detail D3 \"In brief\" image; gallery."
+      "use": "Exterior macro — car detail D3 \"In brief\" image, and the home hero’s 72 px \"Now showing\" thumbnail. Not in the D4 gallery: that renders heroD, heroM and -DET-03 (docs/02 D4)."
     },
     {
       "file": "/images/mb-cul-det-02.png",
@@ -592,7 +592,7 @@
       "variant": "single",
       "car": "Rolls-Royce Cullinan",
       "carCode": "CUL",
-      "environment": "The Courtyard",
+      "environment": "The Marble",
       "role": "det",
       "use": "Rear/side in environment — gallery."
     },
@@ -606,7 +606,7 @@
       "variant": "desktop",
       "car": "Rolls-Royce Cullinan",
       "carCode": "CUL",
-      "environment": "The Courtyard",
+      "environment": "The Marble",
       "role": "hero",
       "use": "Composed photograph of the car in its environment — Photograph rows and the car detail hero."
     },
@@ -620,7 +620,7 @@
       "variant": "mobile",
       "car": "Rolls-Royce Cullinan",
       "carCode": "CUL",
-      "environment": "The Courtyard",
+      "environment": "The Marble",
       "role": "hero",
       "use": "Composed photograph of the car in its environment — Photograph rows and the car detail hero."
     },
@@ -694,7 +694,7 @@
       "carCode": "FSM",
       "environment": "The Salon (light room)",
       "role": "det",
-      "use": "Exterior macro — car detail D3 \"In brief\" image; gallery."
+      "use": "Exterior macro — car detail D3 \"In brief\" image. Not in the D4 gallery: that renders heroD, heroM and -DET-03 (docs/02 D4)."
     },
     {
       "file": "/images/mb-fsm-det-02.png",
@@ -790,7 +790,7 @@
       "variant": "single",
       "car": "Mercedes-AMG G 63",
       "carCode": "G63",
-      "environment": "The Wadi",
+      "environment": "The Upper Floor",
       "role": "card",
       "use": "4:5 portrait for the Car card (top 30% is calm for badge + name)."
     },
@@ -834,9 +834,9 @@
       "variant": "single",
       "car": "Mercedes-AMG G 63",
       "carCode": "G63",
-      "environment": "The Wadi",
+      "environment": "The Upper Floor",
       "role": "det",
-      "use": "Exterior macro — car detail D3 \"In brief\" image; gallery."
+      "use": "Exterior macro — car detail D3 \"In brief\" image. Not in the D4 gallery: that renders heroD, heroM and -DET-03 (docs/02 D4)."
     },
     {
       "file": "/images/mb-g63-det-02.png",
@@ -862,7 +862,7 @@
       "variant": "single",
       "car": "Mercedes-AMG G 63",
       "carCode": "G63",
-      "environment": "The Wadi",
+      "environment": "The Upper Floor",
       "role": "det",
       "use": "Rear/side in environment — gallery."
     },
@@ -876,7 +876,7 @@
       "variant": "desktop",
       "car": "Mercedes-AMG G 63",
       "carCode": "G63",
-      "environment": "The Wadi",
+      "environment": "The Upper Floor",
       "role": "hero",
       "use": "Composed photograph of the car in its environment — Photograph rows and the car detail hero."
     },
@@ -890,9 +890,57 @@
       "variant": "mobile",
       "car": "Mercedes-AMG G 63",
       "carCode": "G63",
-      "environment": "The Wadi",
+      "environment": "The Upper Floor",
       "role": "hero",
       "use": "Composed photograph of the car in its environment — Photograph rows and the car detail hero."
+    },
+    {
+      "file": "/images/mb-hm-facade-d.png",
+      "id": "HM-FACADE-D",
+      "width": 1672,
+      "height": 941,
+      "alpha": false,
+      "ratio": 1.777,
+      "variant": "desktop",
+      "car": null,
+      "environment": null,
+      "role": "site",
+      "use": "Home H6 \"Come after dark\" full-bleed — the façade at deep blue hour, the sign lit and the cars visible through the glass. Also the base plate for the SH-01 façade refresh (imagery brief §7.1)."
+    },
+    {
+      "file": "/images/mb-hm-facade-m.png",
+      "id": "HM-FACADE-M",
+      "width": 941,
+      "height": 1672,
+      "alpha": false,
+      "ratio": 0.563,
+      "variant": "mobile",
+      "car": null,
+      "environment": null,
+      "role": "site",
+      "use": "Home H6 \"Come after dark\" full-bleed — the façade at deep blue hour, the sign lit and the cars visible through the glass. Also the base plate for the SH-01 façade refresh (imagery brief §7.1)."
+    },
+    {
+      "file": "/images/mb-hm-feat-bg-d.png",
+      "id": "HM-FEAT-BG-D",
+      "width": 1672,
+      "height": 941,
+      "alpha": false,
+      "ratio": 1.777,
+      "variant": "desktop",
+      "role": "site",
+      "use": "Home H7 featured exhibit, layer 0 (no car). The Centre Floor after hours; keeps the centred exhibit from reusing the Continental GT collection row background."
+    },
+    {
+      "file": "/images/mb-hm-feat-bg-m.png",
+      "id": "HM-FEAT-BG-M",
+      "width": 941,
+      "height": 1672,
+      "alpha": false,
+      "ratio": 0.563,
+      "variant": "mobile",
+      "role": "site",
+      "use": "Home H7 featured exhibit, layer 0 (no car). The Centre Floor after hours; keeps the centred exhibit from reusing the Continental GT collection row background."
     },
     {
       "file": "/images/mb-hm-hero-bg-d.png",
@@ -903,7 +951,7 @@
       "ratio": 1.777,
       "variant": "desktop",
       "role": "site",
-      "use": "Home H1 hero, layer 0 (no car). Place cul-cut-a (desktop) / cul-cut-b (mobile) on top with the giant word MAY BACH between."
+      "use": "Home H1 hero, full-bleed — the showroom interior after hours, the Cullinan alone under one pool of downlight. The hero’s only photographic layer: no cut-out over it. The giant word MAY BACH sits over the dark glass wall at 60% opacity."
     },
     {
       "file": "/images/mb-hm-hero-bg-m.png",
@@ -914,7 +962,7 @@
       "ratio": 0.563,
       "variant": "mobile",
       "role": "site",
-      "use": "Home H1 hero, layer 0 (no car). Place cul-cut-a (desktop) / cul-cut-b (mobile) on top with the giant word MAY BACH between."
+      "use": "Home H1 hero, full-bleed — the showroom interior after hours, the Cullinan alone under one pool of downlight. The hero’s only photographic layer: no cut-out over it. The giant word MAY BACH sits over the dark glass wall at 60% opacity."
     },
     {
       "file": "/images/mb-hm-hero-still-d.png",
@@ -1116,9 +1164,9 @@
       "variant": "single",
       "car": "Range Rover Autobiography",
       "carCode": "RRA",
-      "environment": "The Sandstone",
+      "environment": "The Colonnade",
       "role": "det",
-      "use": "Exterior macro — car detail D3 \"In brief\" image; gallery."
+      "use": "Exterior macro — car detail D3 \"In brief\" image. Not in the D4 gallery: that renders heroD, heroM and -DET-03 (docs/02 D4)."
     },
     {
       "file": "/images/mb-rra-det-02.png",
@@ -1144,7 +1192,7 @@
       "variant": "single",
       "car": "Range Rover Autobiography",
       "carCode": "RRA",
-      "environment": "The Sandstone",
+      "environment": "The Colonnade",
       "role": "det",
       "use": "Rear/side in environment — gallery."
     },
@@ -1158,7 +1206,7 @@
       "variant": "desktop",
       "car": "Range Rover Autobiography",
       "carCode": "RRA",
-      "environment": "The Sandstone",
+      "environment": "The Colonnade",
       "role": "hero",
       "use": "Composed photograph of the car in its environment — Photograph rows and the car detail hero."
     },
@@ -1172,7 +1220,7 @@
       "variant": "mobile",
       "car": "Range Rover Autobiography",
       "carCode": "RRA",
-      "environment": "The Sandstone",
+      "environment": "The Colonnade",
       "role": "hero",
       "use": "Composed photograph of the car in its environment — Photograph rows and the car detail hero."
     },
@@ -1214,7 +1262,7 @@
       "variant": "single",
       "car": "Mercedes-Benz S-Class",
       "carCode": "SCL",
-      "environment": "The District",
+      "environment": "The Mezzanine",
       "role": "card",
       "use": "4:5 portrait for the Car card (top 30% is calm for badge + name)."
     },
@@ -1258,9 +1306,9 @@
       "variant": "single",
       "car": "Mercedes-Benz S-Class",
       "carCode": "SCL",
-      "environment": "The District",
+      "environment": "The Mezzanine",
       "role": "det",
-      "use": "Exterior macro — car detail D3 \"In brief\" image; gallery."
+      "use": "Exterior macro — car detail D3 \"In brief\" image. Not in the D4 gallery: that renders heroD, heroM and -DET-03 (docs/02 D4)."
     },
     {
       "file": "/images/mb-scl-det-02.png",
@@ -1286,7 +1334,7 @@
       "variant": "single",
       "car": "Mercedes-Benz S-Class",
       "carCode": "SCL",
-      "environment": "The District",
+      "environment": "The Mezzanine",
       "role": "det",
       "use": "Rear/side in environment — gallery."
     },
@@ -1300,7 +1348,7 @@
       "variant": "desktop",
       "car": "Mercedes-Benz S-Class",
       "carCode": "SCL",
-      "environment": "The District",
+      "environment": "The Mezzanine",
       "role": "hero",
       "use": "Composed photograph of the car in its environment — Photograph rows and the car detail hero."
     },
@@ -1314,7 +1362,7 @@
       "variant": "mobile",
       "car": "Mercedes-Benz S-Class",
       "carCode": "SCL",
-      "environment": "The District",
+      "environment": "The Mezzanine",
       "role": "hero",
       "use": "Composed photograph of the car in its environment — Photograph rows and the car detail hero."
     },
@@ -1404,7 +1452,7 @@
       "ratio": 1.777,
       "variant": "desktop",
       "role": "site",
-      "use": "Home H6 \"Come after dark\" full-bleed; Showroom S4 \"After hours\"."
+      "use": "Showroom S4 \"After hours\" full-bleed. (Was also Home H6 \"Come after dark\"; that slot is now HM-FACADE.)"
     },
     {
       "file": "/images/mb-sh-05-m.png",
@@ -1415,7 +1463,7 @@
       "ratio": 0.563,
       "variant": "mobile",
       "role": "site",
-      "use": "Home H6 \"Come after dark\" full-bleed; Showroom S4 \"After hours\"."
+      "use": "Showroom S4 \"After hours\" full-bleed. (Was also Home H6 \"Come after dark\"; that slot is now HM-FACADE.)"
     },
     {
       "file": "/images/mb-sh-06-d.png",
@@ -1686,7 +1734,7 @@
       "variant": "single",
       "car": "Lamborghini Urus",
       "carCode": "URU",
-      "environment": "The Bunker",
+      "environment": "The Corner",
       "role": "card",
       "use": "4:5 portrait for the Car card (top 30% is calm for badge + name)."
     },
@@ -1730,9 +1778,9 @@
       "variant": "single",
       "car": "Lamborghini Urus",
       "carCode": "URU",
-      "environment": "The Bunker",
+      "environment": "The Corner",
       "role": "det",
-      "use": "Exterior macro — car detail D3 \"In brief\" image; gallery."
+      "use": "Exterior macro — car detail D3 \"In brief\" image. Not in the D4 gallery: that renders heroD, heroM and -DET-03 (docs/02 D4)."
     },
     {
       "file": "/images/mb-uru-det-02.png",
@@ -1758,7 +1806,7 @@
       "variant": "single",
       "car": "Lamborghini Urus",
       "carCode": "URU",
-      "environment": "The Bunker",
+      "environment": "The Corner",
       "role": "det",
       "use": "Rear/side in environment — gallery."
     },
@@ -1772,7 +1820,7 @@
       "variant": "desktop",
       "car": "Lamborghini Urus",
       "carCode": "URU",
-      "environment": "The Bunker",
+      "environment": "The Corner",
       "role": "hero",
       "use": "Composed photograph of the car in its environment — Photograph rows and the car detail hero."
     },
@@ -1786,7 +1834,7 @@
       "variant": "mobile",
       "car": "Lamborghini Urus",
       "carCode": "URU",
-      "environment": "The Bunker",
+      "environment": "The Corner",
       "role": "hero",
       "use": "Composed photograph of the car in its environment — Photograph rows and the car detail hero."
     },
@@ -1861,7 +1909,7 @@
       "variant": "single",
       "car": "GMC Yukon Denali",
       "carCode": "YUK",
-      "environment": "The Villa",
+      "environment": "The Entrance",
       "role": "card",
       "use": "4:5 portrait for the Car card (top 30% is calm for badge + name)."
     },
@@ -1905,9 +1953,9 @@
       "variant": "single",
       "car": "GMC Yukon Denali",
       "carCode": "YUK",
-      "environment": "The Villa",
+      "environment": "The Entrance",
       "role": "det",
-      "use": "Exterior macro — car detail D3 \"In brief\" image; gallery."
+      "use": "Exterior macro — car detail D3 \"In brief\" image. Not in the D4 gallery: that renders heroD, heroM and -DET-03 (docs/02 D4)."
     },
     {
       "file": "/images/mb-yuk-det-02.png",
@@ -1933,7 +1981,7 @@
       "variant": "single",
       "car": "GMC Yukon Denali",
       "carCode": "YUK",
-      "environment": "The Villa",
+      "environment": "The Entrance",
       "role": "det",
       "use": "Rear/side in environment — gallery."
     },
@@ -1947,7 +1995,7 @@
       "variant": "desktop",
       "car": "GMC Yukon Denali",
       "carCode": "YUK",
-      "environment": "The Villa",
+      "environment": "The Entrance",
       "role": "hero",
       "use": "Composed photograph of the car in its environment — Photograph rows and the car detail hero."
     },
@@ -1961,7 +2009,7 @@
       "variant": "mobile",
       "car": "GMC Yukon Denali",
       "carCode": "YUK",
-      "environment": "The Villa",
+      "environment": "The Entrance",
       "role": "hero",
       "use": "Composed photograph of the car in its environment — Photograph rows and the car detail hero."
     }

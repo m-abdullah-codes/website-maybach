@@ -22,9 +22,13 @@
         "en": "CULLINAN",
         "ar": "كولينان"
       },
+      "giantWordAlt": {
+        "en": "PRESENCE",
+        "ar": "حضور"
+      },
       "environment": {
-        "en": "The Courtyard",
-        "ar": "الفناء"
+        "en": "The Marble",
+        "ar": "الرخام"
       },
       "whisper": {
         "en": "Effortless, everywhere.",
@@ -107,9 +111,13 @@
         "en": "AZURE",
         "ar": "أزور"
       },
+      "giantWordAlt": {
+        "en": "HORIZON",
+        "ar": "أفق"
+      },
       "environment": {
-        "en": "The Coast Road",
-        "ar": "طريق الساحل"
+        "en": "The Glass Wall",
+        "ar": "الجدار الزجاجي"
       },
       "whisper": {
         "en": "Built for the long way home.",
@@ -192,6 +200,10 @@
       "giantWord": {
         "en": "MULLINER",
         "ar": "مولينر"
+      },
+      "giantWordAlt": {
+        "en": "TAILORED",
+        "ar": "إتقان"
       },
       "environment": {
         "en": "The Salon",
@@ -276,9 +288,10 @@
       "temperature": "neutral",
       "accent": "#9BA4AE",
       "giantWord": null,
+      "giantWordAlt": null,
       "environment": {
-        "en": "The District",
-        "ar": "الحيّ المالي"
+        "en": "The Mezzanine",
+        "ar": "الميزانين"
       },
       "whisper": {
         "en": "Still the standard.",
@@ -360,9 +373,10 @@
       "temperature": "cool",
       "accent": "#9E93A6",
       "giantWord": null,
+      "giantWordAlt": null,
       "environment": {
-        "en": "The Sandstone",
-        "ar": "الصخور الرملية"
+        "en": "The Colonnade",
+        "ar": "رواق الأعمدة"
       },
       "whisper": {
         "en": "Above it all.",
@@ -443,9 +457,10 @@
       "temperature": "warm",
       "accent": "#AD9E8B",
       "giantWord": null,
+      "giantWordAlt": null,
       "environment": {
-        "en": "The Villa",
-        "ar": "الفيلا"
+        "en": "The Entrance",
+        "ar": "المدخل"
       },
       "whisper": {
         "en": "Room for everyone who matters.",
@@ -527,6 +542,7 @@
       "temperature": "neutral",
       "accent": "#5F7FB5",
       "giantWord": null,
+      "giantWordAlt": null,
       "environment": {
         "en": "The Light Lines",
         "ar": "خطوط الضوء"
@@ -611,9 +627,10 @@
       "temperature": "cold",
       "accent": "#9A8C6A",
       "giantWord": null,
+      "giantWordAlt": null,
       "environment": {
-        "en": "The Bunker",
-        "ar": "الملجأ"
+        "en": "The Corner",
+        "ar": "الزاوية"
       },
       "whisper": {
         "en": "The fastest way to make an entrance.",
@@ -697,9 +714,10 @@
       "temperature": "warm",
       "accent": "#B07A4E",
       "giantWord": null,
+      "giantWordAlt": null,
       "environment": {
-        "en": "The Pass",
-        "ar": "الممرّ الجبلي"
+        "en": "The Reflection",
+        "ar": "الانعكاس"
       },
       "whisper": {
         "en": "Six decades of getting it right.",
@@ -782,9 +800,10 @@
       "temperature": "cool",
       "accent": "#8E9DAF",
       "giantWord": null,
+      "giantWordAlt": null,
       "environment": {
-        "en": "The Wadi",
-        "ar": "الوادي"
+        "en": "The Upper Floor",
+        "ar": "الطابق العلوي"
       },
       "whisper": {
         "en": "Unmoved by anything.",
