@@ -509,3 +509,35 @@ One detail that needed a second look: the ink strip sets **all three lines in fu
 **One QA trap worth writing down.** Clearing `.next/cache/images` and then running `scripts/shoot.mjs` will hang on the Corvette page: `networkidle` never settles while its clip loops, playwright aborts the navigation at 30 s, and that leaves Next's image optimiser holding an in-flight lock on `mb-c8-hero-m.png` — every later request for that exact URL then waits forever, and `load` never fires on that route. The file is fine (sharp resizes and encodes it to AVIF in 439 ms) and so is the cache; restarting the server clears it. It cost half an hour of looking for a defect that was not there.
 
 **Screenshots:** `qa/showroom-set/`.
+
+## hotfix — the Worker stops re-rendering and the photographs become cacheable
+
+**Built.** The live site was returning Cloudflare 1102 (Worker exceeded resource limits) while browsing:
+images stalled first, then the next page load was an error page. Measured against the deployment with
+`wrangler tail` and curl: every page was rendered by React **on every request** (260–393 ms CPU,
+`x-nextjs-cache: MISS` on three sequential hits of the same URL), and every `/_next/image` response
+carried **no `Cache-Control` at all**, so each photograph was re-fetched (2–2.6 MB PNG) and
+re-transformed on every view — 1.2–6.2 s each, 8.6 s average under 40 concurrent requests.
+
+Two causes, both configuration. `open-next.config.ts` was `defineCloudflareConfig()` with no arguments,
+which leaves `incrementalCache` at `"dummy"`: the 37 prerendered pages sitting in `.open-next/cache`
+were never read back by anything. It now declares `staticAssetsIncrementalCache` (read-only, which is
+all a site with no ISR needs) with `enableCacheInterception`, so a page is answered from the ASSETS
+binding before the Next server is entered. And `public/_headers` had no rule for `/images/*`, so the
+masters were served `max-age=0, must-revalidate`; the adapter only marks a transformed image immutable
+when its *source* says so, which is why the output had no cache header. `/images/*` and
+`/_next/static/*` are now `immutable` for a year (both are content-addressed: a new photograph gets a
+new name, a changed chunk gets a new hash).
+
+**Measured after deploying.** Page CPU **262 ms → 35 ms** median (max 393 → 68), every route
+`x-opennext-cache: HIT`, and `/_next/image` now answers `public, max-age=315360000, immutable`.
+Nine routes checked in both locales, four captured in Chrome at 390 and 1440 — console clean.
+
+**Left.** The transform itself is unchanged: a photograph nobody has requested yet still costs the
+Worker 1.2–6.2 s, and on a `*.workers.dev` hostname Cloudflare does not cache Worker responses, so
+that cost is paid per PoP rather than once. A visitor's browser now holds every photograph for a year,
+which is what takes the repeat-view load off the Worker. The static conversion that follows removes the
+transform entirely — the photographs become pre-encoded AVIF/WebP files served straight from the
+asset store, with no Worker in the path of a page view at all.
+
+**Screenshots:** `qa/hotfix/`.

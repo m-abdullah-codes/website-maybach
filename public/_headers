@@ -1,0 +1,32 @@
+# Cache headers for the static assets, for the Cloudflare Workers build.
+#
+# On Vercel these come from `headers()` in next.config.ts. On Workers everything under public/ is
+# served straight from the ASSETS binding without touching the Worker, so `headers()` never runs for
+# these paths and this file is the only thing that sets them. Keep the two in step.
+
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/logos/*
+  Cache-Control: public, max-age=86400, stale-while-revalidate=2592000
+
+/brand/*
+  Cache-Control: public, max-age=86400, stale-while-revalidate=2592000
+
+/videos/*
+  Cache-Control: public, max-age=86400, stale-while-revalidate=2592000
+
+/og.jpg
+  Cache-Control: public, max-age=604800
+
+# The photograph masters. Nothing links to these directly — they are the *source* the image handler
+# transforms — but the adapter only marks a transformed image immutable when the master it came from
+# says so, and without that the /_next/image responses carry no Cache-Control at all and every
+# photograph is re-fetched and re-transformed on every page view. Filenames are content-stable
+# (a new photograph gets a new name), so a year is honest.
+/images/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Content-hashed build output: the filename changes whenever the bytes do.
+/_next/static/*
+  Cache-Control: public, max-age=31536000, immutable
