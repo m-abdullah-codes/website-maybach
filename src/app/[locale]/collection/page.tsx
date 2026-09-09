@@ -40,7 +40,7 @@ export default async function CollectionPage({ params }: Params) {
         {rows.map((row) => (
           <div key={row.row} data-row="" data-cats={row.cars.map((c) => c.category).join(",")} className="collection__row">
             {row.treatment === "scene" ? (
-              <SceneRow car={row.cars[0]} site={site} side={SCENE_SIDE[row.row] ?? "end"} light={row.scene === "light"} />
+              <SceneRow car={row.cars[0]} site={site} side={SCENE_SIDE[row.row] ?? "end"} />
             ) : row.treatment === "cards" ? (
               <CardPair cars={row.cars} site={site} className="collection__cards" />
             ) : (

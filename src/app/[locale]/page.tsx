@@ -31,7 +31,9 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       <Marques site={site} />
       <AfterDark site={site} />
       <Featured site={site} car={featured} />
-      <Viewing site={site} locale={locale} />
+      {/* fadeTop: the Featured exhibit above is the light room now, so this night photograph comes up
+          out of salon instead of meeting it at a drawn edge (globals.css .fade-top-salon). */}
+      <Viewing site={site} locale={locale} fadeTop />
       <VisitStrip site={site} />
     </>
   );
