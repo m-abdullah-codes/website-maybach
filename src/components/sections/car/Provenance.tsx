@@ -6,6 +6,7 @@ import { MediaBg } from "@/components/ui/MediaBg";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Button } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
+import { SplitText } from "@/components/ui/SplitText";
 
 /** docs/02 D6: CD-PROV-01 behind; glass chips over the dark half for the papers that apply; one link. */
 export function Provenance({ car, site }: { car: Car; site: Site }) {
@@ -25,9 +26,7 @@ export function Provenance({ car, site }: { car: Car; site: Site }) {
         <Reveal>
           <Eyebrow>{p.eyebrow}</Eyebrow>
         </Reveal>
-        <Reveal as="h2" lines className="t-display-l mt-6">
-          {p.title}
-        </Reveal>
+        <SplitText tag="h2" className="t-display-l mt-6" text={p.title} />
         <Reveal stagger as="ul" className="prov__chips">
           {chips.map((c) => (
             <li key={c} className="prov__chip glass">

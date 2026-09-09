@@ -1,10 +1,11 @@
-import Image from "next/image";
+import { Photo } from "@/components/ui/Photo";
 import type { Car, Site } from "@/lib/content";
 import type { Locale } from "@/lib/i18n";
 import { img } from "@/lib/images";
 import { MediaBg } from "@/components/ui/MediaBg";
 import { Reveal } from "@/components/ui/Reveal";
 import { EnquiryForm } from "@/components/forms/EnquiryForm";
+import { SplitText } from "@/components/ui/SplitText";
 
 /**
  * docs/02 D7: CD-KEY-01 start-side (4:3) with the form end-side; on mobile the photograph sits blurred
@@ -21,7 +22,7 @@ export function Enquire({ car, site, locale }: { car: Car; site: Site; locale: L
       <MediaBg desktop="cd-key-01" overlay="y" className="enquire__bg md:hidden" imgClassName="enquire__blur" />
       <div className="wrap enquire__inner">
         <Reveal className="enquire__image">
-          <Image
+          <Photo
             src={key.src}
             alt=""
             role="presentation"
@@ -34,9 +35,7 @@ export function Enquire({ car, site, locale }: { car: Car; site: Site; locale: L
           />
         </Reveal>
         <div className="enquire__panel">
-          <Reveal as="h2" lines className="t-display-l">
-            {title}
-          </Reveal>
+          <SplitText tag="h2" className="t-display-l" text={title} />
           <Reveal as="p" delay={120} className="t-body-l measure mt-4 text-silver">
             {e.sub}
           </Reveal>

@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { Photo } from "@/components/ui/Photo";
 import type { Site } from "@/lib/content";
 import { img } from "@/lib/images";
 import { cn } from "@/lib/cn";
@@ -18,8 +18,8 @@ export function Space({ site }: { site: Site }) {
         {frames.map((f, i) => (
           <Reveal key={f.caption} delay={i * 80} as="div" className={cn("space__frame", `space__frame--${i + 1}`, `space__frame--${f.kind}`)}>
             <div className="space__media">
-              <Image src={f.m.src} alt={f.caption} fill sizes="100vw" placeholder="blur" blurDataURL={f.m.blurDataURL} className="space__img md:hidden" />
-              <Image
+              <Photo src={f.m.src} alt={f.caption} fill sizes="100vw" placeholder="blur" blurDataURL={f.m.blurDataURL} className="space__img md:hidden" />
+              <Photo
                 src={f.d.src}
                 alt={f.caption}
                 fill

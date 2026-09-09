@@ -4,11 +4,14 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "build": "npm run images && next build && node scripts/flatten-export.mjs",
+    "images": "node scripts/derive-images.mjs",
+    "preview": "wrangler dev",
+    "deploy": "npm run build && wrangler deploy",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
-    "blur": "node scripts/blur-placeholders.mjs"
+    "blur": "node scripts/blur-placeholders.mjs",
+    "videos": "node scripts/encode-videos.mjs"
   },
   "dependencies": {
     "gsap": "^3.13.0",
@@ -18,7 +21,6 @@
     "next-intl": "^4.0.0",
     "react": "19.1.0",
     "react-dom": "19.1.0",
-    "resend": "latest",
     "zod": "^4.0.0"
   },
   "devDependencies": {
@@ -33,6 +35,7 @@
     "playwright-core": "^1.50.0",
     "sharp": "^0.34.0",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "wrangler": "^4.130.0"
   }
 }

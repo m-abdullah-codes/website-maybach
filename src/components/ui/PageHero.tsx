@@ -10,7 +10,8 @@ interface PageHeroProps {
   desktop: string;
   mobile: string;
   eyebrow: string;
-  word: string;
+  /** Omit to render the hero with no giant word at all (the Home hero since September 2026). */
+  word?: string;
   /** A second phrase for the word to alternate with (the Home hero only). */
   wordAlt?: string;
   title: string;
@@ -54,11 +55,12 @@ export function PageHero({
       <div className="wrap page-hero__inner">
         <div className="page-hero__top">
           <Eyebrow>{eyebrow}</Eyebrow>
-          {wordAlt ? (
-            <GiantCycle words={[word, wordAlt]} hero reveal="immediate" className="page-hero__word" />
-          ) : (
-            <GiantWord text={word} hero reveal="immediate" className="page-hero__word" />
-          )}
+          {word &&
+            (wordAlt ? (
+              <GiantCycle words={[word, wordAlt]} hero reveal="immediate" className="page-hero__word" />
+            ) : (
+              <GiantWord text={word} hero reveal="immediate" className="page-hero__word" />
+            ))}
         </div>
         <div className="page-hero__copy scrim">
           <h1 className="t-display-xl measure">{title}</h1>

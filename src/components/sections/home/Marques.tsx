@@ -4,6 +4,7 @@ import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Marquee } from "@/components/ui/Marquee";
 import { Reveal } from "@/components/ui/Reveal";
 import { Emblem } from "@/components/brand/Emblem";
+import { SplitText } from "@/components/ui/SplitText";
 
 /** docs/02 H5 and S6: carbon ground with the diamond watermark at 3%, eyebrow and one line, the marquee. */
 export function Marques({ site, id = "marques" }: { site: Site; id?: string }) {
@@ -15,9 +16,7 @@ export function Marques({ site, id = "marques" }: { site: Site; id?: string }) {
         <Reveal>
           <Eyebrow>{m.eyebrow}</Eyebrow>
         </Reveal>
-        <Reveal as="h2" lines className="t-display-l mt-6">
-          {m.line}
-        </Reveal>
+        <SplitText tag="h2" className="t-display-l mt-6" text={m.line} />
       </div>
       <Marquee tiles={marqueTiles(m.list)} />
     </section>

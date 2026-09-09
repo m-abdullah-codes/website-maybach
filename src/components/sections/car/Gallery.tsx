@@ -3,6 +3,7 @@ import { img } from "@/lib/images";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Reveal } from "@/components/ui/Reveal";
 import { GalleryGrid, type GalleryImage } from "./GalleryGrid";
+import { SplitText } from "@/components/ui/SplitText";
 
 /**
  * docs/02 D4: HERO-D, DET-03 and HERO-M (portrait tile), plus retouched real photographs when supplied.
@@ -26,9 +27,7 @@ export function Gallery({ car, site }: { car: Car; site: Site }) {
         <Reveal>
           <Eyebrow>{site.car.gallery.eyebrow}</Eyebrow>
         </Reveal>
-        <Reveal as="h2" lines className="t-display-l mt-6">
-          {site.car.gallery.title}
-        </Reveal>
+        <SplitText tag="h2" className="t-display-l mt-6" text={site.car.gallery.title} />
       </div>
       <GalleryGrid images={images} closeLabel={site.nav.close} />
     </section>

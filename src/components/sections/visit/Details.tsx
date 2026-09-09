@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { Photo } from "@/components/ui/Photo";
 import type { Site } from "@/lib/content";
 import type { Locale } from "@/lib/i18n";
 import { img } from "@/lib/images";
@@ -25,7 +25,7 @@ export function Details({ site, locale }: { site: Site; locale: Locale }) {
       <div className="wrap vdetails__inner">
         <Reveal delay={120} className="vmap-wrap">
           <a href={site.settings.mapsUrl} target="_blank" rel="noopener noreferrer" className="vmap" aria-label={site.common.getDirections}>
-            <Image src={map.src} alt="" role="presentation" fill sizes="(min-width: 1024px) 50vw, 100vw" placeholder="blur" blurDataURL={map.blurDataURL} className="vmap__img" />
+            <Photo src={map.src} alt="" role="presentation" fill sizes="(min-width: 1024px) 50vw, 100vw" placeholder="blur" blurDataURL={map.blurDataURL} className="vmap__img" />
             <span className="vmap__pin" aria-hidden="true">
               <Emblem className="vmap__emblem" />
               <span className="vmap__dot" />

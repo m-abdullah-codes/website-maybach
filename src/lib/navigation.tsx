@@ -6,7 +6,8 @@ import { createContext, useCallback, useContext, useRef, type ComponentProps, ty
 import type { Locale } from "./i18n";
 
 // Locale-aware links without shipping next-intl's client runtime (docs/03 §13.2 JS budget).
-// Routing, redirects and <html lang dir> stay with next-intl on the server and in the middleware.
+// <html lang dir> is set by the layout from the route's own locale segment; the URLs themselves are
+// decided at build time (src/lib/i18n.ts).
 
 const LocaleContext = createContext<Locale>("en");
 
@@ -61,8 +62,16 @@ export function Link({ href, locale, prefetch, onMouseEnter, onTouchStart, ...re
   );
 }
 
+// Both prefixes, not just /ar. English has no prefix in the URL, but the page is *built* at /en —
+// that is the path usePathname returns while it is being rendered, exactly as it was when the
+// middleware rewrote "/" to "/en". Stripping only /ar left "/en" in the result, so
+// every English page shipped its language toggle pointing at /ar/en (a 404 — the Arabic "nothing
+// here" page) and no nav link ever matched its own href, so the active dot never appeared outside
+// Arabic. On the client the same hook returns the browser path, which has no /en to strip.
+const LOCALE_PREFIX = /^\/(?:en|ar)(?=\/|$)/;
+
 /** The pathname without the locale prefix, so the same route can be linked in the other locale. */
 export function usePathname(): string {
   const p = useNextPathname() || "/";
-  return p.replace(/^\/ar(?=\/|$)/, "") || "/";
+  return p.replace(LOCALE_PREFIX, "") || "/";
 }

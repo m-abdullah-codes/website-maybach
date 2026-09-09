@@ -7,6 +7,7 @@ import { Link, usePathname } from "@/lib/navigation";
 import { cn } from "@/lib/cn";
 import { getLenis } from "@/lib/lenis";
 import { Wordmark } from "@/components/brand/Wordmark";
+import { Emblem } from "@/components/brand/Emblem";
 import { Button } from "@/components/ui/Button";
 import { MobileMenu } from "./MobileMenu";
 
@@ -40,10 +41,25 @@ export function Nav({ locale, labels, whatsappHref, menuTexture }: NavProps) {
   const other: Locale = locale === "ar" ? "en" : "ar";
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 80);
+    // Published on the root as well as held in state: the Home hero's Now-showing card reads it in CSS
+    // to stay out of the first screen (globals.css), and that needs no second scroll listener. Written
+    // only when it flips — touching the root attribute on every scroll event invalidates style for the
+    // whole document each frame, which is a scroll handler that does real work sixty times a second.
+    let flag: boolean | null = null;
+    const onScroll = () => {
+      const past = window.scrollY > 80;
+      setScrolled(past);
+      if (past === flag) return;
+      flag = past;
+      if (past) document.documentElement.dataset.scrolled = "";
+      else delete document.documentElement.dataset.scrolled;
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      delete document.documentElement.dataset.scrolled;
+    };
   }, []);
 
   // Close on navigation.
@@ -78,8 +94,12 @@ export function Nav({ locale, labels, whatsappHref, menuTexture }: NavProps) {
     <>
       <header className={cn("nav", scrolled && "nav--pill", open && "nav--open")}>
         <div className="nav__bar">
+          {/* Over a hero the mark is the emblem alone; the wordmark arrives with the pill. The giant
+              word under the transparent nav already says MAY BACH, and saying it twice, 40 px apart,
+              was the one place on the page where the brand shouted. */}
           <Link href="/" className="nav__brand" aria-label={labels.brand}>
-            <Wordmark variant={locale === "ar" ? "arabic" : "latin"} className="h-[22px] w-auto" />
+            <Emblem className="nav__emblem" />
+            <Wordmark variant={locale === "ar" ? "arabic" : "latin"} className="nav__wordmark h-[22px] w-auto" />
           </Link>
 
           <nav className="nav__links">

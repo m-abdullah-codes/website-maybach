@@ -1,4 +1,5 @@
 import manifest from "../../content/image-manifest.json";
+import rungs from "./img-rungs.json";
 import blur from "./blur.json";
 import boundsJson from "./bounds.json";
 import lumaJson from "./luma.json";
@@ -73,4 +74,33 @@ const NO_BOUNDS: Bounds = { top: 0, right: 0, bottom: 0, left: 0 };
 
 export function bounds(ref: string): Bounds {
   return boundsMap[imageFile(ref)] ?? NO_BOUNDS;
+}
+
+/**
+ * The AVIF twin of a srcset built by next/image.
+ *
+ * scripts/derive-images.mjs writes both formats of every rung, and src/lib/image-loader.ts names the
+ * .webp — the one every browser since 2020 can read, and the only thing a bare <img srcset> can be
+ * given, since a srcset has no way to say "or this format instead". A <picture> does: the components
+ * that carry the full-bleed photographs offer this set first as type="image/avif" and leave the webp
+ * on the <img> underneath, so a browser without AVIF simply takes the fallback. Anything that is not
+ * a derivative URL passes through untouched.
+ */
+export function avifSet(srcSet: string | undefined): string | undefined {
+  return srcSet?.replaceAll(".webp ", ".avif ").replace(/\.webp$/, ".avif");
+}
+
+/**
+ * The largest pre-encoded copy of a photograph, as a plain path.
+ *
+ * The PNG masters are not deployed (scripts/flatten-export.mjs drops them — 269 MB nothing links to),
+ * so the few places that need a real URL rather than a srcset — the Car structured data, an og image —
+ * name a derivative instead. Falls back to the master's path for anything unencoded, which would be a
+ * bug in the manifest rather than something to hide.
+ */
+export function largestSrc(ref: string): string {
+  const file = imageFile(ref);
+  const stem = file.replace(/^\/images\//, "").replace(/\.png$/, "");
+  const ladder = (rungs as Record<string, number[]>)[stem];
+  return ladder ? `/img/${stem}-${ladder[ladder.length - 1]}.webp` : file;
 }

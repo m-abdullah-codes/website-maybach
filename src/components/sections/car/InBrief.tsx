@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { Photo } from "@/components/ui/Photo";
 import type { Car, Site } from "@/lib/content";
 import { img } from "@/lib/images";
 import { Eyebrow } from "@/components/ui/Eyebrow";
@@ -10,7 +10,7 @@ export function InBrief({ car, site }: { car: Car; site: Site }) {
   return (
     <section id="in-brief" className="wrap brief">
       <Reveal className="brief__image">
-        <Image
+        <Photo
           src={macro.src}
           alt={`${car.marque} ${car.title}`}
           width={macro.width}

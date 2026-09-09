@@ -25,9 +25,13 @@ import { GiantCycle } from "@/components/ui/GiantCycle";
  *
  * **It carries the giant word.** The same treatment the Home and page heroes use: the car's own word
  * over the photograph at 60%, high in the frame, decorative and aria-hidden. The word is
- * `giantWord ?? model`, exactly as the Collection Scene rows resolve it — so the three cars that have a
- * word cycle it (CULLINAN ⇄ PRESENCE, AZURE ⇄ HORIZON, MULLINER ⇄ TAILORED) and the other seven set
- * their model name once. No copy is invented for it, and none is needed. On the Flying Spur's salon the
+ * `giantWord ?? model`, exactly as the Collection Scene rows resolve it, and every car now cycles it
+ * against a second word: the three Scene cars had one already (CULLINAN ⇄ PRESENCE, AZURE ⇄ HORIZON,
+ * MULLINER ⇄ TAILORED) and the other seven were given one in September 2026 at the client's request —
+ * S-CLASS ⇄ COMPOSURE, AUTOBIOGRAPHY ⇄ COMMAND, YUKON ⇄ ROOM, CORVETTE ⇄ INSTINCT, URUS ⇄ FEROCITY,
+ * 911 ⇄ PRECISION, G 63 ⇄ RESOLVE. One noun each, in the register of the whisper lines; they live in
+ * cars.json as `giantWordAlt` (en + ar) so a CMS can change them, and only these seven are new copy.
+ * Those seven keep `giantWord: null`, so the first phrase stays the model name via the fallback. No copy is invented for it, and none is needed. On the Flying Spur's salon the
  * word turns ink by itself, because `.scene--light .giant` already remaps the fill.
  *
  * **Three lines of copy, not five.** §D1 puts the colour line and two buttons here. The colour line is

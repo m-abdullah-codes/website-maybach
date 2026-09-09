@@ -1,9 +1,22 @@
-# Cache headers for the static assets, for the Cloudflare Workers build.
+# Cache headers for the static site. `headers()` in next.config.ts does not run in an export — there
+# is no server to run it — so this file is the only thing that sets them, and the Cloudflare asset
+# store is what reads it.
 #
-# On Vercel these come from `headers()` in next.config.ts. On Workers everything under public/ is
-# served straight from the ASSETS binding without touching the Worker, so `headers()` never runs for
-# these paths and this file is the only thing that sets them. Keep the two in step.
+# HTML and the .txt router payloads beside it are deliberately absent: they change with every deploy
+# and the default (revalidate against the ETag) is what they should do.
 
+# The photographs. scripts/derive-images.mjs writes /img/<stem>-<width>.<format>, so the name carries
+# both the source and the size; a new photograph arrives under a new name (content/image-manifest.json
+# gives every image its own id). If a master is ever *replaced* under its existing name, the ?v token
+# convention used for the fonts applies here too.
+/img/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Content-hashed build output: the filename changes whenever the bytes do.
+/_next/static/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# The faces are content-stable (scripts/subset-fonts.py bumps the ?v token when they are not).
 /fonts/*
   Cache-Control: public, max-age=31536000, immutable
 
@@ -18,15 +31,3 @@
 
 /og.jpg
   Cache-Control: public, max-age=604800
-
-# The photograph masters. Nothing links to these directly — they are the *source* the image handler
-# transforms — but the adapter only marks a transformed image immutable when the master it came from
-# says so, and without that the /_next/image responses carry no Cache-Control at all and every
-# photograph is re-fetched and re-transformed on every page view. Filenames are content-stable
-# (a new photograph gets a new name), so a year is honest.
-/images/*
-  Cache-Control: public, max-age=31536000, immutable
-
-# Content-hashed build output: the filename changes whenever the bytes do.
-/_next/static/*
-  Cache-Control: public, max-age=31536000, immutable

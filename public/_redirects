@@ -1,0 +1,5 @@
+# English is served without a prefix (scripts/flatten-export.mjs moves the /en tree to the root), so
+# anything still holding an /en/... link — a bookmark, an old index entry, the middleware's own
+# redirect while the site ran on a server — lands on the same page one level up.
+/en/* /:splat 301
+/en / 301

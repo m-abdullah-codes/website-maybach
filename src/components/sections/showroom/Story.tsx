@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { Photo } from "@/components/ui/Photo";
 import type { Site } from "@/lib/content";
 import { img } from "@/lib/images";
 import { Reveal } from "@/components/ui/Reveal";
@@ -9,7 +9,7 @@ export function Story({ site }: { site: Site }) {
   return (
     <section id="story" className="wrap story">
       <Reveal className="story__image">
-        <Image
+        <Photo
           src={sign.src}
           alt={site.brand.wordmark}
           width={sign.width}

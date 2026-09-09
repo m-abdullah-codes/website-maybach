@@ -1,9 +1,9 @@
 "use client";
 
-import { useActionState, useId } from "react";
-import Image from "next/image";
+import { useId, useState } from "react";
+import { Photo } from "@/components/ui/Photo";
 import { cn } from "@/lib/cn";
-import { sendEnquiry, type FormState } from "./actions";
+import type { FormState } from "@/lib/enquiry";
 import { Button } from "@/components/ui/Button";
 
 export interface FormLabels {
@@ -41,14 +41,34 @@ const INITIAL: FormState = { status: "idle" };
  * CT-DOOR-01 and the confirmation line. The phone field is pre-filled with +966.
  */
 export function EnquiryForm({ labels, locale, car, cars, successImage, page, className }: EnquiryFormProps) {
-  const [state, action, pending] = useActionState(sendEnquiry, INITIAL);
+  const [state, setState] = useState<FormState>(INITIAL);
+  const [pending, setPending] = useState(false);
   const id = useId();
+
+  // The form also carries a real action and method, so a visitor without JavaScript still reaches the
+  // concierge — src/worker/index.ts answers that submission with a plain confirmation page instead of
+  // the JSON this reads. Here the request is made by hand so the success state can replace the form in
+  // place, which is what docs/02 §3.13 asks for.
+  async function submit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (pending) return;
+    const body = new FormData(event.currentTarget);
+    setPending(true);
+    try {
+      const res = await fetch("/api/enquiry", { method: "POST", body, headers: { Accept: "application/json" } });
+      setState((await res.json()) as FormState);
+    } catch {
+      setState({ status: "error", generic: true });
+    } finally {
+      setPending(false);
+    }
+  }
 
   if (state.status === "ok") {
     const [first, ...rest] = labels.success.split(". ");
     return (
       <div className={cn("form-success", className)} role="status">
-        <Image
+        <Photo
           src={successImage.src}
           alt=""
           width={successImage.width}
@@ -70,7 +90,7 @@ export function EnquiryForm({ labels, locale, car, cars, successImage, page, cla
   };
 
   return (
-    <form action={action} className={cn("form", className)} noValidate>
+    <form action="/api/enquiry" method="post" onSubmit={submit} className={cn("form", className)} noValidate>
       <input type="hidden" name="locale" value={locale} />
       {page && <input type="hidden" name="page" value={page} />}
       {car && <input type="hidden" name="car" value={car} />}

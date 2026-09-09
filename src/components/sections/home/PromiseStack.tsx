@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, type ReactNode } from "react";
+import { useEffect, useLayoutEffect, useRef, type ReactNode } from "react";
 import { loadGsap } from "@/lib/gsap";
 import { reducedMotion } from "@/lib/motion";
 
@@ -14,9 +14,27 @@ import { reducedMotion } from "@/lib/motion";
  * the foot of the pinned frame (`.promise.is-pinned`, see globals.css) so it can reach up into the
  * space the head vacates. The class is only added once this timeline is actually building, so the
  * reduced-motion and no-JS paths keep the plain flow layout and their staggered reveals.
+ *
+ * The teardown runs from a layout effect, and that is not a style choice. `pin: true` makes
+ * ScrollTrigger wrap the pinned <section> in a .pin-spacer, so the section is no longer a child of the
+ * element React rendered it into. React finds out when it unmounts this page: it calls removeChild on
+ * the old parent and throws NotFoundError, which took the whole app to its error boundary — every
+ * navigation away from the home page went blank. A useEffect cleanup cannot fix it because React runs
+ * passive cleanups *after* the mutation phase, by which point the removal has already failed. Layout
+ * cleanups run during it, before the node is removed, so ctx.revert() puts the section back first.
  */
+
+// useLayoutEffect warns when it runs during server rendering; this is the usual isomorphic guard.
+const useIsomorphicLayoutEffect = typeof window === "undefined" ? useEffect : useLayoutEffect;
 export function PromiseStack({ children }: { children: ReactNode }) {
   const ref = useRef<HTMLDivElement>(null);
+  // Held outside the effect so the layout cleanup below can reach it. Runs at most once.
+  const teardown = useRef<(() => void) | undefined>(undefined);
+  const release = () => {
+    const fn = teardown.current;
+    teardown.current = undefined;
+    fn?.();
+  };
 
   useEffect(() => {
     const inner = ref.current;
@@ -84,12 +102,17 @@ export function PromiseStack({ children }: { children: ReactNode }) {
         section.classList.remove("is-pinned");
         ScrollTrigger.refresh();
       };
+      teardown.current = cleanup;
     });
     return () => {
       cancelled = true;
+      teardown.current = undefined;
       cleanup?.();
     };
   }, []);
+
+  // Unwrap the pin-spacer while the DOM React is about to delete still looks the way React left it.
+  useIsomorphicLayoutEffect(() => release, []);
 
   return (
     <div ref={ref} className="promise__pin">

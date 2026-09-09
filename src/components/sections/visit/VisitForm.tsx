@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { Photo } from "@/components/ui/Photo";
 import type { Car, Site } from "@/lib/content";
 import type { Locale } from "@/lib/i18n";
 import { img } from "@/lib/images";
@@ -7,6 +7,7 @@ import { MediaBg } from "@/components/ui/MediaBg";
 import { Button } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
 import { EnquiryForm } from "@/components/forms/EnquiryForm";
+import { SplitText } from "@/components/ui/SplitText";
 
 /** docs/02 M3: SH-09 start-side at 4:5 on desktop (a small tile above on mobile); the form end-side on BR-03. */
 export function VisitForm({ site, locale, cars }: { site: Site; locale: Locale; cars: Car[] }) {
@@ -19,7 +20,7 @@ export function VisitForm({ site, locale, cars }: { site: Site; locale: Locale; 
       <MediaBg desktop="br-03-d" mobile="br-03-m" overlay="none" className="vform__texture" />
       <div className="wrap vform__inner">
         <Reveal className="vform__image">
-          <Image
+          <Photo
             src={coffee.src}
             alt=""
             role="presentation"
@@ -32,9 +33,7 @@ export function VisitForm({ site, locale, cars }: { site: Site; locale: Locale; 
           />
         </Reveal>
         <div className="vform__panel">
-          <Reveal as="h2" lines className="t-display-l">
-            {f.title}
-          </Reveal>
+          <SplitText tag="h2" className="t-display-l" text={f.title} />
           <Reveal delay={160} className="mt-10">
             <EnquiryForm
               labels={site.form}

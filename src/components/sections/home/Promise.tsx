@@ -5,6 +5,7 @@ import { Eyebrow } from "@/components/ui/Eyebrow";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { Reveal } from "@/components/ui/Reveal";
 import { PromiseStack } from "./PromiseStack";
+import { SplitText } from "@/components/ui/SplitText";
 
 /**
  * docs/02 H4: the Bentley headlamp macro; headline start-side staggered over its lines; three frosted
@@ -23,9 +24,7 @@ export function Promise({ site }: { site: Site }) {
             <Reveal>
               <Eyebrow>{w.eyebrow}</Eyebrow>
             </Reveal>
-            <Reveal as="h2" lines className="t-display-l promise__title mt-6">
-              {w.title}
-            </Reveal>
+            <SplitText tag="h2" className="t-display-l promise__title mt-6" splitType="lines, chars" text={w.title} />
             <Reveal as="p" delay={240} className="t-body-l measure mt-6 text-silver">
               {w.sub}
             </Reveal>

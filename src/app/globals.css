@@ -643,6 +643,16 @@
   .page-hero__copy { margin-top: auto; padding-top: 48px; }
   .page-hero--top .page-hero__copy { margin-top: 0; padding-top: 32px; }
   .page-hero--sky .page-hero__word { margin-top: 8px; }
+
+  /* The Home hero carries only an eyebrow and the headline (the cycling word and the support line were
+     dropped in September 2026). Both are centred horizontally, and both stay in the bottom of the frame,
+     where the photograph's vertical blend is — that gradient is what makes the type legible, so the copy
+     never leaves it. The block keeps the standard hero floor, which means the headline now sits lower
+     than it did: with the support line gone it drops into the space that line used to occupy. */
+  .home__hero .page-hero__inner { text-align: center; }
+  .home__hero .page-hero__top { display: flex; flex-direction: column; align-items: center; }
+  .home__hero .page-hero__copy { margin-top: auto; }
+  .home__hero .measure { margin-inline: auto; }
   .page-404 { display: grid; place-items: center; min-height: 100svh; text-align: center; }
   .page-404__inner { position: relative; z-index: 2; padding-block: 120px; }
 

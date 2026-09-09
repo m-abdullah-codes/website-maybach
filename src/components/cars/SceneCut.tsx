@@ -1,6 +1,6 @@
 import { getImageProps } from "next/image";
 import type { CSSProperties } from "react";
-import type { Img } from "@/lib/images";
+import { avifSet, type Img } from "@/lib/images";
 
 /**
  * The car cut-out layer as one <picture>: -A above 768 px, -B below, a single request. The box keeps a
@@ -15,17 +15,21 @@ export function SceneCut({ a, b, alt, priority }: { a: Img; b: Img; alt: string;
   // behind the alpha as a grey box and never clear (getImageProps has no onLoad to remove it).
   const { props: pb } = getImageProps({ src: b.src, alt, width: b.width, height: b.height, sizes: "100vw", quality: 78 });
   const vars = { "--car-ratio-d": `${a.width} / ${a.height}`, "--car-ratio-m": `${b.width} / ${b.height}` } as CSSProperties;
+  // 4:4:4 AVIF of the same rung, offered above the webp — the cut-out's edge is the whole subject.
+  const aAvif = avifSet(pa.srcSet);
+  const bAvif = avifSet(pb.srcSet);
   return (
     <>
       {priority && (
         <>
-          <link rel="preload" as="image" imageSrcSet={pb.srcSet} imageSizes="100vw" media="(max-width: 767px)" fetchPriority="high" />
-          <link rel="preload" as="image" imageSrcSet={pa.srcSet} imageSizes="60vw" media="(min-width: 768px)" fetchPriority="high" />
+          <link rel="preload" as="image" type="image/avif" imageSrcSet={bAvif} imageSizes="100vw" media="(max-width: 767px)" fetchPriority="high" />
+          <link rel="preload" as="image" type="image/avif" imageSrcSet={aAvif} imageSizes="60vw" media="(min-width: 768px)" fetchPriority="high" />
         </>
       )}
       <picture className="contents">
+        <source media="(min-width: 768px)" type="image/avif" srcSet={aAvif} sizes="60vw" />
         <source media="(min-width: 768px)" srcSet={pa.srcSet} sizes="60vw" />
-        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <source type="image/avif" srcSet={bAvif} sizes="100vw" />
         <img
           src={pb.src}
           srcSet={pb.srcSet}

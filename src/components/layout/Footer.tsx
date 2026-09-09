@@ -8,7 +8,8 @@ import { LocaleToggle } from "./LocaleToggle";
 
 /**
  * docs/02 §3.15: obsidian; platinum hairline at 20% on top; wordmark (40 px) start, tagline end; four
- * link columns + address/hours/phone; social, language toggle, licence, copyright. BR-03 texture at 40%.
+ * link columns + address/hours/phone; social, language toggle, licence, copyright, studio credit.
+ * BR-03 texture at 40%.
  */
 export function Footer({ locale }: { locale: Locale }) {
   const site = getSite(locale);
@@ -69,6 +70,14 @@ export function Footer({ locale }: { locale: Locale }) {
           <LocaleToggle locale={locale} label={site.nav.languageToggle} className="footer__link" />
           <span className="text-pewter">{site.brand.licence}</span>
           <span className="text-pewter">{site.footer.copyright}</span>
+          {/* Studio credit, at the client's request. The domain keeps its own direction so it does not
+              reorder inside Arabic, the same way the phone number does above. */}
+          <span className="text-pewter">
+            {site.footer.credit}{" "}
+            <a href="https://contoursystems.co" target="_blank" rel="noopener noreferrer" className="footer__link" dir="ltr">
+              contoursystems.co
+            </a>
+          </span>
           <span className="footer__legal text-pewter">
             <span>{site.footer.privacy}</span>
             <span aria-hidden="true"> · </span>

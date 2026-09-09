@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/image";
+import { Photo } from "@/components/ui/Photo";
 import { cn } from "@/lib/cn";
 import { reducedMotion } from "@/lib/motion";
 import { Emblem } from "@/components/brand/Emblem";
@@ -34,26 +34,29 @@ export function Preloader({ arabic, glow }: { arabic: boolean; glow: GlowImage }
       /* storage unavailable: play once */
     }
     const reduced = reducedMotion();
-    const lift = window.setTimeout(
-      () => {
-        setState("lifting");
-        // docs/02 H0: the hero starts its entrance as the curtain lifts.
-        window.dispatchEvent(new CustomEvent("mb:preloader-lift"));
-      },
-      reduced ? 400 : 850,
-    );
-    const end = window.setTimeout(
-      () => {
-        setState("done");
-        try {
-          sessionStorage.setItem(KEY, "1");
-        } catch {
-          /* ignore */
-        }
-        window.dispatchEvent(new CustomEvent("mb:preloader-done"));
-      },
-      reduced ? 650 : 1650,
-    );
+    const liftAt = reduced ? 400 : 850;
+    const gap = (reduced ? 650 : 1650) - liftAt;
+    // §3.16 budgets the screen at ≤ 1.6 s. That has to be measured from the navigation, not from this
+    // effect: the timers used to start at hydration, so a slow connection paid for the whole load and
+    // then 1.65 s more — 6.5 s of obsidian on throttled 4G, which is also what wrecked Speed Index.
+    // performance.now() is the time since the navigation started, so the screen now ends 1.65 s after
+    // the visitor asked for the page however long the JavaScript took to arrive. A fast load is
+    // unchanged (hydration lands well inside the budget); a slow one lifts as soon as it can.
+    const liftIn = Math.max(60, liftAt - performance.now());
+    const lift = window.setTimeout(() => {
+      setState("lifting");
+      // docs/02 H0: the hero starts its entrance as the curtain lifts.
+      window.dispatchEvent(new CustomEvent("mb:preloader-lift"));
+    }, liftIn);
+    const end = window.setTimeout(() => {
+      setState("done");
+      try {
+        sessionStorage.setItem(KEY, "1");
+      } catch {
+        /* ignore */
+      }
+      window.dispatchEvent(new CustomEvent("mb:preloader-done"));
+    }, liftIn + gap);
     return () => {
       window.clearTimeout(lift);
       window.clearTimeout(end);
@@ -64,7 +67,7 @@ export function Preloader({ arabic, glow }: { arabic: boolean; glow: GlowImage }
 
   return (
     <div className={cn("preloader", state === "lifting" && "is-lifting")} aria-hidden="true">
-      <Image
+      <Photo
         src={glow.src}
         alt=""
         width={glow.width}

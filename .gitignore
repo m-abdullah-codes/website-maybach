@@ -55,3 +55,6 @@ qa/tmp/
 
 # image drop staging — never deploy: anything under public/ is served
 /public/new-generations/
+
+# build-time image derivatives (scripts/derive-images.mjs)
+/public/img/

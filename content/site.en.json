@@ -68,6 +68,7 @@
     "hours": "Saturday–Thursday 10:00–22:00 · Friday 16:00–22:00",
     "phone": "+966 [XX XXX XXXX]",
     "copyright": "© 2026 May Bach. All rights reserved.",
+    "credit": "Developed and designed by",
     "privacy": "Privacy",
     "terms": "Terms"
   },
@@ -75,6 +76,7 @@
     "hero": {
       "eyebrow": "Riyadh · The Collection",
       "giantWord": "MAY BACH",
+      "giantWordAlt": "THE FINEST",
       "title": "Where Riyadh keeps its finest.",
       "sub": "The world's most desired motor cars. One address.",
       "primary": "View the Collection",
@@ -133,6 +135,7 @@
     "featured": {
       "eyebrow": "Featured",
       "giantWord": "AZURE",
+      "giantWordAlt": "HORIZON",
       "name": "Bentley Continental GT Azure · Cambrian Grey",
       "line": "Built for the long way home.",
       "button": "Explore this car",

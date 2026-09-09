@@ -2,6 +2,9 @@ import type { MetadataRoute } from "next";
 import { getCarSlugs } from "@/lib/content";
 import { absoluteUrl, localePath } from "@/lib/seo";
 
+// Written once at build time: an export has no server to run a route handler on.
+export const dynamic = "force-static";
+
 const PATHS = ["/", "/collection", "/showroom", "/services", "/visit"];
 
 /** docs/03 Phase 7: every route in both locales with hreflang alternates. */

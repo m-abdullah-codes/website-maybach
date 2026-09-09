@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       type: "website",
       siteName: site.brand.name,
       locale: locale === "ar" ? "ar_SA" : "en_GB",
-      images: [{ url: "/og.png", width: 1200, height: 630, alt: site.brand.tagline }],
+      images: [{ url: "/og.jpg", width: 1200, height: 630, alt: site.brand.tagline }],
     },
     twitter: { card: "summary_large_image" },
     robots: { index: true, follow: true },
@@ -56,7 +56,10 @@ export default async function LocaleLayout({
   const whatsapp = buildWhatsAppUrl(locale);
 
   return (
-    <html lang={locale} dir={dirOf(locale)}>
+    // PRELOAD_SCRIPT below puts `js` (and `preloaded`) on this element before React hydrates, which is
+    // the point of it — the reveals must be gated before the first paint, not after. That deliberate
+    // mutation is the one attribute mismatch React should not warn about.
+    <html lang={locale} dir={dirOf(locale)} suppressHydrationWarning>
       <body>
         {FONT_PRELOADS[locale].map((href) => (
           <link key={href} rel="preload" as="font" type="font/woff2" href={href} crossOrigin="anonymous" />

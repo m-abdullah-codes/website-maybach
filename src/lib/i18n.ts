@@ -7,14 +7,15 @@ export const defaultLocale: Locale = "en";
 export const routing = defineRouting({
   locales,
   defaultLocale,
-  localePrefix: "as-needed",
-  // The canonical and the hreflang set are declared once, in the document head (docs/02 §13.3,
-  // src/lib/seo.ts). next-intl otherwise repeats them as a `Link:` response header built from the
-  // request host, which on any host that is not the canonical one — a preview deployment, an
-  // apex/www mismatch, localhost — advertises that host as the alternate and leaves the canonical
-  // pointing outside its own hreflang set.
-  alternateLinks: false,
 });
+
+// Everything else next-intl's routing used to decide is now decided by the shape of the build. There
+// is no middleware in a static export and nothing to negotiate at request time: `next build` writes
+// /en and /ar, scripts/flatten-export.mjs lifts /en to the root so English has no prefix, and
+// public/_redirects catches anyone still holding an /en/... link. No locale is detected and no cookie
+// is written, which is what the language toggle needs — it is the only thing that chooses a language,
+// and detection used to fight it (see qa/LOG.md). The canonical and hreflang set are declared once in
+// the document head, in src/lib/seo.ts.
 
 export function isLocale(value: string): value is Locale {
   return (locales as readonly string[]).includes(value);

@@ -1,4 +1,5 @@
 import type { Car, Site } from "./content";
+import { largestSrc } from "./images";
 import type { Locale } from "./i18n";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://maybach.sa";
@@ -23,13 +24,6 @@ export function alternatesFor(locale: Locale, path: string) {
   };
 }
 
-/** The deviceSizes from next.config, used to hand-build srcsets for media-scoped preloads. */
-export const DEVICE_SIZES = [390, 640, 768, 1024, 1280, 1440, 1680];
-
-export function optimizedSrcSet(src: string, quality = 75, sizes = DEVICE_SIZES): string {
-  return sizes.map((w) => `/_next/image?url=${encodeURIComponent(src)}&w=${w}&q=${quality} ${w}w`).join(", ");
-}
-
 /** docs/02 §13.3: AutoDealer on every page. Placeholders stay bracketed until the client confirms them. */
 export function autoDealerJsonLd(site: Site, locale: Locale) {
   return {
@@ -42,7 +36,7 @@ export function autoDealerJsonLd(site: Site, locale: Locale) {
     address: { "@type": "PostalAddress", streetAddress: site.footer.address, addressLocality: site.brand.city, addressCountry: "SA" },
     openingHours: site.footer.hours,
     sameAs: Object.values(site.settings.social),
-    image: absoluteUrl("/og.png"),
+    image: absoluteUrl("/og.jpg"),
   };
 }
 
@@ -67,7 +61,8 @@ export function carJsonLd(car: Car, site: Site, locale: Locale) {
     vehicleEngine: { "@type": "EngineSpecification", name: car.specs.engine },
     driveWheelConfiguration: car.specs.drivetrain,
     bodyType: car.category,
-    image: [absoluteUrl(car.images.heroD), absoluteUrl(car.images.heroM)],
+    // The PNG masters are not deployed — largestSrc names the biggest copy that is (src/lib/images.ts).
+    image: [absoluteUrl(largestSrc(car.images.heroD)), absoluteUrl(largestSrc(car.images.heroM))],
     url: absoluteUrl(localePath(locale, `/collection/${car.slug}`)),
     offers: {
       "@type": "Offer",

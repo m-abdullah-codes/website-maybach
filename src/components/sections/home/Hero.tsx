@@ -28,8 +28,10 @@ import { PageHero } from "@/components/ui/PageHero";
  * over its lower edge. The overlay-y scrim carries it — checked at both widths in both locales — but it
  * is the tightest legibility on the page.
  *
- * The word still cycles (MAY BACH ⇄ THE FINEST); that is a separate client request and it costs the
- * frame nothing, because both phrases stack in one grid cell and the box never changes size.
+ * September 2026, the client again: drop the cycling wordmark (MAY BACH ⇄ THE FINEST) and the support
+ * line "The world's most desired motor cars. One address." What is left — eyebrow and headline — is
+ * centred horizontally and stays down in the photograph's bottom blend, where the gradient carries it.
+ * The copy stays in content/site.*.json untouched; only this hero stops rendering it.
  *
  * Two consequences, both deliberate. docs/02 §5 H1 specifies two buttons and the glass card; the
  * landing page now carries no call to action of its own, and leans on the nav's standing "Reserve a
@@ -46,15 +48,7 @@ export function Hero({ site }: { site: Site }) {
       desktop="sh-01-d"
       mobile="sh-01-m"
       eyebrow={h.eyebrow}
-      // Leading with THE FINEST, not MAY BACH. The imagery brief §9.3 asked this question in advance —
-      // "the giant word over the sign" — and pre-answered it: it only matters if the façade is ever
-      // promoted to the hero, "and then the answer is to lead with THE FINEST". It has been, and the
-      // giant wordmark landed directly above the real one on the fascia, twice over, worst at 390.
-      // The cycle is unchanged, only which phrase is painted first. Swap these two lines to undo it.
-      word={h.giantWordAlt ?? h.giantWord}
-      wordAlt={h.giantWordAlt ? h.giantWord : undefined}
       title={h.title}
-      sub={h.sub}
     />
   );
 }

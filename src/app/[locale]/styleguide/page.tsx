@@ -172,7 +172,7 @@ export default async function Styleguide({ params }: { params: Promise<{ locale:
       <Block title="Type" note={locale === "ar" ? "Amiri + IBM Plex Sans Arabic · letter-spacing 0" : "Bodoni Moda + Manrope"}>
         <div className="mb-12">
           <Note>Giant · Bodoni Moda 400 · clamp(120px, 15vw, 300px) / clamp(72px, 22vw, 112px) · .85 · -0.02em</Note>
-          <GiantWord text={cul.giantWord ?? cul.model} className="mt-2" />
+          <GiantWord text={cul.giantWord ?? cul.model} reveal="inview" className="mt-2" />
         </div>
         <div className="mb-12">
           <Note>Eyebrow · Manrope 500 · 12/11 · 0.24em uppercase · emblem + 24px hairline</Note>

@@ -1,8 +1,9 @@
-import Image from "next/image";
+import { Photo } from "@/components/ui/Photo";
 import type { Site } from "@/lib/content";
 import { img } from "@/lib/images";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Reveal } from "@/components/ui/Reveal";
+import { SplitText } from "@/components/ui/SplitText";
 
 /** docs/02 S5: SH-09 (dallah and cups) end-side at 4:5; copy start-side. */
 export function Majlis({ site }: { site: Site }) {
@@ -14,15 +15,13 @@ export function Majlis({ site }: { site: Site }) {
         <Reveal>
           <Eyebrow>{m.eyebrow}</Eyebrow>
         </Reveal>
-        <Reveal as="h2" lines className="t-display-l mt-6">
-          {m.title}
-        </Reveal>
+        <SplitText tag="h2" className="t-display-l mt-6" text={m.title} />
         <Reveal as="p" delay={200} className="t-body-l measure mt-4 text-silver">
           {m.sub}
         </Reveal>
       </div>
       <Reveal delay={120} className="majlis__image">
-        <Image
+        <Photo
           src={coffee.src}
           alt={m.title}
           width={coffee.width}

@@ -6,6 +6,8 @@ import { reducedMotion } from "@/lib/motion";
 export interface MarqueTile {
   name: string;
   logo: string | null;
+  /** Optimiser candidates for `logo`, built on the server in src/lib/marques.ts. */
+  srcSet?: string;
   /** Intrinsic edge of the square logo derivative, from src/lib/marques.ts. */
   size: number;
 }
@@ -43,6 +45,8 @@ export function Marquee({ tiles }: { tiles: MarqueTile[] }) {
             // eslint-disable-next-line @next/next/no-img-element
             <img
               src={t.logo}
+              srcSet={t.srcSet}
+              sizes="(min-width: 768px) 138px, 111px"
               alt={hidden ? "" : t.name}
               width={t.size}
               height={t.size}

@@ -1,6 +1,6 @@
 import { getImageProps } from "next/image";
 import type { Car, Site } from "@/lib/content";
-import { img, cardStripLuma, CARD_STRIP_INK_ABOVE } from "@/lib/images";
+import { avifSet, img, cardStripLuma, CARD_STRIP_INK_ABOVE } from "@/lib/images";
 import { Link } from "@/lib/navigation";
 import { cn } from "@/lib/cn";
 import { Icon } from "@/components/ui/Icon";
@@ -45,8 +45,11 @@ export function CarCard({ car, site }: { car: Car; site: Site }) {
       data-cursor-view=""
       style={{ "--scene-accent": car.accent } as React.CSSProperties}
     >
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img data-src={props.src} data-srcset={props.srcSet} sizes={props.sizes} alt={alt} decoding="async" loading="lazy" fetchPriority="low" className="ccard__img" style={style} />
+      <picture className="contents">
+        {/* Deferred like the <img>: RevealObserver promotes both when the card comes within 600 px. */}
+        <source type="image/avif" data-srcset={avifSet(props.srcSet)} sizes={props.sizes} />
+        <img data-src={props.src} data-srcset={props.srcSet} sizes={props.sizes} alt={alt} decoding="async" loading="lazy" fetchPriority="low" className="ccard__img" style={style} />
+      </picture>
       <noscript>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={String(props.srcSet).split(", ").find((c) => c.endsWith(" 768w"))?.replace(/ \d+w$/, "") ?? props.src} alt={alt} loading="lazy" className="ccard__img" />

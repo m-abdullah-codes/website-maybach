@@ -52,7 +52,11 @@ export function Shell({
         whatsappHref={whatsappHref}
         menuTexture={<MediaBg desktop="br-03-d" mobile="br-03-m" overlay="none" className="menu__texture" />}
       />
-      <main id="main">{children}</main>
+      {/* tabIndex −1 so PageTransition can hand focus to the new page (it navigates with Next's own
+          scroll-and-focus handler off). Programmatic focus does not match :focus-visible, so no ring. */}
+      <main id="main" tabIndex={-1}>
+        {children}
+      </main>
       <Footer locale={locale} />
       <StickyBar
         enquire={site.common.enquire}

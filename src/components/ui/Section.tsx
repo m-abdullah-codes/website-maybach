@@ -8,6 +8,8 @@ interface SectionProps {
   fade?: boolean;
   /** The one light room (docs/02 §2.1): salon background, ink type. */
   light?: boolean;
+  /** Emerge from salon rather than begin at a hard edge — for a dark section under a light one. */
+  fadeTop?: boolean;
   /** Per-car --scene-accent, used only inside that car's own sections. */
   accent?: string;
   as?: "section" | "div" | "header" | "footer" | "article";
@@ -16,12 +18,12 @@ interface SectionProps {
   [dataAttr: `data-${string}`]: string | undefined;
 }
 
-export function Section({ id, className, fade = true, light, accent, as: Tag = "section", style, children, ...rest }: SectionProps) {
+export function Section({ id, className, fade = true, fadeTop, light, accent, as: Tag = "section", style, children, ...rest }: SectionProps) {
   const vars = accent ? ({ "--scene-accent": accent } as CSSProperties) : undefined;
   return (
     <Tag
       id={id}
-      className={cn("relative overflow-hidden", fade && "fade-bottom", light && "scene--light", className)}
+      className={cn("relative overflow-hidden", fade && "fade-bottom", fadeTop && "fade-top-salon", light && "scene--light", className)}
       style={vars || style ? { ...vars, ...style } : undefined}
       {...rest}
     >

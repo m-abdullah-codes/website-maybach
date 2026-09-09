@@ -31,7 +31,26 @@ A private gallery that happens to be open at night. Black, monochrome interface;
 
 ## 4. Stack (decided — do not relitigate)
 
-Next.js 15 App Router · TypeScript strict · Tailwind v4 with the tokens as CSS variables · `next-intl` (`en` default without prefix, `/ar`) · `next/image` · `next/font` · GSAP + ScrollTrigger · Lenis · Lucide icons · Resend for the form (server action; env `RESEND_API_KEY`, `CONCIERGE_EMAIL`) · WhatsApp deep links (`NEXT_PUBLIC_WHATSAPP`) · Vercel. Content is read from `/content/*.json` through one module (`src/lib/content.ts`) so a CMS can replace it later without touching components.
+Next.js 15 App Router with **`output: "export"`** · TypeScript strict · Tailwind v4 with the tokens as
+CSS variables · `next-intl` for the locale segment (`en` default without prefix, `/ar`) · `next/image`
+with a **custom loader over build-time derivatives** · GSAP + ScrollTrigger · Lenis · Lucide icons ·
+WhatsApp deep links (`NEXT_PUBLIC_WHATSAPP`). Content is read from `/content/*.json` through one module
+(`src/lib/content.ts`) so a CMS can replace it later without touching components.
+
+**The site is static.** Every page is a file in `out/`, served by Cloudflare's asset store; no server
+renders anything per request. Three consequences that are easy to trip over:
+
+- **No middleware, no server actions, no route handlers.** English is at the root because
+  `scripts/flatten-export.mjs` lifts the built `/en` tree there and `public/_redirects` catches
+  `/en/...`. Anything that needs a request lives in `src/worker/index.ts`.
+- **Photographs are encoded at build time.** `scripts/derive-images.mjs` writes
+  `public/img/<stem>-<width>.webp` and `.avif` from the masters; `src/lib/image-loader.ts` picks a
+  rung; the hand-built `<picture>` elements offer the AVIF first. The PNG masters are never deployed.
+  A new photograph means `npm run images` before the build (`npm run build` does it for you).
+- **One endpoint.** The enquiry form POSTs to `/api/enquiry`, handled by `src/worker/index.ts` →
+  Resend REST. Secrets are Cloudflare secrets (`RESEND_API_KEY`, `CONCIERGE_EMAIL`), not `.env`.
+
+Deploy with `npm run deploy` (derive → build → flatten → `wrangler deploy`).
 
 ## 5. How to work
 

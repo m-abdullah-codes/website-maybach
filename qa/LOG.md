@@ -541,3 +541,60 @@ transform entirely — the photographs become pre-encoded AVIF/WebP files served
 asset store, with no Worker in the path of a page view at all.
 
 **Screenshots:** `qa/hotfix/`.
+
+## static — the site stops being a server
+
+**Built.** The whole site is now files. `next build` runs with `output: "export"`, `scripts/flatten-export.mjs`
+lifts the built `/en` tree to the root so English keeps its unprefixed URLs, and Cloudflare serves `out/`
+from its asset store. One route still runs: `POST /api/enquiry` in `src/worker/index.ts`. A page view
+invokes nothing.
+
+**The photographs.** `scripts/derive-images.mjs` encodes every size a photograph can be asked for —
+`public/img/<stem>-<width>.webp` and the same in `.avif`, at the device sizes capped by each master's own
+width, 163 masters into 1,884 files and 97 MB. `src/lib/image-loader.ts` is `next/image`'s loader now: it
+maps a requested width onto the first rung at or above it, so a srcset can never name a file that was not
+encoded, and it names the **webp** — the format every browser has had since 2020, and the only one a bare
+`<img srcset>` can offer. AVIF rides above it in the `<picture>` elements that carry the full-bleed work
+(`MediaBg`, `SceneCut`, `CarCard`, and the new `Photo` wrapper that replaced every plain `<Image>`), as a
+`type="image/avif"` source over the same rung. Chrome takes the AVIF; a browser without it falls to the webp
+underneath rather than to nothing. Measured on the live pages: **14 AVIF and 1 SVG on Home at 390**, zero
+requests to `/images/` and zero to `/_next/image`. The masters are no longer deployed at all — 269 MB that
+nothing links to — which is most of why the deploy went from **351 MB to 106 MB**.
+
+One deliberate exception: the eight marque logos stay webp. They are the only images outside a `<picture>`
+(the marquee tile builds its own `<img>`), and at the size the tile actually uses, AVIF saves 1.3 kB each —
+10 kB on the home page against touching the marque strip's markup. Recorded rather than overlooked.
+
+**A change worth knowing about.** `MediaBg`'s deferred branch used to keep its desktop `<source>` live, so
+above 768 px a below-fold photograph loaded under native lazy loading before `RevealObserver` had said
+anything. Now every candidate — desktop, mobile, both formats — waits in `data-srcset`, and the observer
+promotes the whole `<picture>` at once (it has to set the sources before the `<img>`, or the webp wins the
+race). That is what the component's own comment always claimed it did.
+
+**The form.** The server action is gone; `EnquiryForm` POSTs to `/api/enquiry` and reads back the same
+`FormState` it always did, so the success and error states are unchanged. The validation moved intact to
+`src/lib/enquiry.ts` and is shared with the Worker. The form still carries a real `action`/`method`, so a
+visitor without JavaScript reaches the concierge too — the Worker answers that one with a plain confirmation
+page in the submitted language, worded from `content/site.*.json`. Verified: `{"status":"ok"}`, field errors
+for a missing name and a bad phone, honeypot silently confirming, 405 on GET, and the Arabic no-JS page RTL
+and correct.
+
+**Checked.** `npm run build`, `typecheck` and `lint` clean — 0 errors, 3 pre-existing warnings in `scripts/`.
+**24 captures** at 390 and 1440 across six routes in both locales, every one console-clean. **14 route/width
+combinations probed in Chrome**: no 4xx or 5xx, no console errors, no master or optimiser requests. Routing:
+all 10 routes 200, `/nonexistent` → the English 404, `/ar/nonexistent` → the Arabic one, `/en/collection` →
+301 to `/collection`. Cache headers land: `/img/*` and `/_next/static/*` immutable for a year, HTML
+revalidating.
+
+Lighthouse (mobile, simulated 4G, three runs, median) against the previous build's own recorded finals:
+**Home perf 83 (was 79), TBT 257 ms (was 360), LCP 3.9 s (was 3.7)**; **Collection perf 83 (was 82), TBT
+286 ms (was 329), LCP 3.6 s (was 3.5)**. CLS 0, a11y/best-practices/SEO 100 throughout. The hero preload
+works — the LCP photograph is requested at +134 ms and weighs 32 kB — and unthrottled LCP is 684 ms.
+
+**Left.** Two things, neither introduced here. Lighthouse performance is 83, not the 90 in §6 of AGENTS.md;
+it was 77–86 before this work too, so the gap is the preloader and the JS budget, not the delivery. And the
+enquiry endpoint has **no `RESEND_API_KEY` / `CONCIERGE_EMAIL` set** — `wrangler secret list` returns `[]`,
+and it returned `[]` on the old deployment as well, so enquiries have always been logged rather than
+emailed. The form confirms either way; setting those two secrets is what makes it deliver.
+
+**Screenshots:** `qa/static/`.

@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import Image from "next/image";
+import { Photo } from "@/components/ui/Photo";
 import { cn } from "@/lib/cn";
 import { Icon } from "@/components/ui/Icon";
 import { getLenis } from "@/lib/lenis";
@@ -79,7 +79,7 @@ export function GalleryGrid({ images, closeLabel }: { images: GalleryImage[]; cl
             className={cn("gallery__tile", `gallery__tile--${im.span}`)}
             onClick={(e) => show(i, e.currentTarget)}
           >
-            <Image
+            <Photo
               src={im.src}
               alt={im.alt}
               fill
@@ -118,7 +118,7 @@ export function GalleryGrid({ images, closeLabel }: { images: GalleryImage[]; cl
             <Icon name="x" size={20} />
           </button>
           <div className="lightbox__stage" onClick={(e) => e.stopPropagation()}>
-            <Image
+            <Photo
               key={images[open].src}
               src={images[open].src}
               alt={images[open].alt}

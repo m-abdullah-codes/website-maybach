@@ -288,7 +288,10 @@
       "temperature": "neutral",
       "accent": "#9BA4AE",
       "giantWord": null,
-      "giantWordAlt": null,
+      "giantWordAlt": {
+        "en": "COMPOSURE",
+        "ar": "رزانة"
+      },
       "environment": {
         "en": "The Mezzanine",
         "ar": "الميزانين"
@@ -373,7 +376,10 @@
       "temperature": "cool",
       "accent": "#9E93A6",
       "giantWord": null,
-      "giantWordAlt": null,
+      "giantWordAlt": {
+        "en": "COMMAND",
+        "ar": "هيبة"
+      },
       "environment": {
         "en": "The Colonnade",
         "ar": "رواق الأعمدة"
@@ -457,7 +463,10 @@
       "temperature": "warm",
       "accent": "#AD9E8B",
       "giantWord": null,
-      "giantWordAlt": null,
+      "giantWordAlt": {
+        "en": "ROOM",
+        "ar": "سعة"
+      },
       "environment": {
         "en": "The Entrance",
         "ar": "المدخل"
@@ -542,7 +551,10 @@
       "temperature": "neutral",
       "accent": "#5F7FB5",
       "giantWord": null,
-      "giantWordAlt": null,
+      "giantWordAlt": {
+        "en": "INSTINCT",
+        "ar": "غريزة"
+      },
       "environment": {
         "en": "The Light Lines",
         "ar": "خطوط الضوء"
@@ -627,7 +639,10 @@
       "temperature": "cold",
       "accent": "#9A8C6A",
       "giantWord": null,
-      "giantWordAlt": null,
+      "giantWordAlt": {
+        "en": "FEROCITY",
+        "ar": "شراسة"
+      },
       "environment": {
         "en": "The Corner",
         "ar": "الزاوية"
@@ -714,7 +729,10 @@
       "temperature": "warm",
       "accent": "#B07A4E",
       "giantWord": null,
-      "giantWordAlt": null,
+      "giantWordAlt": {
+        "en": "PRECISION",
+        "ar": "دقة"
+      },
       "environment": {
         "en": "The Reflection",
         "ar": "الانعكاس"
@@ -800,7 +818,10 @@
       "temperature": "cool",
       "accent": "#8E9DAF",
       "giantWord": null,
-      "giantWordAlt": null,
+      "giantWordAlt": {
+        "en": "RESOLVE",
+        "ar": "عزيمة"
+      },
       "environment": {
         "en": "The Upper Floor",
         "ar": "الطابق العلوي"

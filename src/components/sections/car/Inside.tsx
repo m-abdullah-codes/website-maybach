@@ -4,6 +4,7 @@ import { Section } from "@/components/ui/Section";
 import { MediaBg } from "@/components/ui/MediaBg";
 import { ScrollFx } from "@/components/ui/ScrollFx";
 import { Reveal } from "@/components/ui/Reveal";
+import { SplitText } from "@/components/ui/SplitText";
 
 /** docs/02 D5: DET-02 full-bleed, 80vh; "Inside." and one caption line, bottom-start. */
 export function Inside({ car, site }: { car: Car; site: Site }) {
@@ -15,9 +16,7 @@ export function Inside({ car, site }: { car: Car; site: Site }) {
         <MediaBg desktop={car.images.interior} overlay="y" position="50% 50%" />
       </ScrollFx>
       <div className="wrap inside__inner">
-        <Reveal as="h2" lines className="t-display-l">
-          {site.car.inside.title}
-        </Reveal>
+        <SplitText tag="h2" className="t-display-l" text={site.car.inside.title} />
         <Reveal as="p" delay={160} className="t-body-l measure mt-3 text-silver">
           {caption}
         </Reveal>

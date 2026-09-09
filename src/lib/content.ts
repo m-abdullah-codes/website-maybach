@@ -60,6 +60,7 @@ export interface CarRaw {
   temperature: Temperature;
   accent: string;
   giantWord: L10n | null;
+  giantWordAlt: L10n | null;
   environment: L10n;
   whisper: L10n;
   story: L10n;
@@ -72,9 +73,10 @@ export interface CarRaw {
 }
 
 export interface Car
-  extends Omit<CarRaw, "giantWord" | "environment" | "whisper" | "story" | "exterior" | "interior" | "seo"> {
+  extends Omit<CarRaw, "giantWord" | "giantWordAlt" | "environment" | "whisper" | "story" | "exterior" | "interior" | "seo"> {
   locale: Locale;
   giantWord: string | null;
+  giantWordAlt: string | null;
   environment: string;
   whisper: string;
   story: string;
@@ -139,6 +141,7 @@ function localize(raw: CarRaw, locale: Locale): Car {
     ...raw,
     locale,
     giantWord: raw.giantWord ? pick(raw.giantWord) : null,
+    giantWordAlt: raw.giantWordAlt ? pick(raw.giantWordAlt) : null,
     environment: pick(raw.environment),
     whisper: pick(raw.whisper),
     story: pick(raw.story),
