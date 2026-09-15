@@ -58,3 +58,8 @@ qa/tmp/
 
 # build-time image derivatives (scripts/derive-images.mjs)
 /public/img/
+
+# QA captures live on disk, never in git — they pushed the repo past 1.7 GB
+qa/**/*.png
+qa/**/*.jpg
+qa/lighthouse/*.json
